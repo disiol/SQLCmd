@@ -13,13 +13,13 @@ public class InsertTest {
 
 
     @Before
-    public void crateTabele() {
+    public void crateTable() {
         //TODO создать новою таблицу с данами
-
+        
     }
 
     @Test
-    public void insertDataCorect_id_101_name_Stiven_password_Pupkin() {
+    public void insertDataCorrect_id_101_name_Stiven_password_Pupkin() {
 
         String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)
                 .append("password:Pupkin " ).toString();
