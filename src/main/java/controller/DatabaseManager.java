@@ -57,6 +57,7 @@ public class DatabaseManager {
     }
 
     public String[] getTableNames() {
+        //TODO дороботать масиф
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
@@ -77,9 +78,15 @@ public class DatabaseManager {
 
 
 
-    public static void insert(Statement stmt, String sqlInsert) throws SQLException {
-        stmt.executeUpdate(sqlInsert);
-        stmt.close();
+    public static void insert(Statement stmt, String sqlInsert)  {
+        try {
+            stmt.executeUpdate(sqlInsert);
+//            stmt.close();
+        } catch (SQLException e) {
+            System.out.println("Invalid request");
+            e.printStackTrace();
+        }
+
     }
 
     public void connect(String database, String user, String password) {

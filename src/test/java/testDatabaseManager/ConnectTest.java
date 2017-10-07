@@ -20,7 +20,7 @@ public class ConnectTest {
 
     @Test
     public void ConnectTest() throws SQLException {
-        // TODO  connect to data base
+
 
         databaseManager.connect("sqlCmd",
                 "postgres", "1111");
