@@ -1,9 +1,11 @@
 package controller;
 
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Random;
 
 public class DatabaseManager {
+
     private Connection connection;
 
     public static void main(String[] argv) throws ClassNotFoundException, SQLException {
@@ -36,14 +38,6 @@ public class DatabaseManager {
         rs.close();
         stmt.close();
 
-        // table names
-        stmt = connection.createStatement();
-        rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
-        while (rs.next()) {
-            System.out.println(rs.getString("table_name"));
-        }
-        rs.close();
-        stmt.close();
 
         // delete
         stmt = connection.createStatement();
@@ -61,6 +55,27 @@ public class DatabaseManager {
 
         connection.close();
     }
+
+    public String[] getTableNames() {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
+            String[] tables = new String[100];
+            int index = 0;
+            while (rs.next()) {
+                tables[index++] = rs.getString("table_name");
+            }
+            tables = Arrays.copyOf(tables, index, String[].class);
+            rs.close();
+            stmt.close();
+            return tables;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new String[0];
+        }
+    }
+
+
 
     public static void insert(Statement stmt, String sqlInsert) throws SQLException {
         stmt.executeUpdate(sqlInsert);
