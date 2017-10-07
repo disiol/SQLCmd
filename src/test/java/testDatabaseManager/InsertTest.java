@@ -1,5 +1,6 @@
 package testDatabaseManager;
 
+import controller.DatabaseManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +13,22 @@ public class InsertTest {
     final String newline = System.lineSeparator();
 
 
+
+
     @Before
     public void crateTable() {
         //TODO создать новою таблицу с данами
-        
+        connectToDataBase();
+
+    }
+
+    private void connectToDataBase() {
+        String dataBase = "sqlCmd";
+        String user = "postgres";
+        String password = "1111";
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.connect(dataBase, user, password);
     }
 
     @Test
