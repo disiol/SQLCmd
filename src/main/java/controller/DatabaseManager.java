@@ -60,7 +60,8 @@ public class DatabaseManager {
         //TODO дороботать масиф
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
+            ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
+                    "AND table_type='BASE TABLE'");
             String[] tables = new String[100];
             int index = 0;
             while (rs.next()) {
@@ -81,7 +82,7 @@ public class DatabaseManager {
     public static void insert(Statement stmt, String sqlInsert)  {
         try {
             stmt.executeUpdate(sqlInsert);
-//            stmt.close();
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("Invalid request");
             e.printStackTrace();
@@ -109,6 +110,7 @@ public class DatabaseManager {
     }
 
     public Connection getConnection() {
+        //TODO выпелить
         return connection;
     }
 }

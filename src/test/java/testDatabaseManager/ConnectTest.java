@@ -3,6 +3,8 @@ package testDatabaseManager;
 import controller.DatabaseManager;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -15,35 +17,34 @@ import static org.junit.Assert.assertEquals;
 public class ConnectTest {
 
 
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     DatabaseManager databaseManager = new DatabaseManager();
+    final String newline = System.lineSeparator();
 
 
     @Test
     public void ConnectTest() throws SQLException {
-
+        System.setOut(new PrintStream(outContent));
 
         databaseManager.connect("sqlCmd",
                 "postgres", "1111");
+        String expected = "Opened database successfully" + newline;
+        String actual = outContent.toString();
 
-        String expected = "Opened database successfully";
-
-        Connection actual = databaseManager.getConnection();
-        assertEquals("connect to data base", expected, actual.toString());
-        actual.close();
+        assertEquals("connect to data base", expected, actual);
 
     }
 
     @Test
-    public void theDatabaseManagerDoesNotExist() throws  SQLException {
+    public void theDatabaseManagerDoesNotExist() throws SQLException {
         databaseManager.connect(" ",
                 "postgres", "1111");
+        System.setOut(new PrintStream(outContent));
 
-        String expected;
-        Connection actual;
-        expected = "База данных не сушествует";
-        actual = databaseManager.getConnection();
-        assertEquals("The databaseManager does not exist", expected, actual.toString());
-        actual.close();
+        String expected = "База данных не сушествует";
+        String actual = outContent.toString();
+        assertEquals("The databaseManager does not exist", expected, actual);
+
     }
 
     @Test
