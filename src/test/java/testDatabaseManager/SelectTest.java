@@ -5,10 +5,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -16,14 +14,14 @@ import static junit.framework.TestCase.assertEquals;
  * Created by Denis Oleynyk on 06.10.17.
  * mail: deoniisii@gmail.com
  */
-public class InsertTest {
+public class SelectTest {
     final String newline = System.lineSeparator();
     private DatabaseManager manager;
 
     @Before
     public void setup() {
         manager = new DatabaseManager();
-        manager.connect("sqlcmd", "postgres", "postgres");
+        manager.connect("sqlCmd", "postgres", "1111");
 
         //TODO crate table
     }
@@ -32,16 +30,16 @@ public class InsertTest {
     public void insertDataCorrect_id_101_name_Stiven_password_Pupkin() throws SQLException {
 
         Statement stmt = manager.getConnection().createStatement();
-        String sqlInsert = "INSERT INTO public.users (id , name, password)" +
-                "VALUES ('101','Stiven', 'Pupkin')";
-        manager.insert(stmt, sqlInsert);
+        String sqlSelect = "SELECT * FROM public.users WHERE id > 10";
+
+        manager.insert(stmt, sqlSelect);
         //TODO
 
         String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)
                 .append("password:Pupkin ").toString();
 
 
-        String actual = null;
+        String actual = stmt.executeQuery("SELECT * FROM public.user WHERE id > 10").toString();
 
         assertEquals(expected, actual);
 

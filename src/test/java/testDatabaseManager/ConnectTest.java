@@ -22,6 +22,7 @@ public class ConnectTest {
     final String newline = System.lineSeparator();
 
 
+
     @Test
     public void ConnectTest() throws SQLException {
         System.setOut(new PrintStream(outContent));

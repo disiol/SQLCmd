@@ -21,22 +21,14 @@ public class DatabaseManager {
 
         // insert
         Statement stmt = connection.createStatement();
-        String sqlInsert = "INSERT INTO public.users (id , name, password)" +
-                "VALUES ('101','Stiven', 'Pupkin')";
+        String sqlInsert = "INSERT INTO public.users (name, password)" +
+                "VALUES ('Stiven', 'Pupkin')";
         insert(stmt, sqlInsert);
 
         // select
         stmt = connection.createStatement();
         String sqlSelect = "SELECT * FROM public.users WHERE id > 10";
-        ResultSet rs = stmt.executeQuery(sqlSelect);
-        while (rs.next()) {
-            System.out.println("id:" + rs.getString("id"));
-            System.out.println("name:" + rs.getString("name"));
-            System.out.println("password:" + rs.getString("password"));
-            System.out.println("-----");
-        }
-        rs.close();
-        stmt.close();
+        select(stmt, sqlSelect);
 
 
         // delete
@@ -54,6 +46,29 @@ public class DatabaseManager {
         ps.close();
 
         connection.close();
+    }
+
+// Create a Table
+
+
+
+
+    public static void select(Statement stmt, String sqlSelect)  {
+        ResultSet rs = null;
+        try {
+            rs = stmt.executeQuery(sqlSelect);
+            while (rs.next()) {
+                System.out.println("id:" + rs.getString("id"));
+                System.out.println("name:" + rs.getString("name"));
+                System.out.println("password:" + rs.getString("password"));
+                System.out.println("-----");
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String[] getTableNames() {
