@@ -32,28 +32,66 @@ public class DatabaseManager {
 
 
         // delete
-        stmt = connection.createStatement();
-        stmt.executeUpdate("DELETE FROM public.users " +
-                "WHERE id > 10 AND id < 100");
-        stmt.close();
+        delete(connection);
 
         // update
-        PreparedStatement ps = connection.prepareStatement(
-                "UPDATE public.users SET password = ? WHERE id > 3");
-        String pass = "password_" + new Random().nextInt();
-        ps.setString(1, pass);
-        ps.executeUpdate();
-        ps.close();
+        update(connection, "UPDATE public.users SET password = ? WHERE id > 3");
 
-        connection.close();
+        // Create a Table
+        stmt = connection.createStatement();
+        String sql = "CREATE TABLE COMPANY " +
+                "(ID INT PRIMARY KEY     NOT NULL," +
+                " NAME           TEXT    NOT NULL, " +
+                " AGE            INT     NOT NULL, " +
+                " ADDRESS        CHAR(50), " +
+                " SALARY         REAL)";
+        createATable(stmt, sql);
     }
 
-// Create a Table
+    public static void update(Connection connection, String sql) {
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement(sql);
+            String pass = "password_" + new Random().nextInt();
+            ps.setString(1, pass);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static Statement delete(Connection connection) {
+        Statement stmt;
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate("DELETE FROM public.users " +
+                    "WHERE id > 10 AND id < 100");
+            stmt.close();
+            return stmt;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void createATable(Statement stmt, String sql) {
+        try {
+
+            stmt.executeUpdate(sql);
+            stmt.close();
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        System.out.println("Table created successfully");
+    }
 
 
-
-
-    public static void select(Statement stmt, String sqlSelect)  {
+    public static void select(Statement stmt, String sqlSelect) {
         ResultSet rs = null;
         try {
             rs = stmt.executeQuery(sqlSelect);
@@ -93,8 +131,7 @@ public class DatabaseManager {
     }
 
 
-
-    public static void insert(Statement stmt, String sqlInsert)  {
+    public static void insert(Statement stmt, String sqlInsert) {
         try {
             stmt.executeUpdate(sqlInsert);
             stmt.close();

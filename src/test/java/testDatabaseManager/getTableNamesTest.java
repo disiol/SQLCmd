@@ -30,7 +30,6 @@ public class getTableNamesTest {
     @Test
     public void users() throws SQLException {
 
-        //TODO вывода на екран списка таблиц
         String expected;
         String []actual;
         expected = "[users]";

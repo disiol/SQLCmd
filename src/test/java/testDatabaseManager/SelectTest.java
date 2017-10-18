@@ -44,7 +44,6 @@ public class SelectTest {
         assertEquals(expected, actual);
 
 
-        System.out.println(expected);
     }
 
 

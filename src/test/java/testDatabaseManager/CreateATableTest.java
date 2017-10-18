@@ -5,6 +5,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
+
 import static junit.framework.TestCase.assertEquals;
 
 /**
@@ -12,23 +17,41 @@ import static junit.framework.TestCase.assertEquals;
  * mail: deoniisii@gmail.com
  */
 public class CreateATableTest {
+    DatabaseManager databaseManager;
+    private Connection connection;
+    Statement stmt;
+
     @Before
     public void connectToDataBase() {
         String dataBase = "sqlCmd";
         String user = "postgres";
         String password = "1111";
 
-        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager = new DatabaseManager();
         databaseManager.connect(dataBase, user, password);
+        connection = databaseManager.getConnection();
+        try {
+            stmt = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
-    public void сreateTable1() {
+    public void сreateTableUsers1() {
 
-       //TODO тест создания таблицы
-        String expected = null;
-        String actual = new String();
-        assertEquals("сreateTable1",expected,actual);
+        //TODO тест создания таблицы
+        String sql = "CREATE TABLE users1 " +
+                "(ID INT PRIMARY KEY     NOT NULL," +
+                " NAME           TEXT    NOT NULL, " +
+                " AGE            INT     NOT NULL, " +
+                " ADDRESS        CHAR(50), " +
+                " SALARY         REAL)";
+        databaseManager.createATable(stmt,sql);
+        String expected = "[users, users1]";
+        String[] actual = databaseManager.getTableNames();
+        assertEquals("сreateTableUsers1", expected, Arrays.toString(actual));
 
         // создает таблицу и проверает создана ли она
     }
