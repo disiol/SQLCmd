@@ -63,16 +63,18 @@ public class DatabaseManager {
     }
 
     public static Statement delete(Connection connection) {
-        Statement stmt;
+        Statement stmt = null;
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate("DELETE FROM public.users " +
                     "WHERE id > 10 AND id < 100");
             stmt.close();
             return stmt;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return stmt;
 
     }
 
