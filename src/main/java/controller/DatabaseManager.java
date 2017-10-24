@@ -155,12 +155,13 @@ public class DatabaseManager {
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/" + database, user,
                     password);
+            System.out.println("Opened database successfully");
         } catch (SQLException e) {
             System.out.println(String.format("Cant get connection for database:%s user:%s", database, user));
             e.printStackTrace();
             connection = null;
         }
-        System.out.println("Opened database successfully");
+
     }
 
     public Connection getConnection() {

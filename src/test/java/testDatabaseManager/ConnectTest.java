@@ -38,11 +38,14 @@ public class ConnectTest {
 
     @Test
     public void theDatabaseManagerDoesNotExist() throws SQLException {
-        databaseManager.connect(" ",
-                "postgres", "1111");
         System.setOut(new PrintStream(outContent));
 
-        String expected = "База данных не сушествует";
+        String database = " q";
+        String user = "postgres";
+        String password = "1111";
+        databaseManager.connect(database,
+                user, password);
+        String expected = String.format("Cant get connection for database:%s user:%s", database, user) + newline;
         String actual = outContent.toString();
         assertEquals("The databaseManager does not exist", expected, actual);
 
@@ -50,26 +53,38 @@ public class ConnectTest {
 
     @Test
     public void notTheCorrectPassword() throws Exception {
-        databaseManager.connect("sqlCmd",
-                "postgres", "");
+        System.setOut(new PrintStream(outContent));
+
+        String database = "sqlCmd";
+        String user = "postgres";
+        String password = "";
+        databaseManager.connect(database,
+                user, password);
 
         String expected;
-        Connection actual;
+        Connection connection = databaseManager.getConnection();
+        String actual;
         expected = "пароль не верный ";
-        actual = databaseManager.getConnection();
+        actual = outContent.toString();
         assertEquals("not the correct password", expected, actual.toString());
-        actual.close();
+        connection.close();
     }
 
     @Test
     public void theUserDoesNotExist() throws SQLException {
-        databaseManager.connect("sqlCmd", "", "1111");
+        System.setOut(new PrintStream(outContent));
+
+        String database = "sqlCmd";
+        String user = "q";
+        String password = "1111";
+        databaseManager.connect(database, user, password);
         String expected;
-        Connection actual;
+        String actual = outContent.toString();
+        Connection connection;
         expected = "Пользователя не сушествует";
-        actual = databaseManager.getConnection();
+        connection = databaseManager.getConnection();
         assertEquals("the user does not exist", expected, actual.toString());
-        actual.close();
+        connection.close();
     }
 
 
