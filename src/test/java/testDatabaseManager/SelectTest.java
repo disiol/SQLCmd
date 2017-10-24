@@ -30,7 +30,7 @@ public class SelectTest {
     public void insertDataCorrect_id_101_name_Stiven_password_Pupkin() throws SQLException {
 
         Statement stmt = manager.getConnection().createStatement();
-        String sqlSelect = "SELECT * FROM public.users WHERE id > 10";
+        String sqlSelect = "SELECT * FROM public.users1 WHERE * ";
 
         manager.insert(stmt, sqlSelect);
         //TODO

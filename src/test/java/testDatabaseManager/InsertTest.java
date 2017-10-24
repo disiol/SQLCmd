@@ -46,7 +46,7 @@ public class InsertTest {
         assertEquals(expected, actual);
 
 
-        System.out.println(expected);
+
     }
 
 

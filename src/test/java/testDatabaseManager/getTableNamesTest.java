@@ -32,7 +32,7 @@ public class getTableNamesTest {
 
         String expected;
         String []actual;
-        expected = "[users]";
+        expected = "[users1]";
         Connection connection = databaseManager.getConnection();
         actual = databaseManager.getTableNames();
         assertEquals(expected, Arrays.toString(actual));
