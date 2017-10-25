@@ -23,7 +23,10 @@ public class InsertTest {
     @Before
     public void setup() {
         manager = new DatabaseManager();
-        manager.connect("sqlcmd", "postgres", "postgres");
+        String database = "sqlCmd";
+        String user = "postgres";
+        String password = "1111";
+        manager.connect(database, user, password);
 
         //TODO crate table
     }
@@ -32,7 +35,7 @@ public class InsertTest {
     public void insertDataCorrect_id_101_name_Stiven_password_Pupkin() throws SQLException {
 
         Statement stmt = manager.getConnection().createStatement();
-        String sqlInsert = "INSERT INTO public.users (id , name, password)" +
+        String sqlInsert = "INSERT INTO public.users1 (id , name, password)" +
                 "VALUES ('101','Stiven', 'Pupkin')";
         manager.insert(stmt, sqlInsert);
         //TODO

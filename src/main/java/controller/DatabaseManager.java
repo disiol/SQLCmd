@@ -27,8 +27,8 @@ public class DatabaseManager {
 
         // select
         stmt = connection.createStatement();
-        String sqlSelect = "SELECT * FROM public.users WHERE id > 10";
-        select(stmt, sqlSelect);
+        String tableName = "public.users1";
+        select(stmt, tableName);
 
 
         // delete
@@ -93,15 +93,18 @@ public class DatabaseManager {
     }
 
 
-    public static void select(Statement stmt, String sqlSelect) {
+    public static ResultSet select(Statement stmt, final String tableName) {
         ResultSet rs = null;
+
         try {
-            rs = stmt.executeQuery(sqlSelect);
+            ResultSet rsCaunt =
+                    rs = stmt.executeQuery("SELECT * FROM " + tableName);
             while (rs.next()) {
-                System.out.println("id:" + rs.getString("id"));
-                System.out.println("name:" + rs.getString("name"));
-                System.out.println("password:" + rs.getString("password"));
-                System.out.println("-----");
+                System.out.println(rs.getInt(1));
+                System.out.println("--------------------------");
+                //TODO показать содержимое таблицы
+                //записывает рядок в масиф
+                // печатает рядок
             }
             rs.close();
             stmt.close();
@@ -109,6 +112,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
+        return rs;
     }
 
     public String[] getTableNames() {

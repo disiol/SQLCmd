@@ -43,22 +43,22 @@ public class CreateATableTest {
 
         //TODO тест создания таблицы
         String sql = "CREATE TABLE users1 " +
-                "(ID INT PRIMARY KEY     NOT NULL," +
-                " NAME           TEXT    NOT NULL, " +
-                " AGE            INT     NOT NULL, " +
-                " ADDRESS        CHAR(50), " +
-                " SALARY         REAL)";
-        databaseManager.createATable(stmt,sql);
+                "(id INT PRIMARY KEY     NOT NULL," +
+                " name           TEXT    NOT NULL, " +
+                " password       TEXT     NOT NULL)";
+        databaseManager.createATable(stmt, sql);
         String expected = "[users, users1]";
         String[] actual = databaseManager.getTableNames();
         assertEquals("сreateTableUsers1", expected, Arrays.toString(actual));
 
         // создает таблицу и проверает создана ли она
+        // вытаскивает значение данных  и сравнивает
     }
 
 
     @After
     public void deleteTable() {
         //TODO  drop  таблицу с данами
+
     }
 }
