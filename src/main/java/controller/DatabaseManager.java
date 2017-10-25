@@ -25,10 +25,10 @@ public class DatabaseManager {
                 "VALUES ('Stiven', 'Pupkin')";
         insert(stmt, sqlInsert);
 
-        // select
+        // getTableDat
         stmt = connection.createStatement();
         String tableName = "public.users1";
-        select(stmt, tableName);
+        getTableDat(stmt, tableName);
 
 
         // delete
@@ -93,16 +93,30 @@ public class DatabaseManager {
     }
 
 
-    public static ResultSet select(Statement stmt, final String tableName) {
+    public static ResultSet getTableDat(Statement stmt, final String tableName) {
         ResultSet rs = null;
 
         try {
-            ResultSet rsCaunt =
-                    rs = stmt.executeQuery("SELECT * FROM " + tableName);
+            ResultSet rsCaunt = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
+            rsCaunt.next();
+            int size = rsCaunt.getInt(1);
+            rs = stmt.executeQuery("SELECT * FROM " + tableName);
+            DataSet[] result = new DataSet[size];
+            int index = 0;
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+
             while (rs.next()) {
-                System.out.println(rs.getInt(1));
+
+                result[index++] = new DataSet();
+                //TODO перенести в слой  DataSet()
+                for (int i = 1; i <= rsmd.getColumnCount() ; i++) {
+                    System.out.println(rsmd.getColumnName(i) + ":" + rs.getObject(i));
+                }
                 System.out.println("--------------------------");
-                //TODO показать содержимое таблицы
+
+
+
                 //записывает рядок в масиф
                 // печатает рядок
             }

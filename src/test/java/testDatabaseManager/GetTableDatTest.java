@@ -16,7 +16,7 @@ import static junit.framework.TestCase.assertEquals;
  * Created by Denis Oleynyk on 06.10.17.
  * mail: deoniisii@gmail.com
  */
-public class SelectTest {
+public class GetTableDatTest {
     final String newline = System.lineSeparator();
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
@@ -38,12 +38,10 @@ public class SelectTest {
         System.setOut(new PrintStream(outContent));
 
 
-
-
         String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)
-                .append("password:Pupkin ").toString();
+                .append("password:Pupkin" + newline).append("--------------------------") + newline.toString();
 
-        manager.select(stmt,tableName);
+        manager.getTableDat(stmt, tableName);
         String actual = outContent.toString();
 
         assertEquals(expected, actual);
