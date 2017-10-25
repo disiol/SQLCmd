@@ -28,7 +28,7 @@ public class DatabaseManager {
         // getTableDat
         stmt = connection.createStatement();
         String tableName = "public.users1";
-        databaseManager.getTableDat(stmt, tableName);
+        databaseManager.getTableDat(tableName);
 
 
         // delete
@@ -130,9 +130,11 @@ public class DatabaseManager {
 
     private int getSize(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
-        ResultSet rsCaunt = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
-        rsCaunt.next();
-        return rsCaunt.getInt(1);
+        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName);
+        rsCount.next();
+        int size = rsCount.getInt(1);
+        rsCount.close();
+        return size;
     }
 
     public String[] getTableNames() {

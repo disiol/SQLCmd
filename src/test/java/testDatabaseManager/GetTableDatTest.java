@@ -41,7 +41,7 @@ public class GetTableDatTest {
         String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)
                 .append("password:Pupkin" + newline).append("--------------------------") + newline.toString();
 
-        manager.getTableDat(stmt, tableName);
+        manager.getTableDat(tableName);
         String actual = outContent.toString();
 
         assertEquals(expected, actual);
