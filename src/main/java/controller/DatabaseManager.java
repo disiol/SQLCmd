@@ -28,7 +28,7 @@ public class DatabaseManager {
         // getTableDat
         stmt = connection.createStatement();
         String tableName = "public.users1";
-        getTableDat(stmt, tableName);
+        databaseManager.getTableDat(stmt, tableName);
 
 
         // delete
@@ -93,40 +93,46 @@ public class DatabaseManager {
     }
 
 
-    public static ResultSet getTableDat(Statement stmt, final String tableName) {
-        ResultSet rs = null;
-
+    public DataSet[] getTableDat(String tableName) {
         try {
-            ResultSet rsCaunt = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
-            rsCaunt.next();
-            int size = rsCaunt.getInt(1);
-            rs = stmt.executeQuery("SELECT * FROM " + tableName);
+            int size = getSize(tableName);
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM public." + tableName);
+            ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
-
-            ResultSetMetaData rsmd = rs.getMetaData();
-
             while (rs.next()) {
-
-                result[index++] = new DataSet();
+                DataSet dataSet = new DataSet();
+                result[index++] = dataSet;
                 //TODO перенести в слой  DataSet()
-                for (int i = 1; i <= rsmd.getColumnCount() ; i++) {
-                    System.out.println(rsmd.getColumnName(i) + ":" + rs.getObject(i));
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
                 System.out.println("--------------------------");
 
 
-
                 //записывает рядок в масиф
                 // печатает рядок
+
+                return result;
             }
+            System.out.println(Arrays.toString(result));
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return rs;
+
+        return new DataSet[0];
+    }
+
+    private int getSize(String tableName) throws SQLException {
+        Statement stmt = connection.createStatement();
+        ResultSet rsCaunt = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
+        rsCaunt.next();
+        return rsCaunt.getInt(1);
     }
 
     public String[] getTableNames() {
