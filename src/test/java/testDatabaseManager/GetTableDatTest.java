@@ -1,5 +1,6 @@
 package testDatabaseManager;
 
+import controller.DataSet;
 import controller.DatabaseManager;
 import org.junit.After;
 import org.junit.Before;
@@ -9,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -36,15 +38,15 @@ public class GetTableDatTest {
         Statement stmt = manager.getConnection().createStatement();
         String tableName = "public.users1";
         System.setOut(new PrintStream(outContent));
-
+        DataSet dataSet = new DataSet();
 
         String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)
                 .append("password:Pupkin" + newline).append("--------------------------") + newline.toString();
 
-        manager.getTableDat(tableName);
-        String actual = outContent.toString();
+       // manager.getTableDat(tableName);
+        DataSet[] actual = manager.getTableDat(tableName);
 
-        assertEquals(expected, actual);
+        assertEquals(expected, Arrays.toString(actual));
 
 
     }

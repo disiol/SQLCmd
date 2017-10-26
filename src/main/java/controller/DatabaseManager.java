@@ -98,23 +98,16 @@ public class DatabaseManager {
             int size = getSize(tableName);
 
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM public." + tableName);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
             while (rs.next()) {
                 DataSet dataSet = new DataSet();
                 result[index++] = dataSet;
-                //TODO перенести в слой  DataSet()
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
-                System.out.println("--------------------------");
-
-
-                //записывает рядок в масиф
-                // печатает рядок
-
                 return result;
             }
             System.out.println(Arrays.toString(result));
@@ -130,7 +123,7 @@ public class DatabaseManager {
 
     private int getSize(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
-        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName);
+        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
         rsCount.next();
         int size = rsCount.getInt(1);
         rsCount.close();
