@@ -33,7 +33,7 @@ public class GetTableDatTest {
     }
 
     @Test
-    public void insertDataCorrect_id_101_name_Stiven_password_Pupkin() throws SQLException {
+    public void insertDataCorrect_id_101_name_Stiven_password_Pupkin()  {
 
         Statement stmt = manager.getConnection().createStatement();
         String tableName = "public.users1";

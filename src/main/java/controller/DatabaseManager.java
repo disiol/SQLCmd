@@ -8,7 +8,7 @@ public class DatabaseManager {
 
     private Connection connection;
 
-    public static void main(String[] argv) throws ClassNotFoundException, SQLException {
+    public static void main(String[] argv) {
 
         String dataBase = "sqlCmd";
         String user = "postgres";
@@ -20,13 +20,11 @@ public class DatabaseManager {
         Connection connection = databaseManager.getConnection();
 
         // insert
-        Statement stmt = connection.createStatement();
         String sqlInsert = "INSERT INTO public.users (name, password)" +
                 "VALUES ('Stiven', 'Pupkin')";
-        insert(stmt, sqlInsert);
+        databaseManager.insert(sqlInsert);
 
         // getTableDat
-        stmt = connection.createStatement();
         String tableName = "public.users1";
         databaseManager.getTableDat(tableName);
 
@@ -152,8 +150,10 @@ public class DatabaseManager {
     }
 
 
-    public static void insert(Statement stmt, String sqlInsert) {
+    public void insert(String sqlInsert) {
+
         try {
+            Statement stmt = connection.createStatement();
             stmt.executeUpdate(sqlInsert);
             stmt.close();
         } catch (SQLException e) {
@@ -184,6 +184,7 @@ public class DatabaseManager {
     }
 
     public Connection getConnection() {
+
         //TODO выпелить
         return connection;
     }
