@@ -1,3 +1,5 @@
+package testCommands;
+
 import commands.Help;
 import org.junit.Test;
 
@@ -39,9 +41,9 @@ public class HelpTest {
             .append("•Формат: commands.drop | tableName" + newline)
             .append("•где tableName - имя удаляемой таблицы" + newline)
             .append("•Формат вывода: текстовое сообщение с результатом выполнения операции" + newline + newline)
-            .append("•commands.create" + newline)
+            .append("•commands.insertData" + newline)
             .append("•Команда создает новую таблицу с заданными полями" + newline)
-            .append("•Формат: commands.create | tableName | column1 | column2 | ... | columnN" + newline)
+            .append("•Формат: commands.insertData | tableName | column1 | column2 | ... | columnN" + newline)
             .append("•где: tableName - имя таблицы" + newline)
             .append("•column1 - имя первого столбца записи" + newline)
             .append("•column2 - имя второго столбца записи" + newline)

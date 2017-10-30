@@ -34,10 +34,9 @@ public class InsertTest {
     @Test
     public void insertDataCorrect_id_101_name_Stiven_password_Pupkin() throws SQLException {
 
-        Statement stmt = manager.getConnection().createStatement();
         String sqlInsert = "INSERT INTO public.users1 (id , name, password)" +
                 "VALUES ('101','Stiven', 'Pupkin')";
-        manager.insert(stmt, sqlInsert);
+        manager.insert();
         //TODO
 
         String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)

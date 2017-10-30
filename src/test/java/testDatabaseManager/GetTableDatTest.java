@@ -2,14 +2,9 @@ package testDatabaseManager;
 
 import controller.DataSet;
 import controller.DatabaseManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
@@ -31,25 +26,28 @@ public class GetTableDatTest {
 
         //TODO crate table
     }
-
     @Test
-    public void insertDataCorrect_id_101_name_Stiven_password_Pupkin()  {
-
-        Statement stmt = manager.getConnection().createStatement();
+    public void testGetTableData() {
+        // given
         String tableName = "public.users1";
-        System.setOut(new PrintStream(outContent));
-        DataSet dataSet = new DataSet();
+        manager.clear(tableName);
 
-        String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)
-                .append("password:Pupkin" + newline).append("--------------------------") + newline.toString();
+        // when
+        DataSet input = new DataSet();
+        input.put("id", 13);
+        input.put("name", "Stiven");
+        input.put("password", "pass");
+        manager.insertData(input, tableName);
 
-       // manager.getTableDat(tableName);
-        DataSet[] actual = manager.getTableDat(tableName);
+        // then
+        DataSet[] users1 = manager.getTableData(tableName);
+        assertEquals(1, users1.length);
 
-        assertEquals(expected, Arrays.toString(actual));
-
-
+        DataSet user = users1[0];
+        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
+        assertEquals("[13, Stiven, pass]", Arrays.toString(user.getValues()));
     }
+
 
 
     @After

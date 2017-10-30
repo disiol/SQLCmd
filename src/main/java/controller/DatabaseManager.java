@@ -14,37 +14,30 @@ public class DatabaseManager {
         String user = "postgres";
         String password = "1111";
 
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.connect(dataBase, user, password);
+        DatabaseManager dataBaseManager = new DatabaseManager();
+        dataBaseManager.connect(dataBase, user, password);
 
-        Connection connection = databaseManager.getConnection();
+        Connection connection = dataBaseManager.getConnection();
 
         // insert
-        String sqlInsert = "INSERT INTO public.users (name, password)" +
-                "VALUES ('Stiven', 'Pupkin')";
-        databaseManager.insert(sqlInsert);
+        dataBaseManager.insert();
 
-        // getTableDat
+        // getTableData
         String tableName = "public.users1";
-        databaseManager.getTableDat(tableName);
+        dataBaseManager.getTableData(tableName);
 
 
         // delete
-        delete(connection);
+        dataBaseManager.clear(tableName);
 
         // update
         update(connection, "UPDATE public.users SET password = ? WHERE id > 3");
 
         // Create a Table
-        stmt = connection.createStatement();
-        String sql = "CREATE TABLE COMPANY " +
-                "(ID INT PRIMARY KEY     NOT NULL," +
-                " NAME           TEXT    NOT NULL, " +
-                " AGE            INT     NOT NULL, " +
-                " ADDRESS        CHAR(50), " +
-                " SALARY         REAL)";
-        createATable(stmt, sql);
+
+        dataBaseManager.createATable();
     }
+
 
     public static void update(Connection connection, String sql) {
         PreparedStatement ps = null;
@@ -60,38 +53,42 @@ public class DatabaseManager {
 
     }
 
-    public static Statement delete(Connection connection) {
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM public.users " +
-                    "WHERE id > 10 AND id < 100");
-            stmt.close();
-            return stmt;
+    public void clear(final String tableName) {
 
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("DELETE FROM " + tableName);
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return stmt;
+
 
     }
 
-    public static void createATable(Statement stmt, String sql) {
+    public void createATable() {
+        //TODO
         try {
-
-            stmt.executeUpdate(sql);
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("CREATE TABLE COMPANY " +
+                    "(ID INT PRIMARY KEY     NOT NULL," +
+                    " NAME           TEXT    NOT NULL, " +
+                    " AGE            INT     NOT NULL, " +
+                    " ADDRESS        CHAR(50), " +
+                    " SALARY         REAL)");
             stmt.close();
+            System.out.println("Table created successfully");
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 
-        System.out.println("Table created successfully");
+
     }
 
 
-    public DataSet[] getTableDat(String tableName) {
+    public DataSet[] getTableData(String tableName) {
         try {
             int size = getSize(tableName);
 
@@ -106,17 +103,18 @@ public class DatabaseManager {
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
-                return result;
             }
             System.out.println(Arrays.toString(result));
             rs.close();
             stmt.close();
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
+            return new DataSet[0];
+
         }
 
 
-        return new DataSet[0];
     }
 
     private int getSize(String tableName) throws SQLException {
@@ -150,11 +148,12 @@ public class DatabaseManager {
     }
 
 
-    public void insert(String sqlInsert) {
+    public void insert() {
 
         try {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate(sqlInsert);
+            stmt.executeUpdate("INSERT INTO public.users (name, password)" +
+                    "VALUES ('Stiven', 'Pupkin')");
             stmt.close();
         } catch (SQLException e) {
             System.out.println("Invalid request");
@@ -188,4 +187,46 @@ public class DatabaseManager {
         //TODO выпелить
         return connection;
     }
+
+
+    public void insertData(DataSet input, String tableName) {
+        // берет значения из  DataSet
+        // вставлает их в таблицу
+
+        try {
+            Statement stmt = connection.createStatement();
+
+
+            String tableNamesHad = "";
+            String values = "";
+
+            for (String name : input.getNames()) {
+
+                tableNamesHad += name + ",";
+
+
+            }
+
+            tableNamesHad = tableNamesHad.substring(0, tableNamesHad.length() - 1);
+
+            for (Object value : input.getValues()) {
+
+                values += "'" + value.toString() + "'" + ",";
+
+            }
+
+            values = values.substring(0, values.length() - 1);
+
+
+            stmt.executeUpdate("INSERT INTO " + tableName + "(" + tableNamesHad + ")" +
+                    "VALUES (" + values + ") ");
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println("Invalid request");
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

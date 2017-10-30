@@ -30,11 +30,6 @@ public class CreateATableTest {
         databaseManager = new DatabaseManager();
         databaseManager.connect(dataBase, user, password);
         connection = databaseManager.getConnection();
-        try {
-            stmt = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -46,7 +41,7 @@ public class CreateATableTest {
                 "(id INT PRIMARY KEY     NOT NULL," +
                 " name           TEXT    NOT NULL, " +
                 " password       TEXT     NOT NULL)";
-        databaseManager.createATable(stmt, sql);
+        databaseManager.createATable();
         String expected = "[users, users1]";
         String[] actual = databaseManager.getTableNames();
         assertEquals("сreateTableUsers1", expected, Arrays.toString(actual));
