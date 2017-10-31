@@ -27,8 +27,11 @@ public class ConnectTest {
     public void ConnectTest() throws SQLException {
         System.setOut(new PrintStream(outContent));
 
-        databaseManager.connect("sqlCmd",
-                "postgres", "1111");
+        String database = "sqlCmd";
+        String user = "postgres";
+        String password = "1111";
+        databaseManager.connect(database,
+                user, password);
         String expected = "Opened database successfully" + newline;
         String actual = outContent.toString();
 

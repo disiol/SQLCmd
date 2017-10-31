@@ -37,7 +37,7 @@ public class GetTableDatTest {
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
-        manager.insertData(input, tableName);
+        manager.insertData(tableName,input );
 
         // then
         DataSet[] users1 = manager.getTableData(tableName);

@@ -17,7 +17,6 @@ public class DatabaseManager {
         DatabaseManager dataBaseManager = new DatabaseManager();
         dataBaseManager.connect(dataBase, user, password);
 
-        Connection connection = dataBaseManager.getConnection();
 
         // insert
         dataBaseManager.insert();
@@ -31,7 +30,7 @@ public class DatabaseManager {
         dataBaseManager.clear(tableName);
 
         // update
-        update(connection, "UPDATE public.users SET password = ? WHERE id > 3");
+        dataBaseManager.update();
 
         // Create a Table
 
@@ -39,10 +38,10 @@ public class DatabaseManager {
     }
 
 
-    public static void update(Connection connection, String sql) {
+    public  void update() {
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement(sql);
+            ps = connection.prepareStatement("UPDATE public.users SET password = ? WHERE id > 3");
             String pass = "password_" + new Random().nextInt();
             ps.setString(1, pass);
             ps.executeUpdate();
@@ -182,14 +181,8 @@ public class DatabaseManager {
 
     }
 
-    public Connection getConnection() {
 
-        //TODO выпелить
-        return connection;
-    }
-
-
-    public void insertData(DataSet input, String tableName) {
+    public void insertData(String tableName,DataSet input) {
         // берет значения из  DataSet
         // вставлает их в таблицу
 

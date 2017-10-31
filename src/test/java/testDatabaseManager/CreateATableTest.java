@@ -29,7 +29,6 @@ public class CreateATableTest {
 
         databaseManager = new DatabaseManager();
         databaseManager.connect(dataBase, user, password);
-        connection = databaseManager.getConnection();
 
     }
 

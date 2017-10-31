@@ -12,7 +12,7 @@ package commands;
 
 public class сonnect {
 // TODO•Команда для подключения к соответствующей БД
-//•Формат команСды: connect | database | username | password
+//•Формат команды: connect | database | username | password
 //•где: database - имя БД
 //•username - имя пользователя БД
 //•password - пароль пользователя БД
