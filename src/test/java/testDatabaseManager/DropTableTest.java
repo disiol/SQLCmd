@@ -9,11 +9,7 @@ import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
 
-/**
- * Created by Denis Oleynyk on 07.10.17.
- * mail: deoniisii@gmail.com
- */
-public class CreateATableTest {
+public class DropTableTest {
     DatabaseManager databaseManager;
 
     @Before
@@ -24,7 +20,7 @@ public class CreateATableTest {
 
         databaseManager = new DatabaseManager();
         databaseManager.connect(dataBase, user, password);
-
+        //TODO  crate  таблицу с данами
 
 
     }
@@ -33,14 +29,10 @@ public class CreateATableTest {
     public void сreateTableUsers1() {
 
         //TODO тест создания таблицы
-        String sql = "CREATE TABLE company " +
-                "(id INT PRIMARY KEY     NOT NULL," +
-                " name           TEXT    NOT NULL, " +
-                " password       TEXT     NOT NULL)";
-        databaseManager.createATable("COMPANY");
-        String expected = "[users1, company]";
+        databaseManager.dropTable("company");
+        String expected = "[users1]";
         String[] actual = databaseManager.getTableNames();
-        assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
+        assertEquals("сreateTableUsers1", expected, Arrays.toString(actual));
 
         // создает таблицу и проверает создана ли она
         // вытаскивает значение данных  и сравнивает
@@ -50,7 +42,6 @@ public class CreateATableTest {
     @After
     public void deleteTable() {
         //TODO  drop  таблицу с данами
-        databaseManager.dropTable("COMPANY");
 
     }
 }

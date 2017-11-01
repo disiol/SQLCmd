@@ -12,7 +12,7 @@ public class DatabaseManager {
 
         String dataBase = "sqlCmd";
         String user = "postgres";
-        String password = "1";
+        String password = "1111";
 
         DatabaseManager dataBaseManager = new DatabaseManager();
         dataBaseManager.connect(dataBase, user, password);
@@ -35,7 +35,7 @@ public class DatabaseManager {
 
         // Create a Table
 
-        dataBaseManager.createATable();
+        dataBaseManager.createATable("COMPANY");
     }
 
 
@@ -49,6 +49,9 @@ public class DatabaseManager {
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            //TODO  перенести сюда             ps.close();
+
         }
 
     }
@@ -104,11 +107,11 @@ public class DatabaseManager {
 
     }
 
-    public void createATable() {
+    public void createATable(final String TableName) {
         //TODO прием аргументов
         try {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE COMPANY " +
+            stmt.executeUpdate("CREATE TABLE " + TableName +
                     "(ID INT PRIMARY KEY     NOT NULL," +
                     " NAME           TEXT    NOT NULL, " +
                     " AGE            INT     NOT NULL, " +
@@ -241,4 +244,23 @@ public class DatabaseManager {
     }
 
 
+    public void dropTable(final String tableName) {
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate("DROP TABLE " + tableName + " ");
+            System.out.println("Table" + tableName +  " deleted in given database...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
 }
