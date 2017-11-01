@@ -22,7 +22,6 @@ public class ConnectTest {
     final String newline = System.lineSeparator();
 
 
-
     @Test
     public void ConnectTest() throws SQLException {
         System.setOut(new PrintStream(outContent));
@@ -46,9 +45,10 @@ public class ConnectTest {
         String database = " q";
         String user = "postgres";
         String password = "1111";
+        String message = String.format("Cant get connection for database:%s user:%s", database, user);
         databaseManager.connect(database,
                 user, password);
-        String expected = String.format("Cant get connection for database:%s user:%s", database, user) + newline;
+        String expected = message + " ,database does not exist";
         String actual = outContent.toString();
         assertEquals("The databaseManager does not exist", expected, actual);
 
@@ -67,7 +67,7 @@ public class ConnectTest {
         String expected;
         Connection connection = databaseManager.getConnection();
         String actual;
-        expected = String.format("Cant get connection for database:%s user:%s", database, user) +",not the correct password";
+        expected = String.format("Cant get connection for database:%s user:%s ", database, user) + ",not the correct password or user name";
         actual = outContent.toString();
         assertEquals("not the correct password", expected, actual.toString());
 
@@ -83,11 +83,8 @@ public class ConnectTest {
         databaseManager.connect(database, user, password);
         String expected;
         String actual = outContent.toString();
-        Connection connection;
-        expected = "Пользователя не сушествует";
-        connection = databaseManager.getConnection();
+        expected = String.format("Cant get connection for database:%s user:%s ", database, user) + ",not the correct password or user name";
         assertEquals("the user does not exist", expected, actual.toString());
-        connection.close();
     }
 
 

@@ -175,14 +175,20 @@ public class DatabaseManager {
                     password);
             System.out.println("Opened database successfully");
         } catch (SQLException e) {
-            System.out.print(String.format("Cant get connection for database:%s user:%s", database, user));
+            String message = String.format("Cant get connection for database:%s user:%s", database, user);
             e.printStackTrace();
-            String eror = e.toString();
-            String s = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + user + "\"";
-            if (eror.equals(s)){
-                System.out.print(",not the correct password");
+            String error = e.toString();
+            String errorUser = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + user + "\"";
+            String errorDatabase = "org.postgresql.util.PSQLException: FATAL: database \"" + database + "\" does not exist";
+            if (error.equals(errorUser)) {
+                System.out.print(message + " ,not the correct password or user name");
+            } else if (error.equals(errorDatabase)) {
+                System.out.print(message + " ,database does not exist");
+            } else {
+                System.out.println(message);
+
             }
-                connection = null;
+            connection = null;
         }
 
     }
