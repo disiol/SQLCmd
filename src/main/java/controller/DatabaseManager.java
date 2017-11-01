@@ -17,9 +17,10 @@ public class DatabaseManager {
         DatabaseManager dataBaseManager = new DatabaseManager();
         dataBaseManager.connect(dataBase, user, password);
 
+        Connection connection = dataBaseManager.getConnection();
 
-        // insert
-        dataBaseManager.insert();
+        // insertToTable
+        dataBaseManager.insertToTable();
 
         // getTableData
         String tableName = "public.users1";
@@ -27,7 +28,7 @@ public class DatabaseManager {
 
 
         // delete
-        dataBaseManager.clear(tableName);
+        dataBaseManager.clearATable(tableName);
 
         // update
         dataBaseManager.update();
@@ -38,10 +39,10 @@ public class DatabaseManager {
     }
 
 
-    public  void update() {
-        PreparedStatement ps = null;
+    public void update() {
+        //TODO прием аргументов для обновления
         try {
-            ps = connection.prepareStatement("UPDATE public.users SET password = ? WHERE id > 3");
+            PreparedStatement ps = connection.prepareStatement("UPDATE public.users SET password = ? WHERE id > 3");
             String pass = "password_" + new Random().nextInt();
             ps.setString(1, pass);
             ps.executeUpdate();
@@ -52,7 +53,7 @@ public class DatabaseManager {
 
     }
 
-    public void clear(final String tableName) {
+    public void clearATable(final String tableName) {
 
         try {
             Statement stmt = connection.createStatement();
@@ -66,7 +67,7 @@ public class DatabaseManager {
     }
 
     public void createATable() {
-        //TODO
+        //TODO прием аргументов
         try {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE COMPANY " +
@@ -103,7 +104,7 @@ public class DatabaseManager {
                     dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
             }
-            System.out.println(Arrays.toString(result));
+            System.out.println(Arrays.toString(result));//TODO потом выпелить
             rs.close();
             stmt.close();
             return result;
@@ -126,7 +127,7 @@ public class DatabaseManager {
     }
 
     public String[] getTableNames() {
-        //TODO дороботать масиф
+        //TODO дороботать масиф и прем аргуметов
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
@@ -147,8 +148,8 @@ public class DatabaseManager {
     }
 
 
-    public void insert() {
-
+    public void insertToTable() {
+        //TODO дороботать прем аргуметов
         try {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("INSERT INTO public.users (name, password)" +
@@ -181,8 +182,14 @@ public class DatabaseManager {
 
     }
 
+    public Connection getConnection() {
 
-    public void insertData(String tableName,DataSet input) {
+        //TODO выпелить
+        return connection;
+    }
+
+
+    public void insertData(String tableName, DataSet input) {
         // берет значения из  DataSet
         // вставлает их в таблицу
 
