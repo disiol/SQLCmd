@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
@@ -16,6 +17,8 @@ import static junit.framework.TestCase.assertEquals;
  */
 public class CreateATableTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    final String newline = System.lineSeparator();
+
 
     DatabaseManager databaseManager;
 
@@ -34,15 +37,30 @@ public class CreateATableTest {
     @Test
     public void сreateTableCompany() {
         //TODO тест создания таблицы
+
+        System.setOut(new PrintStream(outContent));
+
         // создает таблицу и проверает создана ли она
-        String sql = "CREATE TABLE company " +
-                "(id INT PRIMARY KEY     NOT NULL," +
-                " name           TEXT    NOT NULL, " +
-                " password       TEXT     NOT NULL)";
-        databaseManager.createATable("COMPANY");
-        String expected = "[users1, company]";
-        String[] actual = databaseManager.getTableNames();
-        assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
+//        String sql = "CREATE TABLE company " +
+//                "(id INT PRIMARY KEY     NOT NULL," +
+//                " name           TEXT    NOT NULL, " +
+//                " password       TEXT     NOT NULL)";
+
+
+
+
+        String tableName = "COMPANY";
+        databaseManager.createATable(tableName);
+
+        String expected = "Table " + tableName + "created successfully" + newline;
+        String actual = outContent.toString();
+        assertEquals("сreateTableCompany", expected, actual);
+
+
+
+        String expected_1 = "[users1, company]";
+        String[] actual_1 = databaseManager.getTableNames();
+        assertEquals("сreateTableCompany", expected_1, Arrays.toString(actual_1));
 
 
         // вытаскивает значение данных  и сравнивает

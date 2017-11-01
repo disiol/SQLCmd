@@ -107,22 +107,31 @@ public class DatabaseManager {
 
     }
 
-    public void createATable(final String TableName) {
+    public void createATable(final String tableName) {
         //TODO прием аргументов
+        Statement stmt = null;
         try {
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE " + TableName +
+            stmt = connection.createStatement();
+            stmt.executeUpdate("CREATE TABLE " + tableName +
                     "(ID INT PRIMARY KEY     NOT NULL," +
                     " NAME           TEXT    NOT NULL, " +
                     " AGE            INT     NOT NULL, " +
                     " ADDRESS        CHAR(50), " +
                     " SALARY         REAL)");
             stmt.close();
-            System.out.println("Table created successfully");
+            System.out.println("Table " + tableName + "created successfully");
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
+        }finally {
+            if (stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
 
