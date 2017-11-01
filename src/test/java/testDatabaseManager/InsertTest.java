@@ -5,10 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -36,7 +33,7 @@ public class InsertTest {
 
         String sqlInsert = "INSERT INTO public.users1 (id , name, password)" +
                 "VALUES ('101','Stiven', 'Pupkin')";
-        manager.insert();
+        manager.insertToTable();
         //TODO
 
         String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)

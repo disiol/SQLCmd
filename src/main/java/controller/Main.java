@@ -10,7 +10,7 @@ public class Main {
                 "jdbc:postgresql://localhost:5432/sqlcmd", "postgres",
                 "postgres");
 
-        // insert
+        // insertToTable
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("INSERT INTO public.user (name, password)" +
                 "VALUES ('Stiven', 'Pupkin')");

@@ -30,7 +30,7 @@ public class GetTableDatTest {
     public void testGetTableData() {
         // given
         String tableName = "public.users1";
-        manager.clear(tableName);
+        manager.clearATable(tableName);
 
         // when
         DataSet input = new DataSet();

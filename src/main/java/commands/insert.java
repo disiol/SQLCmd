@@ -2,7 +2,7 @@ package commands;
 
 public class insert {
 // TODO•Команда для вставки одной строки в заданную таблицу
-//•Формат: commands.insert | tableName | column1 | value1 | column2 | value2 | ... |
+//•Формат: commands.insertToTable | tableName | column1 | value1 | column2 | value2 | ... |
 //    columnN | valueN
 //•где: tableName - имя таблицы
 //•column1 - имя первого столбца записи
