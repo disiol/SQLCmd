@@ -1,7 +1,6 @@
 package testDatabaseManager;
 
 import controller.DatabaseManager;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,6 @@ public class DropTableTest {
 
         databaseManager = new DatabaseManager();
         databaseManager.connect(dataBase, user, password);
-        //TODO  crate  таблицу с данами
 
 
     }

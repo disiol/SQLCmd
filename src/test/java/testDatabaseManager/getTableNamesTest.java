@@ -24,24 +24,32 @@ public class getTableNamesTest {
         String user = "postgres";
         String password = "1111";
         databaseManager.connect(dataBase, user, password);
-        //TODO создание таблицы
+
     }
 
     @Test
     public void users() throws SQLException {
 
+        //before
+        String tableName = "COMPANY";
+        databaseManager.createATable(tableName);
+        tableName = "users1";
+        databaseManager.createATable(tableName);
+
+
+        //then
+
         String expected;
-        String []actual;
-        expected = "[users1]";
-        Connection connection = databaseManager.getConnection();
+        String[] actual;
+        expected = "[company, users1]";
         actual = databaseManager.getTableNames();
         assertEquals(expected, Arrays.toString(actual));
-        connection.close();
     }
 
 
     @After
     public void deleteTable() {
         //TODO  drop  таблицу с данами
+        databaseManager.dropTable("company,users1");
     }
 }

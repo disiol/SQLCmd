@@ -69,7 +69,7 @@ public class CreateATableTest {
 
     @After
     public void deleteTable() {
-        //TODO  drop  таблицу с данами
+        //drop  таблицу с данами
         databaseManager.dropTable("COMPANY");
 
     }
