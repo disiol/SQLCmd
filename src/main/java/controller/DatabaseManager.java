@@ -12,7 +12,7 @@ public class DatabaseManager {
 
         String dataBase = "sqlCmd";
         String user = "postgres";
-        String password = "1111";
+        String password = "1";
 
         DatabaseManager dataBaseManager = new DatabaseManager();
         dataBaseManager.connect(dataBase, user, password);
@@ -51,6 +51,44 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
+    }
+
+
+    public void connect(String database, String user, String password) {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Please add jdbc jar to project.");
+            e.printStackTrace();
+        }
+        try {
+            connection = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/" + database, user,
+                    password);
+            System.out.println("Opened database successfully");
+        } catch (SQLException e) {
+            String message = String.format("Cant get connection for database:%s user:%s", database, user);
+            e.printStackTrace();
+            String error = e.toString();
+            String errorUser = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + user + "\"";
+            String errorDatabase = "org.postgresql.util.PSQLException: FATAL: database \"" + database + "\" does not exist";
+            if (error.equals(errorUser)) {
+                System.out.println(message + ", not the correct password or user name");
+            } else if (error.equals(errorDatabase)) {
+                System.out.println(message + " ,database does not exist");
+            } else {
+                System.out.println(message);
+
+            }
+            connection = null;
+        }
+
+    }
+
+    public Connection getConnection() {
+
+        //TODO выпелить
+        return connection;
     }
 
     public void clearATable(final String tableName) {
@@ -160,43 +198,6 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
-    }
-
-    public void connect(String database, String user, String password) {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Please add jdbc jar to project.");
-            e.printStackTrace();
-        }
-        try {
-            connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/" + database, user,
-                    password);
-            System.out.println("Opened database successfully");
-        } catch (SQLException e) {
-            String message = String.format("Cant get connection for database:%s user:%s", database, user);
-            e.printStackTrace();
-            String error = e.toString();
-            String errorUser = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + user + "\"";
-            String errorDatabase = "org.postgresql.util.PSQLException: FATAL: database \"" + database + "\" does not exist";
-            if (error.equals(errorUser)) {
-                System.out.print(message + " ,not the correct password or user name");
-            } else if (error.equals(errorDatabase)) {
-                System.out.print(message + " ,database does not exist");
-            } else {
-                System.out.println(message);
-
-            }
-            connection = null;
-        }
-
-    }
-
-    public Connection getConnection() {
-
-        //TODO выпелить
-        return connection;
     }
 
 

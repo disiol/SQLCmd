@@ -48,7 +48,7 @@ public class ConnectTest {
         String message = String.format("Cant get connection for database:%s user:%s", database, user);
         databaseManager.connect(database,
                 user, password);
-        String expected = message + " ,database does not exist";
+        String expected = message + " ,database does not exist" + newline;
         String actual = outContent.toString();
         assertEquals("The databaseManager does not exist", expected, actual);
 
@@ -67,7 +67,8 @@ public class ConnectTest {
         String expected;
         Connection connection = databaseManager.getConnection();
         String actual;
-        expected = String.format("Cant get connection for database:%s user:%s ", database, user) + ",not the correct password or user name";
+        expected = String.format("Cant get connection for database:%s user:%s", database, user) +
+                ", not the correct password or user name" + newline;
         actual = outContent.toString();
         assertEquals("not the correct password", expected, actual.toString());
 
@@ -83,7 +84,8 @@ public class ConnectTest {
         databaseManager.connect(database, user, password);
         String expected;
         String actual = outContent.toString();
-        expected = String.format("Cant get connection for database:%s user:%s ", database, user) + ",not the correct password or user name";
+        expected = String.format("Cant get connection for database:%s user:%s", database, user) +
+                ", not the correct password or user name" + newline;
         assertEquals("the user does not exist", expected, actual.toString());
     }
 
