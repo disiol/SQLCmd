@@ -67,10 +67,10 @@ public class ConnectTest {
         String expected;
         Connection connection = databaseManager.getConnection();
         String actual;
-        expected = "пароль не верный ";
+        expected = "Cant get connection for database:sqlCmd user:postgres,not the correct password";
         actual = outContent.toString();
         assertEquals("not the correct password", expected, actual.toString());
-        connection.close();
+       
     }
 
     @Test

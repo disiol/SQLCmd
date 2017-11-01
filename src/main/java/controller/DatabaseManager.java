@@ -175,9 +175,14 @@ public class DatabaseManager {
                     password);
             System.out.println("Opened database successfully");
         } catch (SQLException e) {
-            System.out.println(String.format("Cant get connection for database:%s user:%s", database, user));
+            System.out.print(String.format("Cant get connection for database:%s user:%s", database, user));
             e.printStackTrace();
-            connection = null;
+            String eror = e.toString();
+            String s = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + user + "\"";
+            if (eror.equals(s)){
+                System.out.print(",not the correct password");
+            }
+                connection = null;
         }
 
     }
