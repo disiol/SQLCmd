@@ -23,7 +23,7 @@ public class ConnectTest {
 
 
     @Test
-    public void ConnectTest() throws SQLException {
+    public void ConnectTest() {
         System.setOut(new PrintStream(outContent));
 
         String database = "sqlCmd";

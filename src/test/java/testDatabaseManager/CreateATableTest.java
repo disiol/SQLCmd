@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
@@ -14,6 +15,8 @@ import static junit.framework.TestCase.assertEquals;
  * mail: deoniisii@gmail.com
  */
 public class CreateATableTest {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
     DatabaseManager databaseManager;
 
     @Before
@@ -26,13 +29,12 @@ public class CreateATableTest {
         databaseManager.connect(dataBase, user, password);
 
 
-
     }
 
     @Test
-    public void сreateTableUsers1() {
-
+    public void сreateTableCompany() {
         //TODO тест создания таблицы
+        // создает таблицу и проверает создана ли она
         String sql = "CREATE TABLE company " +
                 "(id INT PRIMARY KEY     NOT NULL," +
                 " name           TEXT    NOT NULL, " +
@@ -42,7 +44,7 @@ public class CreateATableTest {
         String[] actual = databaseManager.getTableNames();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
 
-        // создает таблицу и проверает создана ли она
+
         // вытаскивает значение данных  и сравнивает
     }
 

@@ -249,7 +249,7 @@ public class DatabaseManager {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate("DROP TABLE " + tableName + " ");
-            System.out.println("Table" + tableName +  " deleted in given database...");
+            System.out.println("Table " + tableName +  " deleted in given database...");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

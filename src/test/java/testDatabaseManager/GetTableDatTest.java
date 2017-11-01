@@ -15,7 +15,6 @@ import static junit.framework.TestCase.assertEquals;
  */
 public class GetTableDatTest {
     final String newline = System.lineSeparator();
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     private DatabaseManager manager;
 
