@@ -49,7 +49,7 @@ public class getTableNamesTest {
 
     @After
     public void deleteTable() {
-        //TODO  drop  таблицу с данами
+        // drop  таблицу с данами
         databaseManager.dropTable("company,users1");
     }
 }
