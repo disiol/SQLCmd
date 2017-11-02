@@ -158,13 +158,7 @@ public class DatabaseManager {
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
-            while (rs.next()) {
-                DataSet dataSet = new DataSet();
-                result[index++] = dataSet;
-                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
-                }
-            }
+            getData(rs, rsmd, result, index);
             System.out.println(Arrays.toString(result));//TODO потом выпелить
             rs.close();
             return result;
@@ -197,14 +191,7 @@ public class DatabaseManager {
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
-            while (rs.next()) {
-                DataSet dataSet = new DataSet();
-                result[index++] = dataSet;
-                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
-                }
-            }
-            //System.out.println(Arrays.toString(result));//TODO потом выпелить
+            getData(rs, rsmd, result, index);
 
             return result;
         } catch (SQLException e) {
@@ -226,6 +213,16 @@ public class DatabaseManager {
         }
 
 
+    }
+
+    private void getData(ResultSet rs, ResultSetMetaData rsmd, DataSet[] result, int index) throws SQLException {
+        while (rs.next()) {
+            DataSet dataSet = new DataSet();
+            result[index++] = dataSet;
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
+            }
+        }
     }
 
 
