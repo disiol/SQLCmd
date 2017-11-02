@@ -265,7 +265,7 @@ public class DatabaseManager {
     }
 
 
-    public String getTablePart(String tableName, Object dataGet) {
+    public String getTableColumn(String tableName, Object dataGet) {
         //принимает имя таблицы и  даные для вывода
         //выводит их
         return tableName;

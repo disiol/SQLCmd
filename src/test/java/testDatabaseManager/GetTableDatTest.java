@@ -14,7 +14,7 @@ import static junit.framework.TestCase.assertEquals;
  * mail: deoniisii@gmail.com
  */
 public class GetTableDatTest {
-    final String newline = System.lineSeparator();
+
 
     private DatabaseManager manager;
     private String tableName;
