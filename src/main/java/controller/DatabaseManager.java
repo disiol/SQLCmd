@@ -95,13 +95,22 @@ public class DatabaseManager {
     }
 
     public void clearATable(final String tableName) {
-
+        Statement stmt = null;
         try {
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             stmt.executeUpdate("DELETE FROM " + tableName);
-            stmt.close();
+            System.out.println(tableName + " cleared successfully");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
 
 
@@ -115,17 +124,15 @@ public class DatabaseManager {
             stmt.executeUpdate("CREATE TABLE " + tableName +
                     "(ID INT PRIMARY KEY     NOT NULL," +
                     " NAME           TEXT    NOT NULL, " +
-                    " AGE            INT     NOT NULL, " +
-                    " ADDRESS        CHAR(50), " +
-                    " SALARY         REAL)");
+                    " PASSWORD       TEXT     NOT NULL)");
             stmt.close();
-            System.out.println("Table " + tableName + "created successfully");
+            System.out.println("Table " + tableName + " created successfully");
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
-        }finally {
-            if (stmt != null){
+        } finally {
+            if (stmt != null) {
                 try {
                     stmt.close();
                 } catch (SQLException e) {
@@ -177,7 +184,7 @@ public class DatabaseManager {
     }
 
     public String[] getTableNames() {
-        //TODO дороботать масиф и прем аргуметов
+        //TODO дороботать масиф
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
@@ -258,11 +265,11 @@ public class DatabaseManager {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate("DROP TABLE " + tableName + " ");
-            System.out.println("Table " + tableName +  " deleted in given database...");
+            System.out.println("Table " + tableName + " deleted in given database...");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (stmt != null){
+            if (stmt != null) {
                 try {
                     stmt.close();
                 } catch (SQLException e) {

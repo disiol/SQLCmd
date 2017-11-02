@@ -49,16 +49,16 @@ public class CreateATableTest {
 
 
 
-        String tableName = "COMPANY";
+        String tableName = "company";
         databaseManager.createATable(tableName);
 
-        String expected = "Table " + tableName + "created successfully" + newline;
+        String expected = "Table " + tableName + " created successfully" + newline;
         String actual = outContent.toString();
         assertEquals("сreateTableCompany", expected, actual);
 
 
 
-        String expected_1 = "[users1, company]";
+        String expected_1 = "[company]";
         String[] actual_1 = databaseManager.getTableNames();
         assertEquals("сreateTableCompany", expected_1, Arrays.toString(actual_1));
 

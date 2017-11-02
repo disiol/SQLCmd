@@ -30,15 +30,16 @@ public class DropTableTest {
 
     @Test
     public void dropTableCompany() {
+        String tableName = "company";
         //defore
-        databaseManager.createATable("COMPANY");
-        String expected = "[users1, company]";
+        databaseManager.createATable(tableName);
+        String expected = "[company]";
         String[] actual = databaseManager.getTableNames();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
 
         System.setOut(new PrintStream(outContent));
 
-        String tableName = "company";
+
 
         //тест удаления таблицы
         databaseManager.dropTable(tableName);
@@ -48,7 +49,7 @@ public class DropTableTest {
         assertEquals("dropTableCompanyMessage", expected_1, actual_1);
 
 
-        String expected_2 = "[users1]";
+        String expected_2 = "[]";
         String[] actual_2 = databaseManager.getTableNames();
         assertEquals("dropTableCompany", expected_2, Arrays.toString(actual_2));
 
