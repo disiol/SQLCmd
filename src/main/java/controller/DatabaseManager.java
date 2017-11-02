@@ -150,10 +150,10 @@ public class DatabaseManager {
 
 
     public DataSet[] getTableData(String tableName) {
+        Statement stmt = null;
         try {
             int size = getSize(tableName);
-
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
@@ -167,16 +167,67 @@ public class DatabaseManager {
             }
             System.out.println(Arrays.toString(result));//TODO потом выпелить
             rs.close();
-            stmt.close();
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
             return new DataSet[0];
 
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
 
 
     }
+
+    public DataSet[] getTableColumns(String tableName, final String columnsName) {
+        //TODO
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            int size = getSize(tableName);
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + tableName);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            DataSet[] result = new DataSet[size];
+            int index = 0;
+            while (rs.next()) {
+                DataSet dataSet = new DataSet();
+                result[index++] = dataSet;
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
+                }
+            }
+            //System.out.println(Arrays.toString(result));//TODO потом выпелить
+
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new DataSet[0];
+
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    if (rs != null) {
+                        rs.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+
+    }
+
 
     private int getSize(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
@@ -188,7 +239,7 @@ public class DatabaseManager {
     }
 
     public String[] getTableNames() {
-        //TODO дороботать масиф
+        //TODO дороботать масиф и аргуметы поиска
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
@@ -217,7 +268,7 @@ public class DatabaseManager {
 
 
         try {
-             stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
 
             String tableNamesHad = "";
@@ -257,15 +308,6 @@ public class DatabaseManager {
             }
         }
 
-    }
-
-
-    public String getTableColumn(String tableName, Object dataGet) {
-        //TODO
-
-        //принимает имя таблицы и  даные для вывода
-        //выводит их
-        return tableName;
     }
 
 

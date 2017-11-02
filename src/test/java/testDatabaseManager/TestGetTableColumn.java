@@ -56,22 +56,38 @@ public class TestGetTableColumn {
         // then
         //принимает данные для выдачи
         String dataGetId = "id";
-        String actual1 = manager.getTableColumn(tableName, dataGetId);
-        String expected1 = "id" + newline +
-                           "13";
-        assertEquals(expected1, actual1);
+        DataSet[] users = manager.getTableColumns(tableName, dataGetId);
 
-        String dataGetName = "name";
-        String actual2 = manager.getTableColumn(tableName, dataGetName);
-        String expected2 = "name" + newline +
-                           "Stiven";
-        assertEquals(expected2, actual2);
 
-        String dataGetPassword = "password";
-        String actual3 = manager.getTableColumn(tableName, dataGetPassword);
-        String expected3 = "password" + newline +
-                               "pass";
-        assertEquals(expected3, actual3);
+        DataSet user = users[0];
+        assertEquals("[id]", Arrays.toString(user.getNames()));
+        assertEquals("[13]", Arrays.toString(user.getValues()));
+
+
+        dataGetId = "name";
+        users = manager.getTableColumns(tableName, dataGetId);
+        user = users[0];
+        assertEquals("[name]", Arrays.toString(user.getNames()));
+        assertEquals("[Stiven]", Arrays.toString(user.getValues()));
+
+
+        dataGetId = "password";
+        users = manager.getTableColumns(tableName, dataGetId);
+        user = users[0];
+        assertEquals("[password]", Arrays.toString(user.getNames()));
+        assertEquals("[pass]", Arrays.toString(user.getValues()));
+
+        dataGetId = "id,password";
+        users = manager.getTableColumns(tableName, dataGetId);
+        user = users[0];
+        assertEquals("[id, password]", Arrays.toString(user.getNames()));
+        assertEquals("[13, pass]", Arrays.toString(user.getValues()));
+
+        dataGetId = "name,id,password";
+        users = manager.getTableColumns(tableName, dataGetId);
+        user = users[0];
+        assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
+        assertEquals("[Stiven, 13, pass]", Arrays.toString(user.getValues()));
 
 
     }
@@ -82,42 +98,77 @@ public class TestGetTableColumn {
 
 
         // given
-        manager.clearATable(tableName);
-
-
         DataSet input = new DataSet();
-        input.put("id", 14);
-        input.put("name", "Stiven2");
-        input.put("password", "pass2");
+        input.put("id", 13);
+        input.put("name", "Stiven");
+        input.put("password", "pass");
         manager.insertData(tableName, input);
+
+        DataSet input2 = new DataSet();
+        input2.put("id", 14);
+        input2.put("name", "Stiven2");
+        input2.put("password", "pass2");
+        manager.insertData(tableName, input2);
 
         // then
         //принимает данные для выдачи
         String dataGetId = "id";
-        String actual1 = manager.getTableColumn(tableName, dataGetId);
-        String expected1 = "id" + newline +
-                           "13" + newline +
-                           "14";
-        assertEquals(expected1, actual1);
+        DataSet[] users = manager.getTableColumns(tableName, dataGetId);
 
-        String dataGetName = "name";
-        String actual2 = manager.getTableColumn(tableName, dataGetName);
-        String expected2 = "name" + newline +
-                           "Stiven" + newline +
-                           "Stiven2";
-        assertEquals(expected2, actual2);
 
-        String dataGetPassword = "password";
-        String actual3 = manager.getTableColumn(tableName, dataGetPassword);
-        String expected3 = "password" + newline +
-                               "pass" + newline +
-                               "pass2";
-        assertEquals(expected3, actual3);
+        DataSet user = users[0];
+        assertEquals("[id]", Arrays.toString(user.getNames()));
+        assertEquals("[13]", Arrays.toString(user.getValues()));
+
+        user = users[1];
+        assertEquals("[id]", Arrays.toString(user.getNames()));
+        assertEquals("[14]", Arrays.toString(user.getValues()));
+
+
+        dataGetId = "name";
+        users = manager.getTableColumns(tableName, dataGetId);
+        user = users[0];
+        assertEquals("[name]", Arrays.toString(user.getNames()));
+        assertEquals("[Stiven]", Arrays.toString(user.getValues()));
+
+        user = users[1];
+        assertEquals("[name]", Arrays.toString(user.getNames()));
+        assertEquals("[Stiven2]", Arrays.toString(user.getValues()));
+
+
+        dataGetId = "password";
+        users = manager.getTableColumns(tableName, dataGetId);
+        user = users[0];
+        assertEquals("[password]", Arrays.toString(user.getNames()));
+        assertEquals("[pass]", Arrays.toString(user.getValues()));
+
+        user = users[1];
+        assertEquals("[password]", Arrays.toString(user.getNames()));
+        assertEquals("[pass2]", Arrays.toString(user.getValues()));
+
+        dataGetId = "id,password";
+        users = manager.getTableColumns(tableName, dataGetId);
+        user = users[0];
+        assertEquals("[id, password]", Arrays.toString(user.getNames()));
+        assertEquals("[13, pass]", Arrays.toString(user.getValues()));
+
+        user = users[1];
+        assertEquals("[id, password]", Arrays.toString(user.getNames()));
+        assertEquals("[14, pass2]", Arrays.toString(user.getValues()));
+
+        dataGetId = "name,id,password";
+        users = manager.getTableColumns(tableName, dataGetId);
+
+        user = users[0];
+        assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
+        assertEquals("[Stiven, 13, pass]", Arrays.toString(user.getValues()));
+
+        user = users[1];
+        assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
+        assertEquals("[Stiven2, 14, pass2]", Arrays.toString(user.getValues()));
 
 
     }
-
-
 
 
     @After
