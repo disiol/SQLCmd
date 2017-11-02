@@ -41,17 +41,22 @@ public class DatabaseManager {
 
     public void update() {
         //TODO прием аргументов для обновления
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE public.users SET password = ? WHERE id > 3");
+            ps = connection.prepareStatement("UPDATE public.users SET password = ? WHERE id > 3");
             String pass = "password_" + new Random().nextInt();
             ps.setString(1, pass);
             ps.executeUpdate();
-            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //TODO  перенести сюда             ps.close();
-
+            if (ps != null){
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }
@@ -260,6 +265,16 @@ public class DatabaseManager {
     }
 
 
+    public String getTablePart(String tableName, Object dataGet) {
+        //принимает имя таблицы и  даные для вывода
+        //выводит их
+        return tableName;
+    }
+
+
+
+
+
     public void dropTable(final String tableName) {
         Statement stmt = null;
         try {
@@ -279,4 +294,5 @@ public class DatabaseManager {
         }
 
     }
+
 }
