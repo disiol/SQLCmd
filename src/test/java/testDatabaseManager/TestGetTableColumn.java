@@ -28,6 +28,7 @@ public class TestGetTableColumn {
         String password = "1111";
         manager.connect(sqlCmd, user, password);
 
+        //TODO создание базы данных
 
         tableName = "company";
 
@@ -121,6 +122,7 @@ public class TestGetTableColumn {
 
     @After
     public void deleteTable() {
+        //TODO drop dataBase
         // drop  таблицу с данами
         manager.dropTable(tableName);
     }

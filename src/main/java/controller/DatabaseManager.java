@@ -1,5 +1,6 @@
 package controller;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.Random;
@@ -19,8 +20,6 @@ public class DatabaseManager {
 
         Connection connection = dataBaseManager.getConnection();
 
-        // insertToTable
-        dataBaseManager.insertToTable();
 
         // getTableData
         String tableName = "public.users1";
@@ -50,7 +49,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (ps != null){
+            if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException e) {
@@ -210,27 +209,15 @@ public class DatabaseManager {
     }
 
 
-    public void insertToTable() {
-        //TODO дороботать прем аргуметов
-        try {
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("INSERT INTO public.users (name, password)" +
-                    "VALUES ('Stiven', 'Pupkin')");
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println("Invalid request");
-            e.printStackTrace();
-        }
-
-    }
-
-
     public void insertData(String tableName, DataSet input) {
         // берет значения из  DataSet
         // вставлает их в таблицу
 
+        Statement stmt = null;
+
+
         try {
-            Statement stmt = connection.createStatement();
+             stmt = connection.createStatement();
 
 
             String tableNamesHad = "";
@@ -256,23 +243,30 @@ public class DatabaseManager {
 
             stmt.executeUpdate("INSERT INTO " + tableName + "(" + tableNamesHad + ")" +
                     "VALUES (" + values + ") ");
-            stmt.close();
         } catch (SQLException e) {
             System.out.println("Invalid request");
             e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
 
     }
 
 
     public String getTableColumn(String tableName, Object dataGet) {
+        //TODO
+
         //принимает имя таблицы и  даные для вывода
         //выводит их
         return tableName;
     }
-
-
-
 
 
     public void dropTable(final String tableName) {
@@ -293,6 +287,16 @@ public class DatabaseManager {
             }
         }
 
+    }
+
+
+    //For tests
+    public void dropDatabase() {
+        //TODO
+    }
+
+    public void createDatabase() {
+        //TODO
     }
 
 }
