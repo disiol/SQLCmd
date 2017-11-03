@@ -8,32 +8,6 @@ public class DatabaseManager {
 
     private Connection connection;
 
-    public static void main(String[] argv) {
-
-        String dataBase = "sqlCmd";
-        String user = "postgres";
-        String password = "1111";
-
-        DatabaseManager dataBaseManager = new DatabaseManager();
-        dataBaseManager.connect(dataBase, user, password);
-
-
-        // getTableData
-        String tableName = "public.users1";
-        dataBaseManager.getTableData(tableName);
-
-
-        // delete
-        dataBaseManager.clearATable(tableName);
-
-        // update
-        dataBaseManager.update();
-
-        // Create a Table
-
-        dataBaseManager.createATable("COMPANY");
-    }
-
 
     public void update() {
         //TODO прием аргументов для обновления
