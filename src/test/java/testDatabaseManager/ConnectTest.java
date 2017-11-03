@@ -65,7 +65,6 @@ public class ConnectTest {
                 user, password);
 
         String expected;
-        Connection connection = databaseManager.getConnection();
         String actual;
         expected = String.format("Cant get connection for database:%s user:%s", database, user) +
                 ", not the correct password or user name" + newline;

@@ -32,11 +32,6 @@ public class findTest {
     public void insertDataCorrect_id_101_name_Stiven_password_Pupkin()  {
         //TODO
 
-        try {
-            Statement stmt = manager.getConnection().createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         String tableName = "public.users1";
         System.setOut(new PrintStream(outContent));
         DataSet dataSet = new DataSet();

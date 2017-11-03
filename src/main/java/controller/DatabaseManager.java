@@ -1,6 +1,5 @@
 package controller;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.Random;
@@ -17,8 +16,6 @@ public class DatabaseManager {
 
         DatabaseManager dataBaseManager = new DatabaseManager();
         dataBaseManager.connect(dataBase, user, password);
-
-        Connection connection = dataBaseManager.getConnection();
 
 
         // getTableData
@@ -92,11 +89,6 @@ public class DatabaseManager {
 
     }
 
-    public Connection getConnection() {
-
-        //TODO выпелить
-        return connection;
-    }
 
     public void clearATable(final String tableName) {
         Statement stmt = null;
@@ -267,30 +259,11 @@ public class DatabaseManager {
         try {
             stmt = connection.createStatement();
 
+            String tableNames = getNameFormated(input, "%s,");
+            String values = getValuesFormated(input, "'%s',");
 
-            String tableNamesHad = "";
-            String values = "";
-
-            for (String name : input.getNames()) {
-
-                tableNamesHad += name + ",";
-
-
-            }
-
-            tableNamesHad = tableNamesHad.substring(0, tableNamesHad.length() - 1);
-
-            for (Object value : input.getValues()) {
-
-                values += "'" + value.toString() + "'" + ",";
-
-            }
-
-            values = values.substring(0, values.length() - 1);
-
-
-            stmt.executeUpdate("INSERT INTO " + tableName + "(" + tableNamesHad + ")" +
-                    "VALUES (" + values + ") ");
+            stmt.executeUpdate("INSERT INTO " + tableName + "(" + tableNames + ")" +
+                    "VALUES (" + values + ")");
         } catch (SQLException e) {
             System.out.println("Invalid request");
             e.printStackTrace();
@@ -305,6 +278,38 @@ public class DatabaseManager {
             }
         }
 
+    }
+
+
+    public void updateTableData(final String tableName, int id, DataSet newValue) {
+        PreparedStatement ps = null;
+        try {
+            String tableNames = getNameFormated(newValue, "%s = ?,");
+
+            String sql = "UPDATE public." + tableName + " SET " + tableNames + " WHERE id = ?";
+            System.out.println(sql);
+            ps = connection.prepareStatement(sql);
+
+            int index = 1;
+            for (Object value : newValue.getValues()) {
+                ps.setObject(index, value);
+                index++;
+            }
+            ps.setObject(index, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 
@@ -329,13 +334,33 @@ public class DatabaseManager {
     }
 
 
+    private String getValuesFormated(DataSet input, String format) {
+        String values = "";
+        for (Object value : input.getValues()) {
+            values += String.format(format, value);
+        }
+        values = values.substring(0, values.length() - 1);
+        return values;
+    }
+
+    private String getNameFormated(DataSet newValue, String format) {
+        String string = "";
+        for (String name : newValue.getNames()) {
+            string += String.format(format, name);
+        }
+        string = string.substring(0, string.length() - 1);
+        return string;
+    }
+
     //For tests
     public void dropDatabase() {
         //TODO
     }
 
+    //For tests
     public void createDatabase() {
         //TODO
     }
+
 
 }
