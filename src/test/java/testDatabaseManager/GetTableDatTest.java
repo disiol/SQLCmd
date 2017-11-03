@@ -1,10 +1,9 @@
 package testDatabaseManager;
 
-import controller.DataSet;
-import controller.DatabaseManager;
+import model.DataSet;
+import model.PostgresDatabaseManager;
 import org.junit.*;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
@@ -16,12 +15,12 @@ import static junit.framework.TestCase.assertEquals;
 public class GetTableDatTest {
 
 
-    private DatabaseManager manager;
+    private PostgresDatabaseManager manager;
     private String tableName;
 
     @Before
     public void setup() {
-        manager = new DatabaseManager();
+        manager = new PostgresDatabaseManager();
         manager.connect("sqlCmd", "postgres", "1111");
 
     }
@@ -33,12 +32,9 @@ public class GetTableDatTest {
 
 
         manager.createATable(tableName);
-        String expected = "[company]";
+        String expected = "[" + tableName + "]";
         String[] actual = manager.getTableNames();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
-
-        // given
-        manager.clearATable(tableName); //TODO додумать
 
         // when
         DataSet input = new DataSet();

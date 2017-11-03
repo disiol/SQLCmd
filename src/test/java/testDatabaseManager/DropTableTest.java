@@ -1,6 +1,6 @@
 package testDatabaseManager;
 
-import controller.DatabaseManager;
+import model.PostgresDatabaseManager;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import java.util.Arrays;
 import static junit.framework.TestCase.assertEquals;
 
 public class DropTableTest {
-    DatabaseManager databaseManager;
+    PostgresDatabaseManager postgresDatabaseManager;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     final String newline = System.lineSeparator();
 
@@ -22,8 +22,8 @@ public class DropTableTest {
         String user = "postgres";
         String password = "1111";
 
-        databaseManager = new DatabaseManager();
-        databaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager = new PostgresDatabaseManager();
+        postgresDatabaseManager.connect(dataBase, user, password);
 
 
     }
@@ -32,9 +32,9 @@ public class DropTableTest {
     public void dropTableCompany() {
         String tableName = "company";
         //defore
-        databaseManager.createATable(tableName);
+        postgresDatabaseManager.createATable(tableName);
         String expected = "[company]";
-        String[] actual = databaseManager.getTableNames();
+        String[] actual = postgresDatabaseManager.getTableNames();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
 
         System.setOut(new PrintStream(outContent));
@@ -42,7 +42,7 @@ public class DropTableTest {
 
 
         //тест удаления таблицы
-        databaseManager.dropTable(tableName);
+        postgresDatabaseManager.dropTable(tableName);
         String expected_1 = "Table " + tableName + " deleted in given database..." + newline ;
         String actual_1 = outContent.toString();
 
@@ -50,7 +50,7 @@ public class DropTableTest {
 
 
         String expected_2 = "[]";
-        String[] actual_2 = databaseManager.getTableNames();
+        String[] actual_2 = postgresDatabaseManager.getTableNames();
         assertEquals("dropTableCompany", expected_2, Arrays.toString(actual_2));
 
         // создает таблицу и проверает создана ли она

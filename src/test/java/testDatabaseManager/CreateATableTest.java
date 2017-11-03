@@ -1,6 +1,6 @@
 package testDatabaseManager;
 
-import controller.DatabaseManager;
+import model.PostgresDatabaseManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class CreateATableTest {
     final String newline = System.lineSeparator();
 
 
-    DatabaseManager databaseManager;
+    PostgresDatabaseManager postgresDatabaseManager;
 
     @Before
     public void connectToDataBase() {
@@ -28,8 +28,8 @@ public class CreateATableTest {
         String user = "postgres";
         String password = "1111";
 
-        databaseManager = new DatabaseManager();
-        databaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager = new PostgresDatabaseManager();
+        postgresDatabaseManager.connect(dataBase, user, password);
 
 
     }
@@ -50,7 +50,7 @@ public class CreateATableTest {
 
 
         String tableName = "company";
-        databaseManager.createATable(tableName);
+        postgresDatabaseManager.createATable(tableName);
 
         String expected = "Table " + tableName + " created successfully" + newline;
         String actual = outContent.toString();
@@ -59,7 +59,7 @@ public class CreateATableTest {
 
 
         String expected_1 = "[company]";
-        String[] actual_1 = databaseManager.getTableNames();
+        String[] actual_1 = postgresDatabaseManager.getTableNames();
         assertEquals("сreateTableCompany", expected_1, Arrays.toString(actual_1));
 
 
@@ -70,7 +70,7 @@ public class CreateATableTest {
     @After
     public void deleteTable() {
         //drop  таблицу с данами
-        databaseManager.dropTable("COMPANY");
+        postgresDatabaseManager.dropTable("COMPANY");
 
     }
 }

@@ -1,7 +1,7 @@
 package testDatabaseManager;
 
-import controller.DataSet;
-import controller.DatabaseManager;
+import model.DataSet;
+import model.PostgresDatabaseManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +17,12 @@ import static junit.framework.TestCase.assertEquals;
 public class TestGetTableColumn {
     final String newline = System.lineSeparator();
 
-    private DatabaseManager manager;
+    private PostgresDatabaseManager manager;
     private String tableName;
 
     @Before
     public void setup() {
-        manager = new DatabaseManager();
+        manager = new PostgresDatabaseManager();
         String sqlCmd = "sqlCmd";
         String user = "postgres";
         String password = "1111";

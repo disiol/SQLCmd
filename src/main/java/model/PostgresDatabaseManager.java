@@ -1,37 +1,16 @@
-package controller;
+package model;
 
 import java.sql.*;
 import java.util.Arrays;
-import java.util.Random;
 
-public class DatabaseManager {
+public class PostgresDatabaseManager implements DatabaseManager {
 
     private Connection connection;
 
 
-    public void update() {
-        //TODO прием аргументов для обновления
-        PreparedStatement ps = null;
-        try {
-            ps = connection.prepareStatement("UPDATE public.users SET password = ? WHERE id > 3");
-            String pass = "password_" + new Random().nextInt();
-            ps.setString(1, pass);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
 
 
+    @Override
     public void connect(String database, String user, String password) {
         try {
             Class.forName("org.postgresql.Driver");
@@ -64,6 +43,7 @@ public class DatabaseManager {
     }
 
 
+    @Override
     public void clearATable(final String tableName) {
         Statement stmt = null;
         try {
@@ -86,6 +66,7 @@ public class DatabaseManager {
 
     }
 
+    @Override
     public void createATable(final String tableName) {
         //TODO прием аргументов
         Statement stmt = null;
@@ -115,6 +96,7 @@ public class DatabaseManager {
     }
 
 
+    @Override
     public DataSet[] getTableData(String tableName) {
         Statement stmt = null;
         try {
@@ -125,7 +107,6 @@ public class DatabaseManager {
             DataSet[] result = new DataSet[size];
             int index = 0;
             getData(rs, rsmd, result, index);
-            System.out.println(Arrays.toString(result));//TODO потом выпелить
             rs.close();
             return result;
         } catch (SQLException e) {
@@ -146,6 +127,7 @@ public class DatabaseManager {
 
     }
 
+    @Override
     public DataSet[] getTableColumns(String tableName, final String columnsName) {
         //TODO
         Statement stmt = null;
@@ -201,6 +183,7 @@ public class DatabaseManager {
         return size;
     }
 
+    @Override
     public String[] getTableNames() {
         //TODO дороботать масиф и аргуметы поиска
         try {
@@ -223,6 +206,7 @@ public class DatabaseManager {
     }
 
 
+    @Override
     public void insertData(String tableName, DataSet input) {
         // берет значения из  DataSet
         // вставлает их в таблицу
@@ -255,6 +239,7 @@ public class DatabaseManager {
     }
 
 
+    @Override
     public void updateTableData(final String tableName, int id, DataSet newValue) {
         PreparedStatement ps = null;
         try {
@@ -287,6 +272,7 @@ public class DatabaseManager {
     }
 
 
+    @Override
     public void dropTable(final String tableName) {
         Statement stmt = null;
         try {

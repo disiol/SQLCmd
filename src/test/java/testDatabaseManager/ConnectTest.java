@@ -1,11 +1,10 @@
 package testDatabaseManager;
 
-import controller.DatabaseManager;
+import model.PostgresDatabaseManager;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +17,7 @@ public class ConnectTest {
 
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    DatabaseManager databaseManager = new DatabaseManager();
+    PostgresDatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
     final String newline = System.lineSeparator();
 
 
@@ -29,7 +28,7 @@ public class ConnectTest {
         String database = "sqlCmd";
         String user = "postgres";
         String password = "1111";
-        databaseManager.connect(database,
+        postgresDatabaseManager.connect(database,
                 user, password);
         String expected = "Opened database successfully" + newline;
         String actual = outContent.toString();
@@ -46,11 +45,11 @@ public class ConnectTest {
         String user = "postgres";
         String password = "1111";
         String message = String.format("Cant get connection for database:%s user:%s", database, user);
-        databaseManager.connect(database,
+        postgresDatabaseManager.connect(database,
                 user, password);
         String expected = message + " ,database does not exist" + newline;
         String actual = outContent.toString();
-        assertEquals("The databaseManager does not exist", expected, actual);
+        assertEquals("The postgresDatabaseManager does not exist", expected, actual);
 
     }
 
@@ -61,7 +60,7 @@ public class ConnectTest {
         String database = "sqlCmd";
         String user = "postgres";
         String password = "";
-        databaseManager.connect(database,
+        postgresDatabaseManager.connect(database,
                 user, password);
 
         String expected;
@@ -80,7 +79,7 @@ public class ConnectTest {
         String database = "sqlCmd";
         String user = "q";
         String password = "1111";
-        databaseManager.connect(database, user, password);
+        postgresDatabaseManager.connect(database, user, password);
         String expected;
         String actual = outContent.toString();
         expected = String.format("Cant get connection for database:%s user:%s", database, user) +

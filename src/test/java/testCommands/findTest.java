@@ -1,15 +1,13 @@
 package testCommands;
 
-import controller.DataSet;
-import controller.DatabaseManager;
+import model.DataSet;
+import model.PostgresDatabaseManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
@@ -19,12 +17,15 @@ public class findTest {
     final String newline = System.lineSeparator();
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-    private DatabaseManager manager;
+    private PostgresDatabaseManager manager;
 
     @Before
     public void setup() {
-        manager = new DatabaseManager();
-        manager.connect("sqlCmd", "postgres", "1111");
+        manager = new PostgresDatabaseManager();
+        String database = "sqlCmd";
+        String user = "postgres";
+        String password = "1111";
+        manager.connect(database, user, password);
 
         //TODO crate table
     }
@@ -39,7 +40,6 @@ public class findTest {
         String expected = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)
                 .append("password:Pupkin" + newline).append("--------------------------") + newline.toString();
 
-        // manager.getTableData(tableName);
         DataSet[] actual = manager.getTableData(tableName);
 
         assertEquals(expected, Arrays.toString(actual));
