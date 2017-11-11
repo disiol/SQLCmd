@@ -1,5 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.model;
 
+
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,7 +68,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void createATable(final String tableName) {
-        //TODO прием аргументов
+        //TODO прием имен колонок
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
@@ -128,7 +129,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public DataSet[] getTableColumns(String tableName, final String columnsName) {
-        //TODO
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -238,6 +238,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void updateTableData(final String tableName, int id, DataSet newValue) {
+        //TODO добавить выбот схемы
         PreparedStatement ps = null;
         try {
             String tableNames = getNameFormated(newValue, "%s = ?,");
@@ -310,8 +311,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
 
-
-    //For tests
     @Override
     public void createDatabase(final String databaseName) {
         //TODO
@@ -348,12 +347,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     }
 
-    //for tests
-    public List<String> getDatabaseNames(){
+    public List<String> getDatabaseNames() {
         //TODO
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT datname FROM pg_database");
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT datname FROM pg_database");
             List<String> tables = new LinkedList<>();
             while (rs.next()) {
                 tables.add(rs.getString("datname"));
@@ -363,11 +363,25 @@ public class PostgresDatabaseManager implements DatabaseManager {
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    if (rs != null) {
+                        rs.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
         }
         return null;
     }
 
-    //For tests
+
     @Override
     public void dropDatabase(final String databaseName) {
         //TODO
