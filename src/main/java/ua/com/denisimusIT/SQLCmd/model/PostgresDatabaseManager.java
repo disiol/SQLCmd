@@ -183,7 +183,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public String[] getTableNames() {
-        //TODO дороботать масиф и аргуметы поиска
+        //TODO дороботать масиф и аргуметы поиска добавить выбот нужной схемы
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
