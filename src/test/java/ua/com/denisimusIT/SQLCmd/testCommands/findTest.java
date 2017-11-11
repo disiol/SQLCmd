@@ -17,6 +17,7 @@ public class findTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     private PostgresDatabaseManager manager;
+    private String tableName;
 
     @Before
     public void setup() {
@@ -30,7 +31,7 @@ public class findTest {
     @Test
     public void insertDataCorrect_id_101_name_Stiven_password_Pupkin()  {
         //TODO
-        String tableName = "users1";
+         tableName = "users1";
 
         // when
         manager.createATable(tableName);
@@ -62,5 +63,6 @@ public class findTest {
     @After
     public void deleteTable() {
         //TODO  drop  таблицу с данами
+        manager.dropTable(tableName);
     }
 }

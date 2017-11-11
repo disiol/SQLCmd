@@ -310,13 +310,11 @@ public class PostgresDatabaseManager implements DatabaseManager {
         return string;
     }
 
-    //For tests
-    public void dropDatabase() {
-        //TODO
-    }
+
 
     //For tests
     public void createDatabase(final String databaseName) {
+        //TODO
 
         Statement stmt = null;
         try {
@@ -350,11 +348,18 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     }
 
-
     //for tests
-    public void toShowNamesOfDatabases(){
+    public void ShowDatabase(){
         //TODO
     }
+
+    //For tests
+    public void dropDatabase() {
+        //TODO
+    }
+
+
+
 
 
 }

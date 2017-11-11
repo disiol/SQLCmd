@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.commands;
+package ua.com.denisimusIT.SQLCmd.controller.commands;
 
 public class tables {
 

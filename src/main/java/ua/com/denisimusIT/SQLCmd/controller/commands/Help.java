@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.commands;
+package ua.com.denisimusIT.SQLCmd.controller.commands;
 // Команда выводит в консоль список всех доступных команд•Формат: Help (без параметров)
 //•Формат вывода: текст, описания команд с любым форматированием
 

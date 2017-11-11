@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.commands;
+package ua.com.denisimusIT.SQLCmd.controller.commands;
 
 /**
  *Команда для подключения к соответствующей БД

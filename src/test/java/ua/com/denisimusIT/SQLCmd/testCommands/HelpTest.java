@@ -2,7 +2,7 @@ package ua.com.denisimusIT.SQLCmd.testCommands;
 
 
 import org.junit.Test;
-import ua.com.denisimusIT.SQLCmd.commands.Help;
+import ua.com.denisimusIT.SQLCmd.controller.commands.Help;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -18,6 +18,7 @@ public class HelpTest {
 
     @Test
     public void helpTest() {
+        //TODO
         String expected = new StringBuilder().append("Help: " + newline)
                 .append("•сonnect" + newline)
                 .append("•Команда для подключения к соответствующей БД" + newline)

@@ -1,8 +1,8 @@
-package ua.com.denisimusIT.SQLCmd.commands;
+package ua.com.denisimusIT.SQLCmd.controller.commands;
 
 public class insert {
 // TODO•Команда для вставки одной строки в заданную таблицу
-//•Формат: ua.com.denisimusIT.SQLCmd.commands.insertToTable | tableName | column1 | value1 | column2 | value2 | ... |
+//•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.insertToTable | tableName | column1 | value1 | column2 | value2 | ... |
 //    columnN | valueN
 //•где: tableName - имя таблицы
 //•column1 - имя первого столбца записи
