@@ -357,7 +357,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     //For tests
     @Override
-    public void dropDatabase() {
+    public void dropDatabase(final String databaseName) {
         //TODO
     }
 

@@ -26,7 +26,7 @@ public interface DatabaseManager {
     void ShowDatabase();
 
 
-    void dropDatabase();
+    void dropDatabase(final String databaseName);
 
     void selectDatabase();
 }
