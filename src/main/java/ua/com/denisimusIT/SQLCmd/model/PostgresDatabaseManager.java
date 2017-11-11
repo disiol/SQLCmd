@@ -348,7 +348,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     public List<String> getDatabaseNames() {
-        //TODO
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -358,8 +357,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
             while (rs.next()) {
                 tables.add(rs.getString("datname"));
             }
-            rs.close();
-            stmt.close();
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
