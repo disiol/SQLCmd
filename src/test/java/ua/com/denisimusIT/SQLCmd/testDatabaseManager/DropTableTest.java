@@ -35,7 +35,7 @@ public class DropTableTest {
         //defore
         postgresDatabaseManager.createATable(tableName);
         String expected = "[company]";
-        String[] actual = postgresDatabaseManager.getTableNames();
+        Object[] actual = postgresDatabaseManager.getTableNames().toArray();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
 
         System.setOut(new PrintStream(outContent));
@@ -51,7 +51,7 @@ public class DropTableTest {
 
 
         String expected_2 = "[]";
-        String[] actual_2 = postgresDatabaseManager.getTableNames();
+        Object[] actual_2 = postgresDatabaseManager.getTableNames().toArray();
         assertEquals("dropTableCompany", expected_2, Arrays.toString(actual_2));
 
         // создает таблицу и проверает создана ли она

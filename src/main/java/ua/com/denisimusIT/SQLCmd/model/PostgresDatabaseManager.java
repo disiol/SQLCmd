@@ -1,7 +1,8 @@
 package ua.com.denisimusIT.SQLCmd.model;
 
 import java.sql.*;
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PostgresDatabaseManager implements DatabaseManager {
 
@@ -182,24 +183,22 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public String[] getTableNames() {
+    public List<String> getTableNames() {
         //TODO дороботать масиф и аргуметы поиска добавить выбот нужной схемы
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
                     "AND table_type='BASE TABLE'");
-            String[] tables = new String[100];
-            int index = 0;
+            List<String> tables = new LinkedList<>();
             while (rs.next()) {
-                tables[index++] = rs.getString("table_name");
+                tables.add(rs.getString("table_name"));
             }
-            tables = Arrays.copyOf(tables, index, String[].class);
             rs.close();
             stmt.close();
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new String[0];
+            return new LinkedList<>(null);
         }
     }
 

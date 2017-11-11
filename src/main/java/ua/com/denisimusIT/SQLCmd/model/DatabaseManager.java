@@ -1,5 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.model;
 
+import java.util.List;
+
 public interface DatabaseManager {
     void connect(String database, String user, String password);
 
@@ -11,7 +13,7 @@ public interface DatabaseManager {
 
     DataSet[] getTableColumns(String tableName, String columnsName);
 
-    String[] getTableNames();
+    List<String> getTableNames();
 
     void insertData(String tableName, DataSet input);
 

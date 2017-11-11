@@ -60,7 +60,7 @@ public class CreateATableTest {
 
 
         String expected_1 = "[company]";
-        String[] actual_1 = postgresDatabaseManager.getTableNames();
+        Object[] actual_1 = postgresDatabaseManager.getTableNames().toArray();
         assertEquals("сreateTableCompany", expected_1, Arrays.toString(actual_1));
 
 

@@ -40,9 +40,9 @@ public class getTableNamesTest {
         //then
 
         String expected;
-        String[] actual;
+        Object[] actual;
         expected = "[company, users1]";
-        actual = postgresDatabaseManager.getTableNames();
+        actual = postgresDatabaseManager.getTableNames().toArray();
         assertEquals(expected, Arrays.toString(actual));
     }
 
