@@ -19,12 +19,14 @@ public interface DatabaseManager {
 
     void dropTable(String tableName);
 
-    //For tests
+
     void createDatabase(String databaseName);
 
-    //for tests
+
     void ShowDatabase();
 
-    //For tests
+
     void dropDatabase();
+
+    void selectDatabase();
 }
