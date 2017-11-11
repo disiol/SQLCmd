@@ -184,7 +184,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public List<String> getTableNames() {
-        //TODO дороботать масиф и аргуметы поиска добавить выбот нужной схемы
+        //TODO дороботать  аргуметы поиска добавить выбот нужной схемы
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
@@ -198,7 +198,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new LinkedList<>(null);
+            return null;
         }
     }
 
@@ -349,8 +349,21 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     //for tests
-    public String [] getDatabaseNames(){
+    public List<String> getDatabaseNames(){
         //TODO
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT datname FROM pg_database");
+            List<String> tables = new LinkedList<>();
+            while (rs.next()) {
+                tables.add(rs.getString("datname"));
+            }
+            rs.close();
+            stmt.close();
+            return tables;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

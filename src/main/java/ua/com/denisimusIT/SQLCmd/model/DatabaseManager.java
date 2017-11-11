@@ -25,7 +25,7 @@ public interface DatabaseManager {
     void createDatabase(String databaseName);
 
 
-    String [] getDatabaseNames();
+    List<String> getDatabaseNames();
 
 
     void dropDatabase(final String databaseName);
