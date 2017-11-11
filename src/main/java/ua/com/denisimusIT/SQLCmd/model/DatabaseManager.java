@@ -23,7 +23,7 @@ public interface DatabaseManager {
     void createDatabase(String databaseName);
 
 
-    void ShowDatabase();
+    String [] getDatabaseNames();
 
 
     void dropDatabase(final String databaseName);

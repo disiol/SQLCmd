@@ -350,9 +350,9 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     //for tests
-    @Override
-    public void ShowDatabase(){
+    public String [] getDatabaseNames(){
         //TODO
+        return null;
     }
 
     //For tests
