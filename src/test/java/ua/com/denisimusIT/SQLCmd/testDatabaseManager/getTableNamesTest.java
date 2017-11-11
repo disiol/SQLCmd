@@ -1,5 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
 
+import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import org.junit.After;
 import org.junit.Before;
@@ -15,7 +16,7 @@ import static junit.framework.TestCase.assertEquals;
  * mail: deoniisii@gmail.com
  */
 public class getTableNamesTest {
-    PostgresDatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
+    DatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
 
     @Before
     public void connectToDataBase() {

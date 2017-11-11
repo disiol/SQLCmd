@@ -1,5 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
 
+import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class ConnectTest {
 
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    PostgresDatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
+    DatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
     final String newline = System.lineSeparator();
 
 

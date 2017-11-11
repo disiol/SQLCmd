@@ -1,5 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
 
+import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class CreateATableTest {
     final String newline = System.lineSeparator();
 
 
-    PostgresDatabaseManager postgresDatabaseManager;
+    DatabaseManager postgresDatabaseManager;
 
     @Before
     public void connectToDataBase() {

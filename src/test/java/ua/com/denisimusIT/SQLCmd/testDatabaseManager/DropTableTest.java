@@ -1,5 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
 
+import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import java.util.Arrays;
 import static junit.framework.TestCase.assertEquals;
 
 public class DropTableTest {
-    PostgresDatabaseManager postgresDatabaseManager;
+    DatabaseManager postgresDatabaseManager;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     final String newline = System.lineSeparator();
 

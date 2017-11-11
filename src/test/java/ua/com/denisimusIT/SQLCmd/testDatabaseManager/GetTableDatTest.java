@@ -1,6 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
 
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
+import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import org.junit.*;
 
@@ -15,7 +16,7 @@ import static junit.framework.TestCase.assertEquals;
 public class GetTableDatTest {
 
 
-    private PostgresDatabaseManager manager;
+    private DatabaseManager manager;
     private String tableName;
 
     @Before

@@ -18,4 +18,13 @@ public interface DatabaseManager {
     void updateTableData(String tableName, int id, DataSet newValue);
 
     void dropTable(String tableName);
+
+    //For tests
+    void createDatabase(String databaseName);
+
+    //for tests
+    void ShowDatabase();
+
+    //For tests
+    void dropDatabase();
 }

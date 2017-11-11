@@ -1,6 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
 
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
+import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +18,7 @@ import static junit.framework.TestCase.assertEquals;
 public class TestGetTableColumn {
     final String newline = System.lineSeparator();
 
-    private PostgresDatabaseManager manager;
+    private DatabaseManager manager;
     private String tableName;
 
     @Before

@@ -1,6 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.testCommands;
 
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
+import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +17,7 @@ public class findTest {
     final String newline = System.lineSeparator();
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-    private PostgresDatabaseManager manager;
+    private DatabaseManager manager;
     private String tableName;
 
     @Before
