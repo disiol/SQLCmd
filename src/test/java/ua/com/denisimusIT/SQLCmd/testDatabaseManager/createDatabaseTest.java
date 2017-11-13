@@ -7,6 +7,8 @@ import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -15,7 +17,7 @@ public class createDatabaseTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private PostgresDatabaseManager postgresDatabaseManager;
     private String dataBaseName;
-    private Object[] actualDatabaseNames;
+    private Object[] actualDatabaseNamesSorted;
 
     @Before
     public void connectToDataBase() {
@@ -29,9 +31,16 @@ public class createDatabaseTest {
 
     @Before
     public void DatabaseNames() {
-        String expected = "[template1, template0, postgres, sqlCmd]";
-        actualDatabaseNames = postgresDatabaseManager.getDatabaseNames().toArray();
-        assertEquals("getDatabaseNames", expected, Arrays.toString(this.actualDatabaseNames));
+        String expected = "[postgres, template0, template1]";
+        List<String> actualDatabaseNames =postgresDatabaseManager.getDatabaseNames();
+
+        Collections.sort(actualDatabaseNames);
+
+
+        actualDatabaseNamesSorted = actualDatabaseNames.toArray();
+
+
+        assertEquals("getDatabaseNames", expected, Arrays.toString(this.actualDatabaseNamesSorted));
     }
 
     @Test
@@ -42,8 +51,8 @@ public class createDatabaseTest {
         dataBaseName = "testDatabase";
         postgresDatabaseManager.createDatabase(dataBaseName);
 
-        Object expectedDatabaseNames = this.actualDatabaseNames;
-        assertEquals("createDatabaseTest", expectedDatabaseNames, this.actualDatabaseNames);
+        Object expectedDatabaseNames = this.actualDatabaseNamesSorted;
+        assertEquals("createDatabaseTest", expectedDatabaseNames, this.actualDatabaseNamesSorted);
 
         Object expected = "Creating database...\n" +
                           "Database created successfully...\n";

@@ -21,7 +21,7 @@ public class dropDatabaseTest {
 
     @Before
     public void connectToDataBase() {
-        String dataBase = "postgres";
+        String dataBase = "sqlCmd";
         String user = "postgres";
         String password = "1111";
 
