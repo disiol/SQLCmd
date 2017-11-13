@@ -37,7 +37,7 @@ public class createDatabaseTest {
         Collections.sort(actualDatabaseNames);
         actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("getDatabaseNames", expected, Arrays.toString(this.actualDatabaseNamesSorted));
-        ;
+
     }
 
     @Test
