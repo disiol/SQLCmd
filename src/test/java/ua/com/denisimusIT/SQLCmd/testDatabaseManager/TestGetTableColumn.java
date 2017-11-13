@@ -24,7 +24,7 @@ public class TestGetTableColumn {
     @Before
     public void setup() {
         manager = new PostgresDatabaseManager();
-        String sqlCmd = "sqlCmd";
+        String sqlCmd = "postgres";
         String user = "postgres";
         String password = "1111";
         manager.connect(sqlCmd, user, password);

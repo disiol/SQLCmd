@@ -22,7 +22,10 @@ public class GetTableDatTest {
     @Before
     public void setup() {
         manager = new PostgresDatabaseManager();
-        manager.connect("sqlCmd", "postgres", "1111");
+        String database = "postgres";
+        String user = "postgres";
+        String password = "1111";
+        manager.connect(database, user, password);
 
     }
 

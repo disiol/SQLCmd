@@ -21,9 +21,10 @@ public class dropDatabaseTest {
 
     @Before
     public void connectToDataBase() {
-        String dataBase = "sqlCmd";
+        String dataBase = "postgres";
         String user = "postgres";
         String password = "1111";
+
 
         postgresDatabaseManager = new PostgresDatabaseManager();
         postgresDatabaseManager.connect(dataBase, user, password);

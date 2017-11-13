@@ -20,7 +20,7 @@ public class getTableNamesTest {
 
     @Before
     public void connectToDataBase() {
-        String dataBase = "sqlCmd";
+        String dataBase = "postgres";
         String user = "postgres";
         String password = "1111";
         postgresDatabaseManager.connect(dataBase, user, password);

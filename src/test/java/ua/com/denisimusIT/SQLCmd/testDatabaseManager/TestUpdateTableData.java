@@ -24,7 +24,10 @@ public class TestUpdateTableData {
     @Before
     public void setup() {
         manager = new PostgresDatabaseManager();
-        manager.connect("sqlCmd", "postgres", "1111");
+        String database = "sqlCmd";
+        String user = "postgres";
+        String password = "1111";
+        manager.connect(database, user, password);
 
     }
 
