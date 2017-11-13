@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -24,11 +26,12 @@ public class getTableNamesTest {
         String user = "postgres";
         String password = "1111";
         postgresDatabaseManager.connect(dataBase, user, password);
+        //TODO создать и выбрать баззу
 
     }
 
     @Test
-    public void users() throws SQLException {
+    public void users() {
 
         //before
         String tableName = "COMPANY";
@@ -39,17 +42,18 @@ public class getTableNamesTest {
 
         //then
 
-        String expected;
-        Object[] actual;
-        expected = "[company, users1]";
-        actual = postgresDatabaseManager.getTableNames().toArray();
+
+        String expected = "[company, users1]";
+        List<String> tableNames = postgresDatabaseManager.getTableNames();
+        Collections.sort(tableNames);
+        Object[] actual = tableNames.toArray();
         assertEquals(expected, Arrays.toString(actual));
     }
 
 
     @After
     public void deleteTable() {
-        // drop  таблицу с данами
+        // TODO drop  базу с данами
         postgresDatabaseManager.dropTable("company,users1");
     }
 }
