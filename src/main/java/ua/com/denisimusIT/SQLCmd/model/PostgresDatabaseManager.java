@@ -25,8 +25,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
             System.out.println("Opened database successfully");
         } catch (SQLException e) {
             String message = String.format("Cant get connection for database:%s user:%s", database, user);
-            e.printStackTrace();
-            String error = e.toString();//TODO убрать при финальном релизе
+            e.printStackTrace();//TODO убрать при финальном релизе
+            String error = e.toString();
             String errorUser = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + user + "\"";
             String errorDatabase = "org.postgresql.util.PSQLException: FATAL: database \"" + database + "\" does not exist";
             if (error.equals(errorUser)) {
@@ -378,12 +378,41 @@ public class PostgresDatabaseManager implements DatabaseManager {
         return null;
     }
 
-
     @Override
     public void dropDatabase(final String databaseName) {
         //TODO
-    }
 
+        Statement stmt = null;
+        try {
+            System.out.println("Creating database...");
+            stmt = connection.createStatement();
+
+            String sql = "DROP DATABASE " + databaseName;
+            stmt.executeUpdate(sql);
+            System.out.println("Database drop successfully...");
+        } catch (SQLException se) {
+            connection = null;
+            se.printStackTrace();
+        } catch (Exception e) {
+            connection = null;
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+                se2.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+    }
     @Override
     public void selectDatabase() {
         //TODO

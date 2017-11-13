@@ -28,7 +28,6 @@ public class getDatabaseNamesTest {
 
     @Test
     public void ShowDatabaseTest() {
-        postgresDatabaseManager.getDatabaseNames();
 
         String expected = "[template1, template0, postgres, sqlCmd]";
         Object[] actual = postgresDatabaseManager.getDatabaseNames().toArray();
