@@ -19,7 +19,7 @@ public class DropTableTest {
 
     @Before
     public void connectToDataBase() {
-        String dataBase = "sqlCmd";
+        String dataBase = "postgres";
         String user = "postgres";
         String password = "1111";
 

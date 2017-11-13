@@ -26,7 +26,7 @@ public class ConnectTest {
     public void ConnectTest() {
         System.setOut(new PrintStream(outContent));
 
-        String database = "sqlCmd";
+        String database = "postgres";
         String user = "postgres";
         String password = "1111";
         postgresDatabaseManager.connect(database,

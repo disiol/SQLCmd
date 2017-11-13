@@ -413,10 +413,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
         }
 
     }
-
-
     @Override
     public void selectDatabase() {
+        //TODO
+    }
+
+    @Override
+    public void createUser(String newUser, String newPassword) {
         //TODO
     }
 
