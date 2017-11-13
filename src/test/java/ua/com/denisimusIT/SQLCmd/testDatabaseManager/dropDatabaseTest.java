@@ -25,6 +25,7 @@ public class dropDatabaseTest {
         String user = "postgres";
         String password = "1111";
 
+
         postgresDatabaseManager = new PostgresDatabaseManager();
         postgresDatabaseManager.connect(dataBase, user, password);
     }
