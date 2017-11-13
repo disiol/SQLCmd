@@ -7,6 +7,7 @@ import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
@@ -14,6 +15,7 @@ import static junit.framework.TestCase.assertEquals;
 public class getDatabaseNamesTest {
     final String newline = System.lineSeparator();
     PostgresDatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
+    private String dataBaseName;
 
     @Before
     public void connectToDataBase() {
@@ -21,7 +23,13 @@ public class getDatabaseNamesTest {
         String user = "postgres";
         String password = "1111";
         postgresDatabaseManager.connect(dataBase, user, password);
-        //TODO crate data bese
+
+    }
+
+    @Before
+    public void createDatabase() {
+        dataBaseName = "testdatabase";
+        postgresDatabaseManager.createDatabase(dataBaseName);
 
     }
 
@@ -29,15 +37,17 @@ public class getDatabaseNamesTest {
     @Test
     public void ShowDatabaseTest() {
 
-        String expected = "[template1, template0, postgres, sqlCmd]";
-        Object[] actual = postgresDatabaseManager.getDatabaseNames().toArray();
-
-        assertEquals("getDatabaseNames", expected, Arrays.toString(actual));
+        String expected = "[postgres, template0, template1, " + this.dataBaseName + "]";
+        connectToDataBase();
+        List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
+        Collections.sort(actualDatabaseNames);
+        Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
+        assertEquals("getDatabaseNames", expected, Arrays.toString(actualDatabaseNamesSorted));
     }
 
     @After
 
     public void drop(){
-        //TODO drop data bese
+        postgresDatabaseManager.dropDatabase(dataBaseName);
     }
 }
