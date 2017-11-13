@@ -18,6 +18,7 @@ public class createDatabaseTest {
     private PostgresDatabaseManager postgresDatabaseManager;
     private String dataBaseName;
     private Object[] actualDatabaseNamesSorted;
+    final String newline = System.lineSeparator();
 
     @Before
     public void connectToDataBase() {
@@ -32,10 +33,11 @@ public class createDatabaseTest {
     @Before
     public void DatabaseNames() {
         String expected = "[postgres, template0, template1]";
-        List<String> actualDatabaseNames =postgresDatabaseManager.getDatabaseNames();
+        List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
         actualDatabaseNamesSorted = actualDatabaseNames.toArray();
-        assertEquals("getDatabaseNames", expected, Arrays.toString(this.actualDatabaseNamesSorted));;
+        assertEquals("getDatabaseNames", expected, Arrays.toString(this.actualDatabaseNamesSorted));
+        ;
     }
 
     @Test
@@ -49,8 +51,8 @@ public class createDatabaseTest {
         Object expectedDatabaseNames = this.actualDatabaseNamesSorted;
         assertEquals("createDatabaseTest", expectedDatabaseNames, this.actualDatabaseNamesSorted);
 
-        Object expected = "Creating database...\n" +
-                          "Database created successfully...\n";
+        Object expected = "Creating database..." + newline +
+                "Database created successfully..." + newline;
         String actual = outContent.toString();
         assertEquals("Database created successfully...", expected, actual);
 
