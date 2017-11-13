@@ -30,15 +30,15 @@ public class dropDatabaseTest {
         postgresDatabaseManager.connect(dataBase, user, password);
     }
 
-    @Before
-    public void createDatabase() {
-        dataBaseName = "testdatabase";
-        postgresDatabaseManager.createDatabase(dataBaseName);
-        String expected = "[template1, template0, postgres, sqlCmd, " + dataBaseName + "]";
-        connectToDataBase();
-        Object[] actualDatabaseNames = postgresDatabaseManager.getDatabaseNames().toArray();
-        assertEquals("getDatabaseNames", expected, Arrays.toString(actualDatabaseNames));
-    }
+//    @Before
+//    public void createDatabase() {
+//        dataBaseName = "testdatabase";
+//        postgresDatabaseManager.createDatabase(dataBaseName);
+//        String expected = "[template1, template0, postgres, sqlCmd, " + dataBaseName + "]";
+//        connectToDataBase();
+//        Object[] actualDatabaseNames = postgresDatabaseManager.getDatabaseNames().toArray();
+//        assertEquals("getDatabaseNames", expected, Arrays.toString(actualDatabaseNames));
+//    }
 
 
     @Test
