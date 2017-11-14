@@ -68,7 +68,7 @@ public class dropDatabaseTest {
         dataBaseNames.remove(this.dataBaseName);
         Collections.sort(dataBaseNames);
 
-        String expected = dataBaseName.toString();
+        String expected = dataBaseNames.toString();
         List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
