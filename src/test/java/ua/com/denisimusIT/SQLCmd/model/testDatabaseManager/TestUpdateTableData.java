@@ -1,9 +1,11 @@
-package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
+package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Arrays;
 
@@ -13,7 +15,7 @@ import static junit.framework.TestCase.assertEquals;
  * Created by Denis Oleynyk on 06.10.17.
  * mail: deoniisii@gmail.com
  */
-public class GetTableDatTest {
+public class TestUpdateTableData {
 
 
     private DatabaseManager manager;
@@ -30,30 +32,32 @@ public class GetTableDatTest {
     }
 
     @Test
-    public void testGetTableData() {
+    public void ChangeOfTheTable() {
 
         tableName = "company";
-
-        // when
         manager.createATable(tableName);
-        String expected = "[" + tableName + "]";
-        Object[] actual = manager.getTableNames().toArray();
-        assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
 
 
         DataSet input = new DataSet();
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
-        manager.insertData(tableName, input);
+        manager.insertData(tableName,input);
+
+        // when
+        DataSet newValue = new DataSet();
+        newValue.put("password", "pass2");
+        newValue.put("name", "Pup");
+        manager.updateTableData(tableName, 13, newValue);
 
         // then
-        DataSet[] company = manager.getTableData(tableName);
-        assertEquals(1, company.length);
+        DataSet[] users = manager.getTableData(tableName);
+        assertEquals(1, users.length);
 
-        DataSet user = company[0];
+        DataSet user = users[0];
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, Stiven, pass]", Arrays.toString(user.getValues()));
+        assertEquals("[13, Pup, pass2]", Arrays.toString(user.getValues()));
+
     }
 
 

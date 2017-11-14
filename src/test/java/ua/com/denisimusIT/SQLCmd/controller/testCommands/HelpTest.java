@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.testCommands;
+package ua.com.denisimusIT.SQLCmd.controller.testCommands;
 
 
 import org.junit.Test;

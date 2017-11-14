@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
+package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import org.junit.After;
 import org.junit.Before;
@@ -45,6 +45,10 @@ public class getDatabaseNamesTest {
         String expected = databaseNames.toString();
         List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
+
+        for (String s: actualDatabaseNames) {
+
+        }
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("getDatabaseNames", expected, Arrays.toString(actualDatabaseNamesSorted));
     }

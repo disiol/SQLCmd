@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
+package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;

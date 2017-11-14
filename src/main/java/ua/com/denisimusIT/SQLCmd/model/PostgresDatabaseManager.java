@@ -421,7 +421,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public List<String> currentDatabase() {
-     //TODO
+
         Statement stmt = null;
         ResultSet rs = null;
         try {

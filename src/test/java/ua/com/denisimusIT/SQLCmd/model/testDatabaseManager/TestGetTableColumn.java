@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
+package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;

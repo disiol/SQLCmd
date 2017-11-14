@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
+package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import org.junit.After;
 import org.junit.Before;
