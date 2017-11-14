@@ -238,7 +238,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void updateTableData(final String tableName, int id, DataSet newValue) {
-        //TODO добавить выбот схемы
+        //TODO добавить выбор схемы
         PreparedStatement ps = null;
         try {
             String tableNames = getNameFormatted(newValue, "%s = ?,");
