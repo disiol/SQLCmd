@@ -1,7 +1,8 @@
-package ua.com.denisimusIT.SQLCmd.testDatabaseManager;
+package ua.com.denisimusIT.SQLCmd.testCommands;
 
-import org.junit.*;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
 import java.io.ByteArrayOutputStream;
@@ -12,12 +13,13 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
+public class currentDatabaseTest {
 
-public class createDatabaseTest {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private PostgresDatabaseManager postgresDatabaseManager;
     private String dataBaseName;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     final String newline = System.lineSeparator();
+
 
     @Before
     public void connectToDataBase() {
@@ -25,45 +27,53 @@ public class createDatabaseTest {
         String user = "postgres";
         String password = "1111";
 
+
         postgresDatabaseManager = new PostgresDatabaseManager();
         postgresDatabaseManager.connect(dataBase, user, password);
     }
 
-
-    @Test
-
-    public void createDatabaseTest() {
-        System.setOut(new PrintStream(outContent));
-
-        //before
+    @Before
+    public void createDatabase() {
         dataBaseName = "testdatabase";
+
         List<String> dataBaseNames = postgresDatabaseManager.getDatabaseNames();
         dataBaseNames.add(this.dataBaseName);
         Collections.sort(dataBaseNames);
+
         Object[] expected = dataBaseNames.toArray();
 
 
-        //then
         postgresDatabaseManager.createDatabase(dataBaseName);
+
         connectToDataBase();
         List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
+    }
+
+    //TODO selectDatabase
 
 
-        Object expectedMessage = "Creating database..." + newline +
-                "Database created successfully..." + newline +
-                "Opened database successfully" + newline;
+    @Test
+    public void currentDatabaseTest() {
+        connectToDataBase();
+        System.setOut(new PrintStream(outContent));
+
+        postgresDatabaseManager.currentDatabase();
+
+        String expected = "current_database " + newline +
+                          "------------------" + newline +
+                          " postgres" + newline;
         String actual = outContent.toString();
-        assertEquals("Database created successfully...", expectedMessage, actual);
-
-
+        assertEquals("currentDatabase", expected, actual);
     }
 
     @After
     public void dropDatabase() {
+
         connectToDataBase();
-        postgresDatabaseManager.dropDatabase(this.dataBaseName);
+        postgresDatabaseManager.dropDatabase(dataBaseName);
+
     }
 }

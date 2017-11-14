@@ -57,14 +57,10 @@ public class currentDatabaseTest {
 
     @Test
     public void currentDatabaseTest() {
-        System.setOut(new PrintStream(outContent));
 
-        postgresDatabaseManager.currentDatabase();
+        String expected = "[postgres]";
+        String actual = postgresDatabaseManager.currentDatabase().toString();
 
-        String expected = "current_database " + newline +
-                          "------------------" + newline +
-                          " postgres" + newline;
-        String actual = outContent.toString();
         assertEquals("currentDatabase", expected, actual);
     }
 

@@ -32,7 +32,7 @@ public interface DatabaseManager {
 
     void selectDatabase(String databaseName);
 
-    void currentDatabase();
+    List<String> currentDatabase();
 
     void createUser(String newUser, String newPassword);
 

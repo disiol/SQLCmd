@@ -347,6 +347,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     }
 
+
+    @Override
     public List<String> getDatabaseNames() {
         Statement stmt = null;
         ResultSet rs = null;
@@ -380,7 +382,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void dropDatabase(final String databaseName) {
-        //TODO
 
         Statement stmt = null;
         try {
@@ -420,8 +421,36 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void currentDatabase() {
+    public List<String> currentDatabase() {
      //TODO
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT current_database();");
+            List<String> databaseName = new LinkedList<>();
+            while (rs.next()) {
+                databaseName.add(rs.getString("current_database"));
+            }
+            return databaseName;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    if (rs != null) {
+                        rs.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+        return null;
     }
 
 
