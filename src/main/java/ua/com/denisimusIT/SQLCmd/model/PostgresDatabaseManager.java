@@ -423,5 +423,10 @@ public class PostgresDatabaseManager implements DatabaseManager {
         //TODO
     }
 
+    @Override
+    public void giveAccess(String databaseName, String userName) {
+
+    }
+
 
 }

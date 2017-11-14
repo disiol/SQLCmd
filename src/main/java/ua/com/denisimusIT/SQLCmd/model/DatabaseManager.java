@@ -32,6 +32,8 @@ public interface DatabaseManager {
 
     void selectDatabase();
 
-    void createUser(String newUser,String newPassword);
+    void createUser(String newUser, String newPassword);
+
+    void giveAccess(String databaseName, String userName);
 
 }
