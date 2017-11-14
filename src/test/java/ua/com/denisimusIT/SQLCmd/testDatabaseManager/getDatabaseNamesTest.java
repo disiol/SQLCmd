@@ -37,8 +37,12 @@ public class getDatabaseNamesTest {
     @Test
     public void ShowDatabaseTest() {
 
-        String expected = "[postgres, template0, template1, " + this.dataBaseName + "]";
         connectToDataBase();
+        List<String> databaseNames = postgresDatabaseManager.getDatabaseNames();
+        Collections.sort(databaseNames);
+
+
+        String expected = databaseNames.toString();
         List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
