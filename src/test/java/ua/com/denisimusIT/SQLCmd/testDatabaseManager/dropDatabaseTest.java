@@ -35,15 +35,23 @@ public class dropDatabaseTest {
 
     @Before
     public void createDatabase() {
-        dataBaseName = "testdatabase";
-        postgresDatabaseManager.createDatabase(dataBaseName);
-        String expected = "[postgres, template0, template1, " + this.dataBaseName + "]";
 
+        //before
+        dataBaseName = "testdatabase";
+        List<String> dataBaseNames = postgresDatabaseManager.getDatabaseNames();
+        dataBaseNames.add(this.dataBaseName);
+        Collections.sort(dataBaseNames);
+        Object[] expected = dataBaseNames.toArray();
+
+
+        //then
+        postgresDatabaseManager.createDatabase(dataBaseName);
         connectToDataBase();
         List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
-        assertEquals("getDatabaseNames", expected, Arrays.toString(actualDatabaseNamesSorted));
+        assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
+
     }
 
 
@@ -55,7 +63,12 @@ public class dropDatabaseTest {
         postgresDatabaseManager.dropDatabase(dataBaseName);
 
         connectToDataBase();
-        String expected = "[postgres, template0, template1]";
+
+        List<String> dataBaseNames = postgresDatabaseManager.getDatabaseNames();
+        dataBaseNames.remove(this.dataBaseName);
+        Collections.sort(dataBaseNames);
+
+        String expected = dataBaseName.toString();
         List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
