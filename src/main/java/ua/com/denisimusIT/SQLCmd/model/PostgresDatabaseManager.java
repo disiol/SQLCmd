@@ -214,7 +214,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
 
-            String tableNames = getNameFormated(input, "%s,");
+            String tableNames = getNameFormatted(input, "%s,");
             String values = getValuesFormated(input, "'%s',");
 
             stmt.executeUpdate("INSERT INTO " + tableName + "(" + tableNames + ")" +
@@ -241,7 +241,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         //TODO добавить выбот схемы
         PreparedStatement ps = null;
         try {
-            String tableNames = getNameFormated(newValue, "%s = ?,");
+            String tableNames = getNameFormatted(newValue, "%s = ?,");
 
             String sql = "UPDATE public." + tableName + " SET " + tableNames + " WHERE id = ?";
             System.out.println(sql);
@@ -301,7 +301,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         return values;
     }
 
-    private String getNameFormated(DataSet newValue, String format) {
+    private String getNameFormatted(DataSet newValue, String format) {
         String string = "";
         for (String name : newValue.getNames()) {
             string += String.format(format, name);
@@ -414,7 +414,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     }
     @Override
-    public void selectDatabase() {
+    public void selectDatabase(String databaseName) {
         //TODO
     }
 
@@ -425,7 +425,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void giveAccess(String databaseName, String userName) {
-
+      //TODO
     }
 
 
