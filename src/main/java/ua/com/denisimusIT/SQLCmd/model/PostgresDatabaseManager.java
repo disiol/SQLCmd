@@ -413,10 +413,17 @@ public class PostgresDatabaseManager implements DatabaseManager {
         }
 
     }
+
     @Override
     public void selectDatabase(String databaseName) {
         //TODO
     }
+
+    @Override
+    public void currentDatabase() {
+     //TODO
+    }
+
 
     @Override
     public void createUser(String newUser, String newPassword) {
@@ -425,7 +432,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void giveAccess(String databaseName, String userName) {
-      //TODO
+        //TODO
     }
 
 
