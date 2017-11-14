@@ -215,7 +215,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt = connection.createStatement();
 
             String tableNames = getNameFormatted(input, "%s,");
-            String values = getValuesFormated(input, "'%s',");
+            String values = getValuesFormatted(input, "'%s',");
 
             stmt.executeUpdate("INSERT INTO " + tableName + "(" + tableNames + ")" +
                     "VALUES (" + values + ")");
@@ -292,7 +292,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
 
-    private String getValuesFormated(DataSet input, String format) {
+    private String getValuesFormatted(DataSet input, String format) {
         String values = "";
         for (Object value : input.getValues()) {
             values += String.format(format, value);
@@ -313,7 +313,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void createDatabase(final String databaseName) {
-        //TODO
 
         Statement stmt = null;
         try {
