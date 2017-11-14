@@ -30,31 +30,34 @@ public class createDatabaseTest {
         postgresDatabaseManager.connect(dataBase, user, password);
     }
 
-    @Before
-    public void DatabaseNames() {
-        String expected = "[postgres, template0, template1]";
-        List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
-        Collections.sort(actualDatabaseNames);
-        actualDatabaseNamesSorted = actualDatabaseNames.toArray();
-        assertEquals("getDatabaseNames", expected, Arrays.toString(this.actualDatabaseNamesSorted));
-
-    }
 
     @Test
 
     public void createDatabaseTest() {
         System.setOut(new PrintStream(outContent));
 
-        dataBaseName = "testDatabase";
+        //before
+        dataBaseName = "testdatabase";
+        List<String> dataBaseNames = postgresDatabaseManager.getDatabaseNames();
+        dataBaseNames.add(this.dataBaseName);
+        Collections.sort(dataBaseNames);
+        Object[] expected = dataBaseNames.toArray();
+
+
+        //then
         postgresDatabaseManager.createDatabase(dataBaseName);
+        connectToDataBase();
+        List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
+        Collections.sort(actualDatabaseNames);
+        Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
+        assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
 
-        Object expectedDatabaseNames = this.actualDatabaseNamesSorted;
-        assertEquals("createDatabaseTest", expectedDatabaseNames, this.actualDatabaseNamesSorted);
 
-        Object expected = "Creating database..." + newline +
-                "Database created successfully..." + newline;
+        Object expectedMessage = "Creating database..." + newline +
+                "Database created successfully..." + newline +
+                "Opened database successfully" + newline;
         String actual = outContent.toString();
-        assertEquals("Database created successfully...", expected, actual);
+        assertEquals("Database created successfully...", expectedMessage, actual);
 
 
     }
