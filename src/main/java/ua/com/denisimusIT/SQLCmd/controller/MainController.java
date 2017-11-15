@@ -17,22 +17,29 @@ public class MainController {
     public static void main(String[] args) {
         View view = new Console();
         DatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
-        view.write(GREETING);
-        String string = view.read();
-        String[] data = string.split("\\|");
-        String databaseName = data[0];
-        String userName = data[1];
-        String password = data[2];
 
-        try {
-            postgresDatabaseManager.connect(databaseName, userName, password);
-        } catch (Exception e) {
-            String message = e.getMessage();
-            if (e.getCause() != null) {
-                message += " " + e.getCause().getMessage();
+        view.write(GREETING);
+
+
+        while (true) {
+            try {
+
+                String string = view.read();
+                String[] data = string.split("\\|");
+                String databaseName = data[0];
+                String userName = data[1];
+                String password = data[2];
+                postgresDatabaseManager.connect(databaseName, userName, password);
+                break;
+
+            } catch (Exception e) {
+                String message = e.getMessage();
+                if (e.getCause() != null) {
+                    message += " " + e.getCause().getMessage();
+                }
+                view.write("Failure! For the reason " + message);
+                view.write("Repeat attempt please");
             }
-            view.write("Failure! For the reason " + message);
-            view.write("Repeat attempt please");
         }
 
 
