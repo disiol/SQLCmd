@@ -37,12 +37,12 @@ public class MainController {
                 if (e.getCause() != null) {
                     message += " " + e.getCause().getMessage();
                 }
-                view.write("Failure! For the reason " + message);
+                view.write("Failure! For the reason : " + message);
                 view.write("Repeat attempt please");
             }
         }
 
 
-    }
+     }
 
 }
