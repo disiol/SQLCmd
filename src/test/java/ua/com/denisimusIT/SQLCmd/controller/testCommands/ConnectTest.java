@@ -1,10 +1,10 @@
-package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
+package ua.com.denisimusIT.SQLCmd.controller.testCommands;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
-import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -25,7 +25,24 @@ public class ConnectTest {
 
     @Before
     public void createDatabase() {
-        //TODO
+       //TODO
+    }
+
+
+    @Test
+    public void ConnectTest() {
+        System.setOut(new PrintStream(outContent));
+
+        String database = "postgres";
+        String user = "postgres";
+        String password = "1111";
+        postgresDatabaseManager.connect(database,
+                user, password);
+        String expected = "Opened database successfully" + newline;
+        String actual = outContent.toString();
+
+        assertEquals("connect to data base", expected, actual);
+
     }
 
     @Test
@@ -44,7 +61,7 @@ public class ConnectTest {
 
     }
 
-    @org.junit.Test(expected = RuntimeException.class)
+    @Test
     public void notTheCorrectPassword() throws Exception {
         System.setOut(new PrintStream(outContent));
 
@@ -63,9 +80,23 @@ public class ConnectTest {
 
     }
 
+    @Test
+    public void theUserDoesNotExist() throws SQLException {
+        System.setOut(new PrintStream(outContent));
+
+        String database = "sqlCmd";
+        String user = "q";
+        String password = "1111";
+        postgresDatabaseManager.connect(database, user, password);
+        String expected;
+        String actual = outContent.toString();
+        expected = String.format("Cant get connection for database:%s user:%s", database, user) +
+                ", not the correct password or user name" + newline;
+        assertEquals("the user does not exist", expected, actual.toString());
+    }
 
     @After
-    public void dropDatabase() {
+    public void dropDatabase(){
 
     }
 

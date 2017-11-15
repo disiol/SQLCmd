@@ -11,33 +11,36 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public void connect(String database, String user, String password) {
+    public void connect(String databaseName, String userName, String password) {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("Please add jdbc jar to project.");
-            e.printStackTrace();
+            throw new RuntimeException("Please add jdbc jar to project.", e);
+
         }
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/" + database, user,
+                    "jdbc:postgresql://localhost:5432/" + databaseName, userName,
                     password);
             System.out.println("Opened database successfully");
         } catch (SQLException e) {
-            String message = String.format("Cant get connection for database:%s user:%s", database, user);
-            e.printStackTrace();//TODO убрать при финальном релизе
-            String error = e.toString();
-            String errorUser = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + user + "\"";
-            String errorDatabase = "org.postgresql.util.PSQLException: FATAL: database \"" + database + "\" does not exist";
-            if (error.equals(errorUser)) {
-                System.out.println(message + ", not the correct password or user name");
-            } else if (error.equals(errorDatabase)) {
-                System.out.println(message + " ,database does not exist");
-            } else {
-                System.out.println(message);
-
-            }
             connection = null;
+
+            throw new RuntimeException(
+                    String.format("Cant get connection for model:%s user:%s", databaseName, userName), e);
+//            String message = String.format("Cant get connection for database:%s user:%s", databaseName, userName);
+//            String error = e.toString();
+//            String errorUser = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + userName + "\"";
+//            String errorDatabase = "org.postgresql.util.PSQLException: FATAL: database \"" + databaseName + "\" does not exist";
+//            if (error.equals(errorUser)) {
+//                System.out.println(message + ", not the correct password or user name");
+//            } else if (error.equals(errorDatabase)) {
+//                System.out.println(message + " ,database does not exist");
+//            } else {
+//                System.out.println(message);
+//
+//            }
+
         }
 
     }

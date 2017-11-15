@@ -1,15 +1,18 @@
 package ua.com.denisimusIT.SQLCmd.view;
 
-public class Console implements View{
+import java.util.Scanner;
+
+public class Console implements View {
 
     @Override
     public void write(String message) {
-
+        System.out.println(message);
 
     }
 
     @Override
     public String read() {
-        return null;
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 }

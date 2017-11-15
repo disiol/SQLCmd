@@ -8,18 +8,21 @@ import java.io.PrintStream;
 import static junit.framework.TestCase.assertEquals;
 
 public class MainControllerTest {
-    final String newline = System.lineSeparator();
+    private static final  String NEWLINE = System.lineSeparator();
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
 
-    MainController mainController = new MainController();
+
 
     @Test
     public void MainControllerTest() {
+        //TODO
+        String [] testAreae;
+        MainController mainController = new MainController();
         System.setOut(new PrintStream(outContent));
-
-        String expected = "Welcome to SQLCmd! =)" + newline +
-                "For connection to the bazedanykh you veddit the connect | database | username | password " +
+        String expected = "Welcome to SQLCmd! =)" + NEWLINE +
+                "For connection to the database you enter the command : " + NEWLINE +
+                "connect | database | username | password " +
                 "or help command for a help call";
         String actual = outContent.toString();
         assertEquals("MainControllerTest", expected, actual);
