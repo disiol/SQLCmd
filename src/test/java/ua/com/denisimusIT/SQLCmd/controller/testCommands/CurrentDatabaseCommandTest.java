@@ -13,7 +13,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class currentDatabaseTest {
+public class CurrentDatabaseCommandTest {
 
     private PostgresDatabaseManager postgresDatabaseManager;
     private String dataBaseName;

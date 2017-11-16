@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class find {
+public class Find {
 
 // TODO•Команда для получения содержимого указанной таблицы
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.find | tableName•где tableName - имя таблицы

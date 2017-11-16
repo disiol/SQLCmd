@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class DatabaseNamesTest {
+public class DatabaseNamesCommandTest {
     final String newline = System.lineSeparator();
     PostgresDatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
 

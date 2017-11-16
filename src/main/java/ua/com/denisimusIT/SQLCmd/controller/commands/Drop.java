@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class drop {
+public class Drop {
 // TODO•Команда удаляет заданную таблицу
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.drop | tableName
 //•где tableName - имя удаляемой таблицы

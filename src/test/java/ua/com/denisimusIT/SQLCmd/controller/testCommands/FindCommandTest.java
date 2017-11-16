@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class findTest {
+public class FindCommandTest {
 
     final String newline = System.lineSeparator();
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();

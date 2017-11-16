@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class tables {
+public class Tables {
 
 // TODO•Команда выводит список всех таблиц
 //•Формат: tables (без параметров)

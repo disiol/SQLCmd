@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Denis Oleynyk on 25.09.17.
  * mail: deoniisii@gmail.com
  */
-public class ConnectTest {
+public class ConnectCommandTest {
 
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();

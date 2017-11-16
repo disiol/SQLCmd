@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class delete {
+public class Delete {
 // TODO •Команда удаляет одну или несколько записей для которых
 //    соблюдается условие column = value
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.delete | tableName | column | value

@@ -10,7 +10,7 @@ package ua.com.denisimusIT.SQLCmd.controller.commands;
  операции
  */
 
-public class сonnect {
+public class Connect {
 // TODO•Команда для подключения к соответствующей БД
 //•Формат команды: connect | database | username | password
 //•где: database - имя БД

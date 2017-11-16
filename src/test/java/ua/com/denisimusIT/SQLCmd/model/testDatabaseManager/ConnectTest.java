@@ -29,18 +29,18 @@ public class ConnectTest {
     }
 
     @Test
-    public void theDatabaseManagerDoesNotExist() throws SQLException {
+    public void ConnectTest() {
         System.setOut(new PrintStream(outContent));
 
-        String database = " q";
+        String database = "postgres";
         String user = "postgres";
         String password = "1111";
-        String message = String.format("Cant get connection for database:%s user:%s", database, user);
         postgresDatabaseManager.connect(database,
                 user, password);
-        String expected = message + " ,database does not exist" + newline;
+        String expected = "Opened database successfully" + newline;
         String actual = outContent.toString();
-        assertEquals("The postgresDatabaseManager does not exist", expected, actual);
+
+        assertEquals("connect to data base", expected, actual);
 
     }
 

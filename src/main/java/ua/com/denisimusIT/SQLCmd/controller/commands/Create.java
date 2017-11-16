@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class create {
+public class Create {
 //•TODO Команда создает новую таблицу с заданными полями
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.create | tableName | column1 | column2 | ... | columnN
 //•где: tableName - имя таблицы
