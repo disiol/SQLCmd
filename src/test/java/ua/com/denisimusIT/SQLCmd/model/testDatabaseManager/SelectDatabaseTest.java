@@ -13,13 +13,12 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class currentDatabaseTest {
 
+public class SelectDatabaseTest {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private PostgresDatabaseManager postgresDatabaseManager;
     private String dataBaseName;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     final String newline = System.lineSeparator();
-
 
     @Before
     public void connectToDataBase() {
@@ -27,24 +26,24 @@ public class currentDatabaseTest {
         String user = "postgres";
         String password = "1111";
 
-
         postgresDatabaseManager = new PostgresDatabaseManager();
         postgresDatabaseManager.connect(dataBase, user, password);
     }
 
-    @Before
-    public void createDatabase() {
-        dataBaseName = "testdatabase";
 
+    @Before
+
+    public void createDatabase() {
+        //before
+        dataBaseName = "testdatabase";
         List<String> dataBaseNames = postgresDatabaseManager.getDatabaseNames();
         dataBaseNames.add(this.dataBaseName);
         Collections.sort(dataBaseNames);
-
         Object[] expected = dataBaseNames.toArray();
 
 
+        //then
         postgresDatabaseManager.createDatabase(dataBaseName);
-
         connectToDataBase();
         List<String> actualDatabaseNames = postgresDatabaseManager.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
@@ -52,23 +51,25 @@ public class currentDatabaseTest {
         assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
     }
 
-    //TODO selectDatabase
-
-
     @Test
-    public void currentDatabaseTest() {
+    public void selectDatabaseTest() {
+        System.setOut(new PrintStream(outContent));
+        postgresDatabaseManager.selectDatabase(dataBaseName);
 
-        String expected = "[postgres]";
         String actual = postgresDatabaseManager.currentDatabase().toString();
+        String expected = "[" + dataBaseName + "]";
+        assertEquals("selectDatabase", expected, actual);
 
-        assertEquals("currentDatabase", expected, actual);
+        String expectedMessage = expected;
+        String actualMessage = outContent.toString();
+        assertEquals("selectDatabaseMassage", expectedMessage, actualMessage);
+
+
     }
 
     @After
     public void dropDatabase() {
-
         connectToDataBase();
-        postgresDatabaseManager.dropDatabase(dataBaseName);
-
+        postgresDatabaseManager.dropDatabase(this.dataBaseName);
     }
 }

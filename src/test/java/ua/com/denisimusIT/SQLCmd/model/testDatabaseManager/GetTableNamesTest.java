@@ -17,7 +17,7 @@ import static junit.framework.TestCase.assertEquals;
  * Created by Denis Oleynyk on 07.10.17.
  * mail: deoniisii@gmail.com
  */
-public class getTableNamesTest {
+public class GetTableNamesTest {
     DatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
 
     @Before

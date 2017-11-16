@@ -14,7 +14,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 
 
-public class dropDatabaseTest {
+public class DropDatabaseTest {
 
     private PostgresDatabaseManager postgresDatabaseManager;
     private String dataBaseName;

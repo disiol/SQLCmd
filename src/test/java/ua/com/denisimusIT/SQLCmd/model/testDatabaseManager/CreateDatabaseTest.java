@@ -1,8 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
 import java.io.ByteArrayOutputStream;
@@ -14,7 +13,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 
 
-public class selectDatabaseTest {
+public class CreateDatabaseTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private PostgresDatabaseManager postgresDatabaseManager;
     private String dataBaseName;
@@ -31,9 +30,11 @@ public class selectDatabaseTest {
     }
 
 
-    @Before
+    @Test
 
-    public void createDatabase() {
+    public void createDatabaseTest() {
+        System.setOut(new PrintStream(outContent));
+
         //before
         dataBaseName = "testdatabase";
         List<String> dataBaseNames = postgresDatabaseManager.getDatabaseNames();
@@ -49,20 +50,13 @@ public class selectDatabaseTest {
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
-    }
 
-    @Test
-    public void selectDatabaseTest() {
-        System.setOut(new PrintStream(outContent));
-        postgresDatabaseManager.selectDatabase(dataBaseName);
 
-        String actual = postgresDatabaseManager.currentDatabase().toString();
-        String expected = "[" + dataBaseName + "]";
-        assertEquals("selectDatabase", expected, actual);
-
-        String expectedMessage = expected;
-        String actualMessage = outContent.toString();
-        assertEquals("selectDatabaseMassage", expectedMessage, actualMessage);
+        Object expectedMessage = "Creating database..." + newline +
+                "Database created successfully..." + newline +
+                "Opened database successfully" + newline;
+        String actual = outContent.toString();
+        assertEquals("Database created successfully...", expectedMessage, actual);
 
 
     }
