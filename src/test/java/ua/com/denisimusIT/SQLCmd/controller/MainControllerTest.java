@@ -1,6 +1,8 @@
 package ua.com.denisimusIT.SQLCmd.controller;
 
 import org.junit.Test;
+import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
+import ua.com.denisimusIT.SQLCmd.view.Console;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -17,8 +19,8 @@ public class MainControllerTest {
     @Test
     public void MainControllerTest() {
         //TODO
-        String [] testAreae;
-        MainController mainController = new MainController();
+        MainController mainController = new MainController(new Console(), new PostgresDatabaseManager());
+        mainController.run();
         System.setOut(new PrintStream(outContent));
         String expected = "Welcome to SQLCmd! =)" + NEWLINE +
                 "For connection to the database you enter the command : " + NEWLINE +
