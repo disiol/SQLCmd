@@ -23,13 +23,8 @@ public class ConnectTest {
     DatabaseManager postgresDatabaseManager = new PostgresDatabaseManager();
     final String newline = System.lineSeparator();
 
-    @Before
-    public void createDatabase() {
-        //TODO
-    }
 
-    @Test
-    public void ConnectTest() {
+    public void Connect() {
         System.setOut(new PrintStream(outContent));
 
         String database = "postgres";
@@ -37,10 +32,6 @@ public class ConnectTest {
         String password = "1111";
         postgresDatabaseManager.connect(database,
                 user, password);
-        String expected = "Opened database successfully" + newline;
-        String actual = outContent.toString();
-
-        assertEquals("connect to data base", expected, actual);
 
     }
 
