@@ -479,8 +479,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void  dropUser(String userName){
-        //TODO
+    public void dropUser(String userName) {
         Statement stmt = null;
         try {
             System.out.println("Creating user...");
@@ -488,7 +487,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
             String sql = "DROP USER " + userName;
             stmt.executeUpdate(sql);
-            System.out.printf("The user:%s is delete",userName);
+            System.out.printf("The user:%s is delete", userName);
         } catch (SQLException se) {
             connection = null;
             se.printStackTrace();
@@ -513,8 +512,34 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void giveAccess(String databaseName, String userName) {
-        //TODO
+    public void giveAccessUserToTheDatabase(String databaseName, String userName) {
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            String sql = "GRANT ALL ON DATABASE " + databaseName + " TO  " + userName;
+            stmt.executeUpdate(sql);
+            System.out.printf("Access user: %s to the database: %s it is allow", userName, databaseName);
+        } catch (SQLException se) {
+            connection = null;
+            se.printStackTrace();
+        } catch (Exception e) {
+            connection = null;
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+                se2.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
     }
 
 
