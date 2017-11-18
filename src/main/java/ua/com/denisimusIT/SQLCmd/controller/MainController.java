@@ -9,49 +9,27 @@ public class MainController {
             "For connection to the database you enter the command : " + NEWLINE +
             "connect|database|userName|password " +
             "or help command for a help call" + NEWLINE;
-    private View view;
-    private DatabaseManager manager;
+    private  View view;
+    private  DatabaseManager manager;
 
     public MainController(View view, DatabaseManager databaseManager) {
         this.view = view;
         this.manager = databaseManager;
     }
 
-    public void run() {
+    public  void run() {
+
         connectToDb();
-        for (; ; ) {
-            switch (view.read()) {
-                case "connect":
-                    connectToDb();
-                    break;
-                case "tables":
-                    tablesNames();
-                    break;
-                case "exit":
-                    view.write("Bye! =)");
-                    System.exit(0);
-                    break;
-            }
 
-        }
 
     }
 
-    private void tablesNames() {
-       view.write(manager.getTableNames().toString());
-    }
-
-
-    private void connectToDb() {
+    private  void connectToDb() {
         while (true) {
             try {
                 view.write(GREETING);
                 String string = view.read();
                 String[] data = string.split("\\|");
-                if (data.length < 3) {
-                    throw new IllegalArgumentException("the incorrect quantity of arguments partitioned '|' " +
-                            "shall be three and you carried: " + data.length);
-                }
                 String databaseName = data[0];
                 String userName = data[1];
                 String password = data[2];
@@ -59,19 +37,14 @@ public class MainController {
                 break;
 
             } catch (Exception e) {
-                printError(e);
+                String message = e.getMessage();
+                if (e.getCause() != null) {
+                    message += " " + e.getCause().getMessage();
+                }
+                view.write("Failure! For the reason : " + message);
+                view.write("Repeat attempt please");
             }
         }
-    }
-
-    private void printError(Exception e) {
-        String message = e.getMessage();
-        if (e.getCause() != null) {
-            message += " " + e.getCause().getMessage();
-        }
-        view.write("Failure! For the reason : " + message);
-        view.write("Repeat attempt please");
-        view.write("");
     }
 
 }
