@@ -460,6 +460,69 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public void createUser(String newUser, String newPassword) {
         //TODO
+        Statement stmt = null;
+        try {
+            System.out.println("Creating user...");
+            stmt = connection.createStatement();
+
+            String sql = "CREATE USER " + newUser + " WITH password " + "'" + newPassword + "'";
+            stmt.executeUpdate(sql);
+            System.out.printf("It is created user: %s with the password: %s", newUser, newPassword);
+        } catch (SQLException se) {
+            connection = null;
+            se.printStackTrace();
+        } catch (Exception e) {
+            connection = null;
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+                se2.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void  dropUser(String userName){
+        //TODO
+        Statement stmt = null;
+        try {
+            System.out.println("Creating user...");
+            stmt = connection.createStatement();
+
+            String sql = "DROP USER " + userName;
+            stmt.executeUpdate(sql);
+            System.out.printf("The user:%s is delete",userName);
+        } catch (SQLException se) {
+            connection = null;
+            se.printStackTrace();
+        } catch (Exception e) {
+            connection = null;
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+                se2.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
     }
 
     @Override
