@@ -277,6 +277,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     public void dropTable(final String tableName) {
         Statement stmt = null;
         try {
+            //if(tableName =null)
             stmt = connection.createStatement();
             stmt.executeUpdate("DROP TABLE " + tableName + " ");
             System.out.println("Table " + tableName + " deleted in given database...");

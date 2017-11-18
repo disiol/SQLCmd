@@ -19,7 +19,7 @@ import static junit.framework.TestCase.assertEquals;
 public class CreateATableTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     final String newline = System.lineSeparator();
-
+    private String testDatabaseName;
 
     DatabaseManager postgresDatabaseManager;
 
@@ -31,6 +31,9 @@ public class CreateATableTest {
 
         postgresDatabaseManager = new PostgresDatabaseManager();
         postgresDatabaseManager.connect(dataBase, user, password);
+        testDatabaseName = "TestDatabase";
+        postgresDatabaseManager.createDatabase(testDatabaseName);
+        postgresDatabaseManager.connect(testDatabaseName, user, password);
 
 
     }
@@ -69,9 +72,9 @@ public class CreateATableTest {
 
 
     @After
-    public void deleteTable() {
+    public void dropDatabase() {
         //drop  таблицу с данами
-        postgresDatabaseManager.dropTable("COMPANY");
+        postgresDatabaseManager.dropTable(testDatabaseName);
 
     }
 }
