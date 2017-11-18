@@ -1,5 +1,5 @@
 .idea/
-sqlcmd.iml
+SQLCmd.iml
 target/
 libs/
 
