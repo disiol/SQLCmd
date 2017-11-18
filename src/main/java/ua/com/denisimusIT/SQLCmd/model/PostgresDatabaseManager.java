@@ -28,6 +28,19 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
             throw new RuntimeException(
                     String.format("Cant get connection for model:%s user:%s", databaseName, userName), e);
+//            String message = String.format("Cant get connection for database:%s user:%s", databaseName, userName);
+//            String error = e.toString();
+//            String errorUser = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + userName + "\"";
+//            String errorDatabase = "org.postgresql.util.PSQLException: FATAL: database \"" + databaseName + "\" does not exist";
+//            if (error.equals(errorUser)) {
+//                System.out.println(message + ", not the correct password or user name");
+//            } else if (error.equals(errorDatabase)) {
+//                System.out.println(message + " ,database does not exist");
+//            } else {
+//                System.out.println(message);
+//
+//            }
+
         }
 
     }
@@ -447,99 +460,11 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public void createUser(String newUser, String newPassword) {
         //TODO
-        Statement stmt = null;
-        try {
-            System.out.println("Creating user...");
-            stmt = connection.createStatement();
-
-            String sql = "CREATE USER " + newUser + " WITH password " + "'" + newPassword + "'";
-            stmt.executeUpdate(sql);
-            System.out.printf("It is created user: %s with the password: %s", newUser, newPassword);
-        } catch (SQLException se) {
-            connection = null;
-            se.printStackTrace();
-        } catch (Exception e) {
-            connection = null;
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
     }
 
     @Override
-    public void dropUser(String userName) {
-        Statement stmt = null;
-        try {
-            System.out.println("Creating user...");
-            stmt = connection.createStatement();
-
-            String sql = "DROP USER " + userName;
-            stmt.executeUpdate(sql);
-            System.out.printf("The user:%s is delete", userName);
-        } catch (SQLException se) {
-            connection = null;
-            se.printStackTrace();
-        } catch (Exception e) {
-            connection = null;
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void giveAccessUserToTheDatabase(String databaseName, String userName) {
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
-            String sql = "GRANT ALL ON DATABASE " + databaseName + " TO  " + userName;
-            stmt.executeUpdate(sql);
-            System.out.printf("Access user: %s to the database: %s it is allow", userName, databaseName);
-        } catch (SQLException se) {
-            connection = null;
-            se.printStackTrace();
-        } catch (Exception e) {
-            connection = null;
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
+    public void giveAccess(String databaseName, String userName) {
+        //TODO
     }
 
 
