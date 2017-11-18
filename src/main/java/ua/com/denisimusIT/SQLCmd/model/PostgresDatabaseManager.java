@@ -28,19 +28,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
             throw new RuntimeException(
                     String.format("Cant get connection for model:%s user:%s", databaseName, userName), e);
-//            String message = String.format("Cant get connection for database:%s user:%s", databaseName, userName);
-//            String error = e.toString();
-//            String errorUser = "org.postgresql.util.PSQLException: FATAL: password authentication failed for user \"" + userName + "\"";
-//            String errorDatabase = "org.postgresql.util.PSQLException: FATAL: database \"" + databaseName + "\" does not exist";
-//            if (error.equals(errorUser)) {
-//                System.out.println(message + ", not the correct password or user name");
-//            } else if (error.equals(errorDatabase)) {
-//                System.out.println(message + " ,database does not exist");
-//            } else {
-//                System.out.println(message);
-//
-//            }
-
         }
 
     }
