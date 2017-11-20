@@ -38,6 +38,6 @@ public interface DatabaseManager {
 
     void  dropUser(String userName);
 
-    void giveAccess(String databaseName, String userName);
+    void giveAccessUserToTheDatabase(String databaseName, String userName);
 
 }
