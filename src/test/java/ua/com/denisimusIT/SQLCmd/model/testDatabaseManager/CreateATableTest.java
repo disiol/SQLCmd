@@ -69,7 +69,7 @@ public class CreateATableTest {
 
         // вытаскивает значение данных  и сравнивает
     }
-//TODO
+
 
     @After
     public void dropDatabase() {
