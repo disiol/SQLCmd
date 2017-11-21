@@ -96,7 +96,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
-            getData(rs, rsmd, result, index);
+            while (rs.next()) {
+                DataSet dataSet = new DataSet();
+                result[index++] = dataSet;
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
+                }
+            }
             rs.close();
             return result;
         } catch (SQLException e) {
@@ -128,7 +134,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
-            getData(rs, rsmd, result, index);
+            while (rs.next()) {
+                DataSet dataSet = new DataSet();
+                result[index++] = dataSet;
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
+                }
+            }
 
             return result;
         } catch (SQLException e) {
@@ -152,23 +164,21 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     }
 
-    private void getData(ResultSet rs, ResultSetMetaData rsmd, DataSet[] result, int index) throws SQLException {
-        while (rs.next()) {
-            DataSet dataSet = new DataSet();
-            result[index++] = dataSet;
-            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
-            }
+
+    private int getSize(String tableName) {
+        Statement stmt = null;
+        int size = 0;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
+            rsCount.next();
+            size = rsCount.getInt(1);
+            rsCount.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    }
 
 
-    private int getSize(String tableName) throws SQLException {
-        Statement stmt = connection.createStatement();
-        ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
-        rsCount.next();
-        int size = rsCount.getInt(1);
-        rsCount.close();
         return size;
     }
 
