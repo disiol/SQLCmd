@@ -44,12 +44,12 @@ public class MainController {
         String[] dataCommand = command.split("\\|");
 
         DataSet[] data = manager.getTableData(dataCommand[1]);
-        getTablesTitle(data);
-        getTablesValues(data);
+        tableHeader(data);
+        tableRows(data);
 
     }
 
-    private void getTablesTitle(DataSet[] data) {
+    private void tableHeader(DataSet[] data) {
         String title = beginSymbol;
         String[] names = data[0].getNames();
         for (String name : names) {
@@ -65,8 +65,8 @@ public class MainController {
 
     }
 
-    private void getTablesValues(DataSet[] data) {
-        String valuesTabele = "•+ ";
+    private void tableRows(DataSet[] data) {
+        String valuesTable = "•+ ";
         int  lengthForNewLine = data[0].getNames().length;
         int counter = 1;
 
@@ -75,12 +75,12 @@ public class MainController {
             Object[] values = data[index].getValues();
             for (Object name : values) {
 
-                valuesTabele += name.toString() + " + ";
+                valuesTable += name.toString() + " + ";
 
                 if(counter == lengthForNewLine) {
-                    view.write(valuesTabele);
+                    view.write(valuesTable);
                     view.write(separator);
-                    valuesTabele = beginSymbol;
+                    valuesTable = beginSymbol;
                     counter = 0;
                 }
                 counter++;
