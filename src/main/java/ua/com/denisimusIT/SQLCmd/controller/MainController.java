@@ -5,6 +5,8 @@ import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
+import java.util.List;
+
 public class MainController {
     private static final String NEWLINE = System.lineSeparator();
     private View view;
@@ -42,52 +44,48 @@ public class MainController {
 
     private void doFind(String command) {
         String[] dataCommand = command.split("\\|");
+        String tableName = dataCommand[1];
 
-        DataSet[] data = manager.getTableData(dataCommand[1]);
-        tableHeader(data);
-        tableRows(data);
+        List<String> tableColumns = manager.getTableColumns(tableName);
+        tableHeader(tableColumns);
+
+        DataSet[] tableData = manager.getTableData(tableName);
+        printTable(tableData);
 
     }
 
-    private void tableHeader(DataSet[] data) {
-        String title = beginSymbol;
-        String[] names = data[0].getNames();
+    private void tableHeader(List<String> names) {
+        String result = beginSymbol;
         for (String name : names) {
 
-            title += name + " + ";
+            result += name + " + ";
 
         }
 
         view.write(separator);
-        view.write(title);
+        view.write(result);
         view.write(separator);
 
 
     }
 
-    private void tableRows(DataSet[] data) {
-        String valuesTable = "•+ ";
-        int  lengthForNewLine = data[0].getNames().length;
-        int counter = 1;
+    private void printTable(DataSet[] data) {
 
-
-        for (int index = 0; index < data.length; index++) {
-            Object[] values = data[index].getValues();
-            for (Object name : values) {
-
-                valuesTable += name.toString() + " + ";
-
-                if(counter == lengthForNewLine) {
-                    view.write(valuesTable);
-                    view.write(separator);
-                    valuesTable = beginSymbol;
-                    counter = 0;
-                }
-                counter++;
-
-            }
+        for (DataSet rows : data) {
+            printRow(rows);
         }
 
+    }
+
+    private void printRow(DataSet data) {
+        String result = beginSymbol;
+        Object[] names = data.getValues();
+
+        for (Object name : names) {
+            result += name + " + ";
+        }
+        view.write(result);
+        view.write(separator);
     }
 
 

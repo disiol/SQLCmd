@@ -11,7 +11,7 @@ public interface DatabaseManager {
 
     DataSet[] getTableData(String tableName);
 
-    DataSet[] getTableColumns(String tableName, String columnsName);
+    DataSet[] getTableColumn(String tableName, String columnsName);
 
     List<String> getTableNames();
 
@@ -40,4 +40,5 @@ public interface DatabaseManager {
 
     void giveAccessUserToTheDatabase(String databaseName, String userName);
 
+    List<String> getTableColumns(String tableName);
 }

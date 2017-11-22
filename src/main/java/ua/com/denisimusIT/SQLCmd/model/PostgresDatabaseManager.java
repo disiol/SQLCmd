@@ -124,7 +124,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public DataSet[] getTableColumns(String tableName, final String columnsName) {
+    public DataSet[] getTableColumn(String tableName, final String columnsName) {
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -184,7 +184,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public List<String> getTableNames() {
-        //TODO дороботать  аргуметы поиска добавить выбот нужной схемы
+        //TODO добавить выбор нужной схемы
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
@@ -549,6 +549,25 @@ public class PostgresDatabaseManager implements DatabaseManager {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public List<String> getTableColumns(String tableName) {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public' " +
+                    "AND table_name='" + tableName + "'");
+            List<String> tables = new LinkedList<>();
+            while (rs.next()) {
+                tables.add(rs.getString("column_name"));
+            }
+            rs.close();
+            stmt.close();
+            return tables;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

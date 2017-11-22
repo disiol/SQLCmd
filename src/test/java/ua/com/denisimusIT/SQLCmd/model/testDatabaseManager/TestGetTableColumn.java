@@ -57,7 +57,7 @@ public class TestGetTableColumn {
         // then
         //принимает данные для выдачи
         String dataGetId = "id";
-        DataSet[] users = manager.getTableColumns(tableName, dataGetId);
+        DataSet[] users = manager.getTableColumn(tableName, dataGetId);
 
 
         DataSet user = users[0];
@@ -66,26 +66,26 @@ public class TestGetTableColumn {
 
 
         dataGetId = "name";
-        users = manager.getTableColumns(tableName, dataGetId);
+        users = manager.getTableColumn(tableName, dataGetId);
         user = users[0];
         assertEquals("[name]", Arrays.toString(user.getNames()));
         assertEquals("[Stiven]", Arrays.toString(user.getValues()));
 
 
         dataGetId = "password";
-        users = manager.getTableColumns(tableName, dataGetId);
+        users = manager.getTableColumn(tableName, dataGetId);
         user = users[0];
         assertEquals("[password]", Arrays.toString(user.getNames()));
         assertEquals("[pass]", Arrays.toString(user.getValues()));
 
         dataGetId = "id,password";
-        users = manager.getTableColumns(tableName, dataGetId);
+        users = manager.getTableColumn(tableName, dataGetId);
         user = users[0];
         assertEquals("[id, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, pass]", Arrays.toString(user.getValues()));
 
         dataGetId = "name,id,password";
-        users = manager.getTableColumns(tableName, dataGetId);
+        users = manager.getTableColumn(tableName, dataGetId);
         user = users[0];
         assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
         assertEquals("[Stiven, 13, pass]", Arrays.toString(user.getValues()));
@@ -114,7 +114,7 @@ public class TestGetTableColumn {
         // then
         //принимает данные для выдачи
         String dataGetId = "id";
-        DataSet[] users = manager.getTableColumns(tableName, dataGetId);
+        DataSet[] users = manager.getTableColumn(tableName, dataGetId);
 
 
         DataSet user = users[0];
@@ -127,7 +127,7 @@ public class TestGetTableColumn {
 
 
         dataGetId = "name";
-        users = manager.getTableColumns(tableName, dataGetId);
+        users = manager.getTableColumn(tableName, dataGetId);
         user = users[0];
         assertEquals("[name]", Arrays.toString(user.getNames()));
         assertEquals("[Stiven]", Arrays.toString(user.getValues()));
@@ -138,7 +138,7 @@ public class TestGetTableColumn {
 
 
         dataGetId = "password";
-        users = manager.getTableColumns(tableName, dataGetId);
+        users = manager.getTableColumn(tableName, dataGetId);
         user = users[0];
         assertEquals("[password]", Arrays.toString(user.getNames()));
         assertEquals("[pass]", Arrays.toString(user.getValues()));
@@ -148,7 +148,7 @@ public class TestGetTableColumn {
         assertEquals("[pass2]", Arrays.toString(user.getValues()));
 
         dataGetId = "id,password";
-        users = manager.getTableColumns(tableName, dataGetId);
+        users = manager.getTableColumn(tableName, dataGetId);
         user = users[0];
         assertEquals("[id, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, pass]", Arrays.toString(user.getValues()));
@@ -158,7 +158,7 @@ public class TestGetTableColumn {
         assertEquals("[14, pass2]", Arrays.toString(user.getValues()));
 
         dataGetId = "name,id,password";
-        users = manager.getTableColumns(tableName, dataGetId);
+        users = manager.getTableColumn(tableName, dataGetId);
 
         user = users[0];
         assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
