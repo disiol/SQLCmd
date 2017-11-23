@@ -75,11 +75,11 @@ public class DropDatabaseTest {
         assertEquals("dropDatabaseNames", expected, Arrays.toString(actualDatabaseNamesSorted));
 
         String actualMessage = outContent.toString();
-        Object expectedMessage = "Opened database successfully" + newline +
-                "Creating database..." + newline +
-                "Database drop successfully..." + newline +
-                "Opened database successfully" + newline;
-        assertEquals("Database drop successfully..." + newline, expectedMessage, actualMessage);
+        Object expectedMessage = "Opened database: postgres successfully"+ newline +
+                                 "Database: testdatabase drop successfully"+ newline +
+                                 "Opened database: postgres successfully"+ newline;
+        
+        assertEquals("Database drop successfully" + newline, expectedMessage, actualMessage);
 
     }
 

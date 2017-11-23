@@ -16,18 +16,23 @@ import static junit.framework.TestCase.assertEquals;
 public class GetTableDatTest {
 
 
-    private DatabaseManager manager;
     private String tableName;
 
-    @Before
-    public void setup() {
-        manager = new PostgresDatabaseManager();
-        String database = "postgres";
-        String user = "postgres";
-        String password = "1111";
-        manager.connect(database, user, password);
+    private static final DatabaseManager POSTGRES_DATABASE_MANAGER = new PostgresDatabaseManager();
+    private final static String DATA_BASE = "postgres";
+    private final static String USER = "postgres";
+    private final static String PASSWORD = "1111";
+    private final static String TEST_DATABASE_NAME = "testdatabase";
+
+
+    @BeforeClass
+    public static void setUpBeforClass() throws Exception {
+        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
+        POSTGRES_DATABASE_MANAGER.connect(TEST_DATABASE_NAME, USER, PASSWORD);
 
     }
+
 
     @Test
     public void testGetTableData() {
@@ -35,9 +40,11 @@ public class GetTableDatTest {
         tableName = "company";
 
         // when
-        manager.createATable(tableName,"");
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
+
+        POSTGRES_DATABASE_MANAGER.createATable(tableName,columnsValues);
         String expected = "[" + tableName + "]";
-        Object[] actual = manager.getTableNames().toArray();
+        Object[] actual = POSTGRES_DATABASE_MANAGER.getTableNames().toArray();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
 
 
@@ -45,11 +52,11 @@ public class GetTableDatTest {
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
-        manager.insertData(tableName, input);
+        POSTGRES_DATABASE_MANAGER.insertData(tableName, input);
 
         // then
-        DataSet[] company = manager.getTableData(tableName);
-        assertEquals(1, company.length);
+        DataSet[] company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
+        assertEquals("length",1, company.length);
 
         DataSet user = company[0];
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
@@ -57,9 +64,11 @@ public class GetTableDatTest {
     }
 
 
-    @After
-    public void deleteTable() {
+    @AfterClass
+    public static void deleteTable() {
         // drop  таблицу с данами
-        manager.dropTable(tableName);
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(TEST_DATABASE_NAME);
+        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.dropDatabase(TEST_DATABASE_NAME);
     }
 }

@@ -23,9 +23,10 @@ public class CreateUserTest {
     private String testDatabase = "testdatabase";
 
     String user;
+
     @Before
 
-    public void before(){
+    public void before() {
         connectToDataBase();
         CrateDb();
         ConnectToCrateDb();
@@ -37,7 +38,8 @@ public class CreateUserTest {
         //создать и выбрать баззу
     }
 
-    private void ConnectToCrateDb() { ;
+    private void ConnectToCrateDb() {
+        ;
         postgresDatabaseManager.connect(testDatabase, userDb, password);
     }
 
@@ -52,8 +54,8 @@ public class CreateUserTest {
         user = "den";
         String password = "111";
         postgresDatabaseManager.createUser(user, password);
-        String expected = "Creating user..." + newline +
-                "It is created user: " + user + " with the password: " + password;
+        String expected = "Creating user: " + user + newline +
+                "It is created user: " + user + " with the password: " + password + newline;
         String actual = outContent.toString();
         assertEquals("created user", expected, actual);
 

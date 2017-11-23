@@ -1,8 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
@@ -17,46 +15,42 @@ import static junit.framework.TestCase.assertEquals;
  * mail: deoniisii@gmail.com
  */
 public class TestGetTableColumns {
-    final String newline = System.lineSeparator();
+    private static final DatabaseManager POSTGRES_DATABASE_MANAGER = new PostgresDatabaseManager();
+    private final static String DATA_BASE = "postgres";
+    private final static String USER = "postgres";
+    private final static String PASSWORD = "1111";
+    private final static String TEST_DATABASE_NAME = "testdatabase";
+    private final static String TEST_TABLE_NAME = "testtable";
 
-    private DatabaseManager manager;
-    private String tableName;
+    @BeforeClass
+    public static void setUpBeforClass() {
+        connectTodB();
+        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
+        POSTGRES_DATABASE_MANAGER.connect(TEST_DATABASE_NAME, USER, PASSWORD);
 
-    @Before
-    public void setup() {
-        manager = new PostgresDatabaseManager();
-        String databaseName = "postgres";
-        String user = "postgres";
-        String password = "1111";
-        manager.connect(databaseName, user, password);
-
-        //TODO создание базы данных и таблицы
-
-
-        tableName = "users2";
-
-
-
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
+        POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
 
     }
 
+    private static void connectTodB(){
+        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+    }
     @Test
     public void TestGetTableColumns() {
 
-
-        // then
-
-
-        String actual = manager.getTableColumns(tableName).toString();
+        String actual = POSTGRES_DATABASE_MANAGER.getTableColumns(TEST_TABLE_NAME).toString();
         assertEquals("[id, name, password]", actual);
     }
 
 
 
 
-    @After
-    public void deleteTable() {
-        //TODO drop dataBase
-        // drop  таблицу с данами
+    @AfterClass
+    public static void deleteTable() {
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(TEST_DATABASE_NAME);
+        connectTodB();
+        POSTGRES_DATABASE_MANAGER.dropDatabase(TEST_DATABASE_NAME);
     }
 }

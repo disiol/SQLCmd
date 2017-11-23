@@ -1,11 +1,9 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
+import org.junit.*;
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Arrays;
 
@@ -17,47 +15,41 @@ import static junit.framework.TestCase.assertEquals;
  */
 public class TestGetTableColumn {
     final String newline = System.lineSeparator();
+    private static final DatabaseManager POSTGRES_DATABASE_MANAGER = new PostgresDatabaseManager();
+    private final static String DATA_BASE = "postgres";
+    private final static String USER = "postgres";
+    private final static String PASSWORD = "1111";
+    private final static String TEST_DATABASE_NAME = "testdatabase";
+    private final static String TEST_TABLE_NAME = "testtable";
 
-    private DatabaseManager manager;
-    private String tableName;
+    @BeforeClass
+    public static void setUpBeforClass() {
+        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
+        POSTGRES_DATABASE_MANAGER.connect(TEST_DATABASE_NAME, USER, PASSWORD);
 
-    @Before
-    public void setup() {
-        manager = new PostgresDatabaseManager();
-        String sqlCmd = "postgres";
-        String user = "postgres";
-        String password = "1111";
-        manager.connect(sqlCmd, user, password);
-
-        //TODO создание базы данных
-
-        tableName = "company";
-
-
-        manager.createATable(tableName,"");
-        String expected = "[company]";
-        Object[] actual = manager.getTableNames().toArray();
-        assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
-
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
+        POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
 
     }
+
 
     @Test
     public void testWanRow() {
 
 
         // given
-        manager.clearATable(tableName);
+        POSTGRES_DATABASE_MANAGER.clearATable(TEST_TABLE_NAME);
         DataSet input = new DataSet();
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
-        manager.insertData(tableName, input);
+        POSTGRES_DATABASE_MANAGER.insertData(TEST_TABLE_NAME, input);
 
         // then
         //принимает данные для выдачи
         String dataGetId = "id";
-        DataSet[] users = manager.getTableColumn(tableName, dataGetId);
+        DataSet[] users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
 
 
         DataSet user = users[0];
@@ -66,26 +58,26 @@ public class TestGetTableColumn {
 
 
         dataGetId = "name";
-        users = manager.getTableColumn(tableName, dataGetId);
+        users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users[0];
         assertEquals("[name]", Arrays.toString(user.getNames()));
         assertEquals("[Stiven]", Arrays.toString(user.getValues()));
 
 
         dataGetId = "password";
-        users = manager.getTableColumn(tableName, dataGetId);
+        users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users[0];
         assertEquals("[password]", Arrays.toString(user.getNames()));
         assertEquals("[pass]", Arrays.toString(user.getValues()));
 
         dataGetId = "id,password";
-        users = manager.getTableColumn(tableName, dataGetId);
+        users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users[0];
         assertEquals("[id, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, pass]", Arrays.toString(user.getValues()));
 
         dataGetId = "name,id,password";
-        users = manager.getTableColumn(tableName, dataGetId);
+        users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users[0];
         assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
         assertEquals("[Stiven, 13, pass]", Arrays.toString(user.getValues()));
@@ -103,18 +95,18 @@ public class TestGetTableColumn {
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
-        manager.insertData(tableName, input);
+        POSTGRES_DATABASE_MANAGER.insertData(TEST_TABLE_NAME, input);
 
         DataSet input2 = new DataSet();
         input2.put("id", 14);
         input2.put("name", "Stiven2");
         input2.put("password", "pass2");
-        manager.insertData(tableName, input2);
+        POSTGRES_DATABASE_MANAGER.insertData(TEST_TABLE_NAME, input2);
 
         // then
         //принимает данные для выдачи
         String dataGetId = "id";
-        DataSet[] users = manager.getTableColumn(tableName, dataGetId);
+        DataSet[] users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
 
 
         DataSet user = users[0];
@@ -127,7 +119,7 @@ public class TestGetTableColumn {
 
 
         dataGetId = "name";
-        users = manager.getTableColumn(tableName, dataGetId);
+        users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users[0];
         assertEquals("[name]", Arrays.toString(user.getNames()));
         assertEquals("[Stiven]", Arrays.toString(user.getValues()));
@@ -138,7 +130,7 @@ public class TestGetTableColumn {
 
 
         dataGetId = "password";
-        users = manager.getTableColumn(tableName, dataGetId);
+        users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users[0];
         assertEquals("[password]", Arrays.toString(user.getNames()));
         assertEquals("[pass]", Arrays.toString(user.getValues()));
@@ -148,7 +140,7 @@ public class TestGetTableColumn {
         assertEquals("[pass2]", Arrays.toString(user.getValues()));
 
         dataGetId = "id,password";
-        users = manager.getTableColumn(tableName, dataGetId);
+        users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users[0];
         assertEquals("[id, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, pass]", Arrays.toString(user.getValues()));
@@ -158,7 +150,7 @@ public class TestGetTableColumn {
         assertEquals("[14, pass2]", Arrays.toString(user.getValues()));
 
         dataGetId = "name,id,password";
-        users = manager.getTableColumn(tableName, dataGetId);
+        users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
 
         user = users[0];
         assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
@@ -172,10 +164,10 @@ public class TestGetTableColumn {
     }
 
 
-    @After
-    public void deleteTable() {
+    @AfterClass
+    public static void deleteTable() {
         //TODO drop dataBase
         // drop  таблицу с данами
-        manager.dropTable(tableName);
+        POSTGRES_DATABASE_MANAGER.dropTable(TEST_TABLE_NAME);
     }
 }

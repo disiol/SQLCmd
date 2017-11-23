@@ -32,16 +32,6 @@ public class CreateATableTest {
 
     }
 
-    @Before
-    public void connectToDataBase() {
-        // POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(TEST_DATABASE_NAME,USER);
-
-
-//        POSTGRES_DATABASE_MANAGER = new PostgresDatabaseManager();
-//        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
-
-
-    }
 
     @Test
     public void сreateTableCompany() {
@@ -50,7 +40,7 @@ public class CreateATableTest {
         System.setOut(new PrintStream(OUT_CONTENT));
 
         // создает таблицу и проверает создана ли она
-        String columnsValues = "id INT PRIMARY KEY   NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
 
 
         String tableName = "company";

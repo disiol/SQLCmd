@@ -63,13 +63,15 @@ public class PostgresDatabaseManager implements DatabaseManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE " + tableName +
-                    "(" + columnsValues + ")");
+            String sql = "CREATE TABLE  " + tableName +
+                    "(" + columnsValues + ")";
+            stmt.executeUpdate(sql);
             System.out.println("Table " + tableName + " created successfully");
 
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+         //   System.exit(0);
         } finally {
             if (stmt != null) {
                 try {
@@ -215,8 +217,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
             String tableNames = getNameFormatted(input, "%s,");
             String values = getValuesFormatted(input, "'%s',");
 
-            stmt.executeUpdate("INSERT INTO " + tableName + "(" + tableNames + ")" +
-                    "VALUES (" + values + ")");
+            String sql = "INSERT INTO " + tableName + "(" + tableNames + ")" + "VALUES (" + values + ")";
+            stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println("Invalid request");
             e.printStackTrace();
@@ -242,7 +244,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
             String tableNames = getNameFormatted(newValue, "%s = ?,");
 
             String sql = "UPDATE public." + tableName + " SET " + tableNames + " WHERE id = ?";
-            System.out.println(sql);
             ps = connection.prepareStatement(sql);
 
             int index = 1;
@@ -493,12 +494,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
         //TODO
         Statement stmt = null;
         try {
-            System.out.println("Creating user...");
+            System.out.println("Creating user: " + newUser);
             stmt = connection.createStatement();
 
             String sql = "CREATE USER " + newUser + " WITH password " + "'" + newPassword + "'";
             stmt.executeUpdate(sql);
-            System.out.printf("It is created user: %s with the password: %s", newUser, newPassword);
+            System.out.printf("It is created user: %s with the password: %s" + NEW_LINE, newUser, newPassword);
         } catch (SQLException se) {
             connection = null;
             se.printStackTrace();

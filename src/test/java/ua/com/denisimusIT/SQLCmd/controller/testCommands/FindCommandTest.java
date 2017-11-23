@@ -1,5 +1,8 @@
 package ua.com.denisimusIT.SQLCmd.controller.testCommands;
 
+import com.sun.corba.se.impl.encoding.CodeSetConversion;
+import ua.com.denisimusIT.SQLCmd.controller.Main;
+import ua.com.denisimusIT.SQLCmd.controller.MainController;
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
@@ -7,8 +10,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -17,25 +24,37 @@ public class FindCommandTest {
     final String newline = System.lineSeparator();
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-    private DatabaseManager manager;
+    private DatabaseManager manager = new PostgresDatabaseManager();
     private String tableName;
+    private MainController mainController;
 
-    @Before
-    public void setup() {
-        manager = new PostgresDatabaseManager();
-        String database = "sqlCmd";
-        String user = "postgres";
-        String password = "1111";
-        manager.connect(database, user, password);
 
-    }
+    private String database = "postgres";
+    private String user = "postgres";
+    private String password = "1111";
+
+
     @Test
-    public void insertDataCorrect_id_101_name_Stiven_password_Pupkin()  {
+    public void insertDataCorrect_id_101_name_Stiven_password_Pupkin() {
+        System.setOut(new PrintStream(outContent));
+        mainController.run();
+        String connect = database + "|" + user + "|" + password;
+        System.setIn(new ByteArrayInputStream(connect.getBytes()));
+
+        String findComand = "find|" + tableName;
+        System.setIn(new ByteArrayInputStream(connect.getBytes()));
+
         //TODO
-         tableName = "users1";
+        tableName = "users1";
 
         // when
-        manager.createATable(tableName);
+
+
+        manager.createATable(tableName,"");
+        List<String> tableNames = manager.getTableNames();
+        tableNames.add(tableName);
+        Collections.sort(tableNames);
+
         String expected = "[" + tableName + "]";
         Object[] actual = manager.getTableNames().toArray();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
@@ -47,15 +66,16 @@ public class FindCommandTest {
         input.put("password", "pass");
         manager.insertData(tableName, input);
 
-        //thenSystem.setOut(new PrintStream(outContent));
-        DataSet dataSet = new DataSet();
+        //then
+        String separator = "•+--------------------------------------------------";
 
-        String expected2 = new StringBuilder().append("id:101" + newline).append("name:Stiven" + newline)
-                .append("password:Pupkin" + newline).append("--------------------------") + newline.toString();
 
-        DataSet[] actual2 = manager.getTableData(tableName);
+        String expected2 = new StringBuilder().append(separator + newline).append("id+name+password" + newline)
+                .append(separator + "Stiven+Pupkin+" + newline)
+                .append("password:" + newline).append("--------------------------") + newline.toString();
+        String actual2 = outContent.toString();
 
-        assertEquals(expected2, Arrays.toString(actual2));
+        assertEquals(expected2, actual2);
 
 
     }

@@ -52,9 +52,9 @@ public class CreateDatabaseTest {
         assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
 
 
-        Object expectedMessage = "Creating database..." + newline +
-                "Database created successfully..." + newline +
-                "Opened database successfully" + newline;
+        Object expectedMessage = "Creating database testdatabase"+newline +
+                "Database created testdatabase successfully"+newline +
+                "Opened database: postgres successfully"+newline;
         String actual = outContent.toString();
         assertEquals("Database created successfully...", expectedMessage, actual);
 
