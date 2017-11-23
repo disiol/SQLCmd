@@ -35,7 +35,7 @@ public class TestUpdateTableData {
     public void ChangeOfTheTable() {
 
         tableName = "company";
-        manager.createATable(tableName);
+        manager.createATable(tableName,"");
 
 
         DataSet input = new DataSet();

@@ -35,7 +35,7 @@ public class GetTableDatTest {
         tableName = "company";
 
         // when
-        manager.createATable(tableName);
+        manager.createATable(tableName,"");
         String expected = "[" + tableName + "]";
         Object[] actual = manager.getTableNames().toArray();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));

@@ -34,7 +34,7 @@ public class TestGetTableColumn {
         tableName = "company";
 
 
-        manager.createATable(tableName);
+        manager.createATable(tableName,"");
         String expected = "[company]";
         Object[] actual = manager.getTableNames().toArray();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));

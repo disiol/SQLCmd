@@ -35,9 +35,9 @@ public class GetTableNamesTest {
 
         //before
         String tableName = "COMPANY";
-        postgresDatabaseManager.createATable(tableName);
+        postgresDatabaseManager.createATable(tableName,"");
         tableName = "users1";
-        postgresDatabaseManager.createATable(tableName);
+        postgresDatabaseManager.createATable(tableName,"");
 
 
         //then

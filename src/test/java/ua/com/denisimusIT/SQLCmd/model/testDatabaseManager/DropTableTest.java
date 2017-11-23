@@ -33,7 +33,7 @@ public class DropTableTest {
     public void dropTableCompany() {
         String tableName = "company";
         //defore
-        postgresDatabaseManager.createATable(tableName);
+        postgresDatabaseManager.createATable(tableName,"");
         String expected = "[company]";
         Object[] actual = postgresDatabaseManager.getTableNames().toArray();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
