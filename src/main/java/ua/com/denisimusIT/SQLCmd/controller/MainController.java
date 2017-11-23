@@ -1,5 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.controller;
 
+import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
+import ua.com.denisimusIT.SQLCmd.controller.commands.Exit;
 import ua.com.denisimusIT.SQLCmd.controller.commands.Help;
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
@@ -9,6 +11,7 @@ import java.util.List;
 
 public class MainController {
     private static final String NEWLINE = System.lineSeparator();
+    private final Command[] commands;
     private View view;
     private DatabaseManager manager;
     private Help help = new Help();
@@ -19,13 +22,14 @@ public class MainController {
     public MainController(View view, DatabaseManager databaseManager) {
         this.view = view;
         this.manager = databaseManager;
+        this.commands = new Command[]{new Exit(view)};
     }
 
     public void run() {
         connectToDb();
 
         while (true) {
-            view.write("enter the command or help command for a help call");
+            view.write("enter the commands or help commands for a help call");
             String command = view.read();
             if (command.equals("list")) {
                 listOfDb();
@@ -33,11 +37,10 @@ public class MainController {
                 view.write(help.toString());
             } else if (command.startsWith("find|")) {
                 doFind(command);
-            } else if (command.equals("exit")) {
-                view.write("See you soon!");
-                System.exit(0);
+            } else if (commands[0].canProcess(command)) {
+                commands[0].Process(command);
             } else {
-                view.write("Nonexistent command:" + command);
+                view.write("Nonexistent commands:" + command);
             }
         }
     }
