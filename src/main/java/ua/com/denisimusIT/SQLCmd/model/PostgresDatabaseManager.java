@@ -8,6 +8,7 @@ import java.util.List;
 public class PostgresDatabaseManager implements DatabaseManager {
 
     private Connection connection;
+    private final static String NEW_LINE = System.lineSeparator();
 
 
     @Override
@@ -22,7 +23,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/" + databaseName, userName,
                     password);
-            System.out.println("Opened database successfully");
+            System.out.println("Opened database: " + databaseName + " successfully");
         } catch (SQLException e) {
             connection = null;
 
@@ -57,16 +58,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void createATable(final String tableName) {
+    public void createATable(final String tableName, String columnsValues) {
         //TODO прием имен колонок
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName +
-                    "(ID INT PRIMARY KEY     NOT NULL," +
-                    " NAME           TEXT    NOT NULL, " +
-                    " PASSWORD       TEXT     NOT NULL)");
-            stmt.close();
+                    "(" + columnsValues + ")");
             System.out.println("Table " + tableName + " created successfully");
 
         } catch (Exception e) {
@@ -317,12 +315,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
         Statement stmt = null;
         try {
-            System.out.println("Creating database...");
+            System.out.println("Creating database " + databaseName);
             stmt = connection.createStatement();
 
             String sql = "CREATE DATABASE " + databaseName;
             stmt.executeUpdate(sql);
-            System.out.println("Database created successfully...");
+            System.out.println("Database created " + databaseName + " successfully");
         } catch (SQLException se) {
             connection = null;
             se.printStackTrace();
@@ -385,12 +383,11 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
         Statement stmt = null;
         try {
-            System.out.println("Creating database...");
             stmt = connection.createStatement();
 
             String sql = "DROP DATABASE " + databaseName;
             stmt.executeUpdate(sql);
-            System.out.println("Database drop successfully...");
+            System.out.println("Database: " + databaseName + " drop successfully");
         } catch (SQLException se) {
             connection = null;
             se.printStackTrace();
@@ -418,6 +415,43 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public void selectDatabase(String databaseName) {
         //TODO
+    }
+
+    @Override
+    public void disconnectOfDatabase(String databaseName) {
+
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+
+            String sql = "SELECT pg_terminate_backend(pg_stat_activity.pid)\n" +
+                    "FROM pg_stat_activity\n" +
+                    "WHERE pg_stat_activity.datname = " + "'" + databaseName + "'" + NEW_LINE +
+                    "  AND pid <> pg_backend_pid();\n"; //TODO
+            stmt.execute(sql);
+            System.out.println("Disconnect of database: " + databaseName + " successfully");
+        } catch (SQLException se) {
+            connection = null;
+            se.printStackTrace();
+        } catch (Exception e) {
+            connection = null;
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+                se2.printStackTrace();
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
     }
 
     @Override

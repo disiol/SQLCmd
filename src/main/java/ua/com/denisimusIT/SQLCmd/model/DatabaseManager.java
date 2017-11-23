@@ -7,7 +7,7 @@ public interface DatabaseManager {
 
     void clearATable(String tableName);
 
-    void createATable(String tableName);
+    void createATable(String tableName, String columnsValues);
 
     DataSet[] getTableData(String tableName);
 
@@ -31,6 +31,7 @@ public interface DatabaseManager {
     void dropDatabase(final String databaseName);
 
     void selectDatabase(String databaseName);
+    void disconnectOfDatabase(String databaseName);
 
     List<String> currentDatabase();
 
