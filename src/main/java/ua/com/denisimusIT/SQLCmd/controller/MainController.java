@@ -3,25 +3,22 @@ package ua.com.denisimusIT.SQLCmd.controller;
 import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
 import ua.com.denisimusIT.SQLCmd.controller.commands.Exit;
 import ua.com.denisimusIT.SQLCmd.controller.commands.Help;
-import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
-import java.util.List;
 
 public class MainController {
     private static final String NEWLINE = System.lineSeparator();
     private final Command[] commands;
     private View view;
     private DatabaseManager manager;
-    private String separator = "•+--------------------------------------------------";
-    private String beginSymbol = "•+ ";
+
 
 
     public MainController(View view, DatabaseManager databaseManager) {
         this.view = view;
         this.manager = databaseManager;
-        this.commands = new Command[]{new Exit(view),new Help(view),new Tables(view,manager),new Find(view)};
+        this.commands = new Command[]{new Exit(view),new Help(view),new Tables(view,manager),new Find(view,manager)};
     }
 
     public void run() {
@@ -34,8 +31,8 @@ public class MainController {
                 commands[2].Process(command);
             } else if (commands[1].canProcess(command)) {
                 commands[1].Process(command);
-            } else if (command.startsWith("find|")) {
-                doFind(command);
+            } else if (commands[3].canProcess(command)) {
+                commands[3].Process(command);
             } else if (commands[0].canProcess(command)) {
                 commands[0].Process(command);
             } else {
@@ -44,51 +41,6 @@ public class MainController {
         }
     }
 
-    private void doFind(String command) {
-        String[] dataCommand = command.split("\\|");
-        String tableName = dataCommand[1];
-
-        List<String> tableColumns = manager.getTableColumns(tableName);
-        tableHeader(tableColumns);
-
-        DataSet[] tableData = manager.getTableData(tableName);
-        printTable(tableData);
-
-    }
-
-    private void tableHeader(List<String> names) {
-        String result = beginSymbol;
-        for (String name : names) {
-
-            result += name + " + ";
-
-        }
-
-        view.write(separator);
-        view.write(result);
-        view.write(separator);
-
-
-    }
-
-    private void printTable(DataSet[] data) {
-
-        for (DataSet rows : data) {
-            printRow(rows);
-        }
-
-    }
-
-    private void printRow(DataSet data) {
-        String result = beginSymbol;
-        Object[] names = data.getValues();
-
-        for (Object name : names) {
-            result += name + " + ";
-        }
-        view.write(result);
-        view.write(separator);
-    }
 
 
     private void connectToDb() {
