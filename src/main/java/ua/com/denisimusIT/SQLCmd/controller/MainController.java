@@ -21,7 +21,7 @@ public class MainController {
     public MainController(View view, DatabaseManager databaseManager) {
         this.view = view;
         this.manager = databaseManager;
-        this.commands = new Command[]{new Exit(view),new Help(view)};
+        this.commands = new Command[]{new Exit(view),new Help(view),new Tables(view,manager)};
     }
 
     public void run() {
@@ -30,7 +30,7 @@ public class MainController {
         while (true) {
             view.write("enter the commands or help commands for a help call");
             String command = view.read();
-            if (command.equals("list")) {
+            if (command.equals("tables")) {
                 listOfDb();
             } else if (commands[1].canProcess(command)) {
                 commands[1].Process(command);

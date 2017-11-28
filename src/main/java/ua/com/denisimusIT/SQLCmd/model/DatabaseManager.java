@@ -31,13 +31,14 @@ public interface DatabaseManager {
     void dropDatabase(final String databaseName);
 
     void selectDatabase(String databaseName);
+
     void disconnectOfDatabase(String databaseName);
 
     List<String> currentDatabase();
 
     void createUser(String newUser, String newPassword);
 
-    void  dropUser(String userName);
+    void dropUser(String userName);
 
     void giveAccessUserToTheDatabase(String databaseName, String userName);
 
