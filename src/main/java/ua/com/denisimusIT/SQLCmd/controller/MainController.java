@@ -14,7 +14,6 @@ public class MainController {
     private final Command[] commands;
     private View view;
     private DatabaseManager manager;
-    private Help help = new Help();
     private String separator = "•+--------------------------------------------------";
     private String beginSymbol = "•+ ";
 
@@ -22,7 +21,7 @@ public class MainController {
     public MainController(View view, DatabaseManager databaseManager) {
         this.view = view;
         this.manager = databaseManager;
-        this.commands = new Command[]{new Exit(view)};
+        this.commands = new Command[]{new Exit(view),new Help(view)};
     }
 
     public void run() {
@@ -33,8 +32,8 @@ public class MainController {
             String command = view.read();
             if (command.equals("list")) {
                 listOfDb();
-            } else if (command.equals("help")) {
-                view.write(help.toString());
+            } else if (commands[1].canProcess(command)) {
+                commands[1].Process(command);
             } else if (command.startsWith("find|")) {
                 doFind(command);
             } else if (commands[0].canProcess(command)) {

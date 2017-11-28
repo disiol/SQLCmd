@@ -3,6 +3,8 @@ package ua.com.denisimusIT.SQLCmd.controller.testCommands;
 
 import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.controller.commands.Help;
+import ua.com.denisimusIT.SQLCmd.view.Console;
+import ua.com.denisimusIT.SQLCmd.view.View;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -11,8 +13,9 @@ import static junit.framework.TestCase.assertEquals;
  * mail: deoniisii@gmail.com
  */
 public class HelpTest {
+    View view = new Console();
 
-    Help help = new Help();
+    Help help = new Help(view);
 
     final String newline = System.lineSeparator();
 
