@@ -21,7 +21,7 @@ public class MainController {
     public MainController(View view, DatabaseManager databaseManager) {
         this.view = view;
         this.manager = databaseManager;
-        this.commands = new Command[]{new Exit(view),new Help(view),new Tables(view,manager)};
+        this.commands = new Command[]{new Exit(view),new Help(view),new Tables(view,manager),new Find(view)};
     }
 
     public void run() {
@@ -30,8 +30,8 @@ public class MainController {
         while (true) {
             view.write("enter the commands or help commands for a help call");
             String command = view.read();
-            if (command.equals("tables")) {
-                listOfDb();
+            if (commands[2].canProcess(command)) {
+                commands[2].Process(command);
             } else if (commands[1].canProcess(command)) {
                 commands[1].Process(command);
             } else if (command.startsWith("find|")) {
@@ -120,10 +120,5 @@ public class MainController {
         }
     }
 
-    private void listOfDb() {
-        String tableNames = manager.getTableNames().toString();
-        view.write("Table names: ");
-        view.write(tableNames);
-    }
 
 }
