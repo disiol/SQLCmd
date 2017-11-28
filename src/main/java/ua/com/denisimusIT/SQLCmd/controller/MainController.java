@@ -31,6 +31,7 @@ public class MainController {
             for (Command command : commands) {
                 if (command.canProcess(input)) {
                     command.Process(input);
+                    break;
                 }
             }
         }
