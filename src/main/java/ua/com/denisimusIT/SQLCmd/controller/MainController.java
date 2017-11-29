@@ -11,23 +11,25 @@ public class MainController {
     private static final String NEWLINE = System.lineSeparator();
     private final Command[] commands;
     private View view;
-    private DatabaseManager manager;
 
-
-    public MainController(View view, DatabaseManager databaseManager) {
+    public MainController(View view, DatabaseManager manager) {
         this.view = view;
-        this.manager = databaseManager;
-        this.commands = new Command[]{new Exit(view), new Help(view), new Tables(view, manager), new Find(view, manager)
-                , new UnsupportedCommand(view)};
+        this.commands = new Command[]{
+                new Exit(view),
+                new Help(view),
+                new Connect(view, manager),
+                new IsConnected(view, manager),
+                new Tables(view, manager),
+                new Find(view, manager)
+                , new UnsupportedCommand(view)
+        };
     }
 
     public void run() {
         view.write("Welcome to SQLCmd! =)");
         view.write("For connect to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password or help commands for a help call");
+                "connect|database|username|password" + NEWLINE + "or help commands for a help call");
 
-
-        connectToDb();
 
         while (true) {
             String input = view.read();
@@ -41,39 +43,5 @@ public class MainController {
         }
     }
 
-
-    private void connectToDb() {
-        while (true) {
-            try {
-                String string = view.read();
-                String[] data = string.split("\\|");
-                if (data.length != 3) { //TODO magic number
-                    throw new IllegalArgumentException("The number of parameters partitioned by the character '|' " +
-                            "is incorrect, it is expected 3, but is: " + data.length);
-                }
-                String databaseName = data[0];
-                String userName = data[1];
-                String password = data[2];
-
-                manager.connect(databaseName, userName, password);
-                view.write("Opened database: " + databaseName + " successfully");
-                break;
-
-            } catch (Exception e) {
-                printError(e);
-
-            }
-        }
-    }
-
-    private void printError(Exception e) {
-        String message = /*e.getClass().getSimpleName() + ": " + */ e.getMessage();
-        Throwable cause = e.getCause();
-        if (cause != null) {
-            message += " " + /*cause.getClass().getSimpleName() + ": " + */ cause.getMessage();
-        }
-        view.write("Failure! For the reason : " + message);
-        view.write("Repeat attempt please");
-    }
 
 }

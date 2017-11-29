@@ -43,4 +43,6 @@ public interface DatabaseManager {
     void giveAccessUserToTheDatabase(String databaseName, String userName);
 
     List<String> getTableColumns(String tableName);
+
+    boolean isConnected();
 }

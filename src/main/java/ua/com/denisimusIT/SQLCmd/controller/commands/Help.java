@@ -20,7 +20,7 @@ public class Help implements Command {
     }
 
     @Override
-    public void Process(String command) {
+    public void Process(String command) {//TODO translete
         view.write(new StringBuilder().append("Help: " + newline)
                 .append("•сonnect" + newline)
                 .append("•Команда для подключения к соответствующей БД" + newline)

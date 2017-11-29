@@ -2,28 +2,25 @@ package ua.com.denisimusIT.SQLCmd.controller;
 
 import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
-import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
-import ua.com.denisimusIT.SQLCmd.view.Console;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
-public class Tables implements Command {
+public class IsConnected implements Command {
+    private final View view;
     private final DatabaseManager manager;
-    private View view;
 
-    public Tables(View view, DatabaseManager manager) {
+    public IsConnected(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
     }
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals("tables");
+        return !manager.isConnected();
     }
 
     @Override
     public void Process(String command) {
-        String tableNames = manager.getTableNames().toString();
-        view.write("Table names: ");
-        view.write(tableNames);
+        view.write(String.format("You cannot use a command '%s' be not connected by means of a command yet " +
+                "connect|databaseName|userName|password", command));
     }
 }

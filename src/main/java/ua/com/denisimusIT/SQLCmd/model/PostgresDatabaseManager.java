@@ -32,7 +32,14 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     }
 
-
+    @Override
+    public boolean isConnected() {
+        if (connection != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     @Override
@@ -72,7 +79,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-         //   System.exit(0);
+            //   System.exit(0);
         } finally {
             if (stmt != null) {
                 try {
@@ -606,8 +613,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
             return null;
         }
     }
-
-
 
 
 }
