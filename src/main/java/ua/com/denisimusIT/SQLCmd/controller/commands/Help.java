@@ -24,7 +24,7 @@ public class Help implements Command {
         view.write(new StringBuilder().append("Help: " + newline)
                 .append("•сonnect" + newline)
                 .append("•Команда для подключения к соответствующей БД" + newline)
-                .append("•Формат команды: connect | database | username | password" + newline)
+                .append("•Формат команды: connect|database|username|password" + newline)
                 .append("•где: database - имя БД" + newline)
                 .append("•username - имя пользователя БД" + newline)
                 .append("•password - пароль пользователя БД" + newline)

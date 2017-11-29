@@ -22,10 +22,14 @@ public class MainController {
     }
 
     public void run() {
+        view.write("Welcome to SQLCmd! =)");
+        view.write("For connect to database , enter please a database name, user name and the password in a format: " +
+                   "connect|database|username|password or help commands for a help call");
+
+
         connectToDb();
 
         while (true) {
-            view.write("enter the commands or help commands for a help call");
             String input = view.read();
 
             for (Command command : commands) {
@@ -41,19 +45,18 @@ public class MainController {
     private void connectToDb() {
         while (true) {
             try {
-                view.write("Welcome to SQLCmd! =)");
-                view.write("Enter, please a database name, user name and the password in a format: database|userName|password");
                 String string = view.read();
                 String[] data = string.split("\\|");
                 String databaseName = data[0];
                 String userName = data[1];
                 String password = data[2];
 
-                if (data.length != 3) {
+                if (data.length != 3) { //TODO magic number
                     throw new IllegalArgumentException("The number of parameters partitioned by the character '|' " +
                             "is incorrect, it is expected 3, but is: " + data.length);
                 }
                 manager.connect(databaseName, userName, password);
+                view.write("Opened database: " + databaseName + " successfully");
                 break;
 
             } catch (Exception e) {
