@@ -67,7 +67,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void createATable(final String tableName, String columnsValues) {
-        //TODO прием имен колонок
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
@@ -436,7 +435,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             String sql = "SELECT pg_terminate_backend(pg_stat_activity.pid)\n" +
                     "FROM pg_stat_activity\n" +
                     "WHERE pg_stat_activity.datname = " + "'" + databaseName + "'" + NEW_LINE +
-                    "  AND pid <> pg_backend_pid();\n"; //TODO
+                    "  AND pid <> pg_backend_pid();\n";
             stmt.execute(sql);
             System.out.println("Disconnect of database: " + databaseName + " successfully");
         } catch (SQLException se) {

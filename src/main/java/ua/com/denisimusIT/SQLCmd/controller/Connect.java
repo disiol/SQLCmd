@@ -5,7 +5,9 @@ import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class Connect implements Command {
-    //TODO
+    private static String COMMAND_SAMPLE = "connect|sql|postgres|1111";
+
+
     private final View view;
     private final DatabaseManager manager;
 
@@ -25,9 +27,9 @@ public class Connect implements Command {
 
                 try {
                     String[] data = command.split("\\|");
-                    if (data.length != 4) { //TODO magic number
-                        throw new IllegalArgumentException("The number of parameters partitioned by the character '|' " +
-                                "is incorrect, it is expected 4, but is: " + data.length);
+                    if (data.length != count()) { //TODO magic number
+                        throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
+                                "is incorrect, it is expected %s, but is: %s" ,count(), data.length));
                     }
                     String databaseName = data[1];
                     String userName = data[2];
@@ -46,6 +48,12 @@ public class Connect implements Command {
 
 
     }
+
+
+    private int count() {
+        return COMMAND_SAMPLE.split("\\|").length;
+    }
+
 
     private void printError(Exception e) {  //TODO вынести
         String message = e.getMessage();
