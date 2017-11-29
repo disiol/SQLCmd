@@ -24,7 +24,7 @@ public class MainController {
     public void run() {
         view.write("Welcome to SQLCmd! =)");
         view.write("For connect to database , enter please a database name, user name and the password in a format: " +
-                   "connect|database|username|password or help commands for a help call");
+                "connect|database|username|password or help commands for a help call");
 
 
         connectToDb();
@@ -47,28 +47,33 @@ public class MainController {
             try {
                 String string = view.read();
                 String[] data = string.split("\\|");
-                String databaseName = data[0];
-                String userName = data[1];
-                String password = data[2];
-
                 if (data.length != 3) { //TODO magic number
                     throw new IllegalArgumentException("The number of parameters partitioned by the character '|' " +
                             "is incorrect, it is expected 3, but is: " + data.length);
                 }
+                String databaseName = data[0];
+                String userName = data[1];
+                String password = data[2];
+
                 manager.connect(databaseName, userName, password);
                 view.write("Opened database: " + databaseName + " successfully");
                 break;
 
             } catch (Exception e) {
-                String message = e.getMessage();
-                if (e.getCause() != null) {
-                    message += " " + e.getCause().getMessage();
-                }
-                view.write("Failure! For the reason : " + message);
-                view.write("Repeat attempt please");
+                printError(e);
+
             }
         }
     }
 
+    private void printError(Exception e) {
+        String message = /*e.getClass().getSimpleName() + ": " + */ e.getMessage();
+        Throwable cause = e.getCause();
+        if (cause != null) {
+            message += " " + /*cause.getClass().getSimpleName() + ": " + */ cause.getMessage();
+        }
+        view.write("Failure! For the reason : " + message);
+        view.write("Repeat attempt please");
+    }
 
 }
