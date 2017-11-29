@@ -8,9 +8,10 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.sql.SQLException;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Created by Denis Oleynyk on 25.09.17.
@@ -38,9 +39,9 @@ public class ConnectTest {
         postgresDatabaseManager.connect(database,
                 user, password);
         String expected = "Opened database: " + database + " successfully" + newline;
-        String actual = outContent.toString();
+        Boolean actual = postgresDatabaseManager.isConnected();
 
-        assertEquals("connect to data base", expected, actual);
+        assertTrue("connect to data base", actual);
 
     }
 
@@ -53,13 +54,16 @@ public class ConnectTest {
         String password = "";
         postgresDatabaseManager.connect(database,
                 user, password);
+        Boolean actual = postgresDatabaseManager.isConnected();
+
+        assertFalse("connect to data base", actual);
 
         String expected;
-        String actual;
+        String actual2;
         expected = String.format("Cant get connection for database:%s user:%s", database, user) +
                 ", not the correct password or user name" + newline;
-        actual = outContent.toString();
-        assertEquals("not the correct password", expected, actual.toString());
+        actual2 = outContent.toString();
+        assertEquals("not the correct password", expected, actual2.toString());
 
     }
 

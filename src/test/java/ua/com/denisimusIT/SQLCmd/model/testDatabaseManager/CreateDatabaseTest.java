@@ -53,8 +53,7 @@ public class CreateDatabaseTest {
 
 
         Object expectedMessage = "Creating database testdatabase"+newline +
-                "Database created testdatabase successfully"+newline +
-                "Opened database: postgres successfully"+newline;
+                "Database created testdatabase successfully"+newline;
         String actual = outContent.toString();
         assertEquals("Database created successfully...", expectedMessage, actual);
 

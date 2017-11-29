@@ -28,7 +28,7 @@ public class MainController {
     public void run() {
         view.write("Welcome to SQLCmd! =)");
         view.write("For connect to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + NEWLINE + "or help commands for a help call");
+                "connect|database|username|password" + NEWLINE + "or help command for a help call");
 
 
         while (true) {
@@ -40,7 +40,10 @@ public class MainController {
                     break;
                 }
             }
+            view.write("enter please command or help command for a help call");
         }
+
+
     }
 
 
