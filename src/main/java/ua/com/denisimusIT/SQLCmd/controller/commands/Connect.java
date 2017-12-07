@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.controller;
+package ua.com.denisimusIT.SQLCmd.controller.commands;
 
 import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
