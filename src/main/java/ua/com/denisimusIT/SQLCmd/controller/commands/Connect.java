@@ -25,9 +25,9 @@ public class Connect implements Command {
     @Override
     public void Process(String command) {
 
-                try {
+
                     String[] data = command.split("\\|");
-                    if (data.length != count()) { //TODO magic number
+                    if (data.length != count()) {
                         throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
                                 "is incorrect, it is expected %s, but is: %s" ,count(), data.length));
                     }
@@ -38,10 +38,7 @@ public class Connect implements Command {
                     manager.connect(databaseName, userName, password);
                     view.write("Opened database: " + databaseName + " successfully");
 
-                } catch (Exception e) {
-                    printError(e);
 
-                }
 
 
 
@@ -55,14 +52,6 @@ public class Connect implements Command {
     }
 
 
-    private void printError(Exception e) {  //TODO вынести
-        String message = e.getMessage();
-        Throwable cause = e.getCause();
-        if (cause != null) {
-            message += " " +  cause.getMessage();
-        }
-        view.write("Failure! For the reason : " + message);
-        view.write("Repeat attempt please");
-    }
+
 }
 

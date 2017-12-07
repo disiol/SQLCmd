@@ -29,20 +29,18 @@ public class MainController {
                 "connect|database|username|password" + NEWLINE + "or help command for a help call");
 
 
-        try {
-            while (true) {
-                String input = view.read();
-
-                for (Command command : commands) {
-                    if (command.canProcess(input)) {
-                        command.Process(input);
-                        break;
-                    }
+        while (true) {
+            String input = view.read();
+             if(input == null){
+                 new Exit(view).Process(input);//nul if close application
+             }
+            for (Command command : commands) {
+                if (command.canProcess(input)) {
+                    command.Process(input);
+                    break;
                 }
-                view.write("enter please command or help command for a help call");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            view.write("enter please command or help command for a help call");
         }
 
 
