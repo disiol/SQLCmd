@@ -12,7 +12,12 @@ public class Console implements View {
 
     @Override
     public String read() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+
+        try {
+            Scanner scanner = new Scanner(System.in);
+            return scanner.nextLine();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
