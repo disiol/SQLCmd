@@ -24,6 +24,15 @@ public class MainController {
     }
 
     public void run() {
+        try {
+            doWork();
+        } catch (ExitException e) {
+            // do nothing
+        }
+
+    }
+
+    private void doWork() {
         view.write("Welcome to SQLCmd! =)");
         view.write("For connect to database , enter please a database name, user name and the password in a format: " +
                 "connect|database|username|password" + NEWLINE + "or help command for a help call");
@@ -31,9 +40,9 @@ public class MainController {
 
         while (true) {
             String input = view.read();
-             if(input == null){
-                 new Exit(view).Process(input);//nul if close application
-             }
+            if (input == null) {
+                new Exit(view).Process(input);//nul if close application
+            }
             for (Command command : commands) {
                 if (command.canProcess(input)) {
                     command.Process(input);
@@ -42,8 +51,6 @@ public class MainController {
             }
             view.write("enter please command or help command for a help call");
         }
-
-
     }
 
 

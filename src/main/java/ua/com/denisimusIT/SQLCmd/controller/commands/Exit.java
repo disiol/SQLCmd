@@ -20,7 +20,7 @@ public class Exit implements Command {
     @Override
     public void Process(String command) {
         view.write("See you soon!");
-        System.exit(0);
+        throw new ExitException();
     }
 // TODO•Команда для отключения от БД и выход из приложения
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.exit (без параметров)
