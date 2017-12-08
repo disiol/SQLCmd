@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 public class ConfigurableInputStream extends InputStream {
     private String newLine = System.lineSeparator();
-    private String line = "";
+    private String line;
 
     @Override
     public int read() throws IOException {
