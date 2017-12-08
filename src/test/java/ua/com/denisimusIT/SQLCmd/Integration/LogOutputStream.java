@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 public class LogOutputStream extends OutputStream {
-    String log;
+    String log = "";
 
     @Override
     public void write(int b) throws IOException {
