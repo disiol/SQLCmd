@@ -33,11 +33,35 @@ public class IntegrationTest {
         Main.main(new String[0]);
         //wen
         String actual = out.getData();
-        String expected = "Welcome to SQLCmd! =)"+newLine +
-                "For connect to database , enter please a database name, user name and the password in a format: connect|database|username|password"+newLine +
-                "or help command for a help call"+newLine +
-                "You cannot use a command '' be not connected by means of a command yet connect|databaseName|userName|password"+newLine +
-                "enter please command or help command for a help call " + newLine;
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database , enter please a database name, " +
+                "user name and the password in a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "You cannot use a command '' be not connected by means of " +
+                "a command yet connect|databaseName|userName|password" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("testExit", expected, actual);
+    }
+
+    @Test
+
+    public void testHelp() {
+
+        //given
+        in.add("Help");
+        //then
+        Main.main(new String[0]);
+        //wen
+        String actual = out.getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database , enter please a database name, " +
+                "user name and the password in a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "You cannot use a command '' be not connected by means of " +
+                "a command yet connect|databaseName|userName|password" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "See you soon!" + newLine;
         assertEquals("testExit", expected, actual);
     }
 }
