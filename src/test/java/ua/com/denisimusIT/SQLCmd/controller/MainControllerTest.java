@@ -39,7 +39,8 @@ public class MainControllerTest {
                 "or help command for a help call"+NEWLINE +
                 "You cannot use a command '' be not connected by means of a command " +
                 "yet connect|databaseName|userName|password"+NEWLINE +
-                "enter please command or help command for a help call" + NEWLINE;
+                "enter please command or help command for a help call" + NEWLINE
+                + "See you soon!" + NEWLINE;
         String actual = outContent.toString();
         assertEquals("MainControllerTest", expected, actual);
 

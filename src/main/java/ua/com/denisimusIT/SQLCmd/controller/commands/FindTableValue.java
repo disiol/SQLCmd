@@ -7,13 +7,13 @@ import ua.com.denisimusIT.SQLCmd.view.View;
 
 import java.util.List;
 
-public class Find implements Command {
+public class FindTableValue implements Command {
     private final View view;
     private final DatabaseManager manager;
     private String separator = "•+--------------------------------------------------";
     private String beginSymbol = "•+ ";
 
-    public Find(View view, DatabaseManager manager) {
+    public FindTableValue(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
     }

@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class Clear {
+public class ClearTableData {
 //TODO •Команда очищает содержимое указанной (всей) таблицы
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.clearATable | tableName
 //•где tableName - имя очищаемой таблицы

@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class update {
+public class UpdateColumVaulue {
 // TODO•Команда обновит запись, установив значение column2 = value2, длякоторой соблюдается условие column1 = value1
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.update | tableName | column1 | value1 | column2 | value2
 //•где: tableName - имя таблицы

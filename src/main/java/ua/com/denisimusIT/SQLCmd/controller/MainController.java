@@ -15,10 +15,10 @@ public class MainController {
         this.commands = new Command[]{
                 new Exit(view),
                 new Help(view),
-                new Connect(view, manager),
+                new ConnectToDatabase(view, manager),
                 new IsConnected(view, manager),
                 new Tables(view, manager),
-                new Find(view, manager)
+                new FindTableValue(view, manager)
                 , new UnsupportedCommand(view)
         };
     }
@@ -38,20 +38,24 @@ public class MainController {
                 "connect|database|username|password" + NEWLINE + "or help command for a help call");
 
 
-        while (true) {
-            String input = view.read();
-            if (input == null) {
-                new Exit(view).Process(input);//nul if close application
-            }
-            for (Command command : commands) {
-                if (command.canProcess(input)) {
-                    command.Process(input);
-                    break;
+
+            while (true) {
+                String input = view.read();
+                if (input == null) {
+                    new Exit(view).Process(input);//nul if close application
                 }
+                for (Command command : commands) {
+                    if (command.canProcess(input)) {
+                        command.Process(input);
+                        break;
+                    }
+                }
+                view.write("enter please command or help command for a help call");
             }
-            view.write("enter please command or help command for a help call");
-        }
+
     }
+
+
 
 
 }

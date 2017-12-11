@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class currentDatabase {
+public class NameOfСurrentDatabase {
     //TODO
     //current_database
     //  ------------------

@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.commands;
 
-public class insert {
+public class InsertALineIntoTheTable {
 // TODO•Команда для вставки одной строки в заданную таблицу
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.insertToTable | tableName | column1 | value1 | column2 | value2 | ... |
 //    columnN | valueN
