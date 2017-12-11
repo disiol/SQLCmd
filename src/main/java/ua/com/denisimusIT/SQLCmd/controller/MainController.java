@@ -1,6 +1,8 @@
 package ua.com.denisimusIT.SQLCmd.controller;
 
 import ua.com.denisimusIT.SQLCmd.controller.commands.*;
+import ua.com.denisimusIT.SQLCmd.controller.commands.Exit.Exit;
+import ua.com.denisimusIT.SQLCmd.controller.commands.Exit.Exeption.ExitException;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -17,7 +19,7 @@ public class MainController {
                 new Help(view),
                 new ConnectToDatabase(view, manager),
                 new IsConnected(view, manager),
-                new Tables(view, manager),
+                new ListOfTablesNames(view, manager),
                 new FindTableValue(view, manager)
                 , new UnsupportedCommand(view)
         };

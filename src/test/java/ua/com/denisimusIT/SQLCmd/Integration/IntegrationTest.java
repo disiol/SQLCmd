@@ -54,7 +54,8 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
+                "For connect to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "Help: " + newLine +
                 "•сonnect" + newLine +

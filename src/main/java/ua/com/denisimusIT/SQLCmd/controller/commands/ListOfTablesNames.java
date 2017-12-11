@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.controller;
+package ua.com.denisimusIT.SQLCmd.controller.commands;
 
 import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
@@ -6,11 +6,11 @@ import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.Console;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
-public class Tables implements Command {
+public class ListOfTablesNames implements Command {
     private final DatabaseManager manager;
     private View view;
 
-    public Tables(View view, DatabaseManager manager) {
+    public ListOfTablesNames(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
     }
@@ -23,7 +23,7 @@ public class Tables implements Command {
     @Override
     public void Process(String command) {
         String tableNames = manager.getTableNames().toString();
-        view.write("Table names: ");
+        view.write("Tables names: ");
         view.write(tableNames);
     }
 }
