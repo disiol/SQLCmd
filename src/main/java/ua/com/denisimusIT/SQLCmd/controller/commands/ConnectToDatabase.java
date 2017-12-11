@@ -23,7 +23,7 @@ public class ConnectToDatabase implements Command {
     }
 
     @Override
-    public void Process(String command) {
+    public void process(String command) {
 
 
         try {

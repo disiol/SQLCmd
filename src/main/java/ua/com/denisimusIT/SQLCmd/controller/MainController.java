@@ -44,11 +44,11 @@ public class MainController {
             while (true) {
                 String input = view.read();
                 if (input == null) {
-                    new Exit(view).Process(input);//nul if close application
+                    new Exit(view).process(input);//nul if close application
                 }
                 for (Command command : commands) {
                     if (command.canProcess(input)) {
-                        command.Process(input);
+                        command.process(input);
                         break;
                     }
                 }

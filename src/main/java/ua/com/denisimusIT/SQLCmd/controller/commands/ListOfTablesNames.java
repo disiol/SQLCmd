@@ -21,7 +21,7 @@ public class ListOfTablesNames implements Command {
     }
 
     @Override
-    public void Process(String command) {
+    public void process(String command) {
         String tableNames = manager.getTableNames().toString();
         view.write("Tables names: ");
         view.write(tableNames);

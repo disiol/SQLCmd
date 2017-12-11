@@ -24,7 +24,7 @@ public class ContentsOfTheTable implements Command {
     }
 
     @Override
-    public void Process(String command) {
+    public void process(String command) {
         String[] dataCommand = command.split("\\|");
         String tableName = dataCommand[1];
 

@@ -20,7 +20,7 @@ public class Help implements Command {
     }
 
     @Override
-    public void Process(String command) {//TODO
+    public void process(String command) {//TODO
         view.write("The existing commands:");
 
         view.write("\tconnect|databaseName|userName|password");

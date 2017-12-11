@@ -20,10 +20,9 @@ public class Exit implements Command {
     }
 
     @Override
-    public void Process(String command) {
+    public void process(String command) {
         view.write("See you soon!");
         throw new ExitException();
     }
-//•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.exit (без параметров)
-//•Формат вывода: текстовое сообщение с результатом выполнения операции
+
 }
