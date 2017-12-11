@@ -24,7 +24,6 @@ public class Exit implements Command {
         view.write("See you soon!");
         throw new ExitException();
     }
-// TODO•Команда для отключения от БД и выход из приложения
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.commands.exit (без параметров)
 //•Формат вывода: текстовое сообщение с результатом выполнения операции
 }

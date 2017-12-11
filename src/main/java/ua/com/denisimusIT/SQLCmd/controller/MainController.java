@@ -20,7 +20,7 @@ public class MainController {
                 new ConnectToDatabase(view, manager),
                 new IsConnected(view, manager),
                 new ListOfTablesNames(view, manager),
-                new FindTableValue(view, manager)
+                new ContentsOfTheTable(view, manager)
                 , new UnsupportedCommand(view)
         };
     }
