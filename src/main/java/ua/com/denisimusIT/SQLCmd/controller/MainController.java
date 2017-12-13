@@ -1,8 +1,8 @@
 package ua.com.denisimusIT.SQLCmd.controller;
 
-import ua.com.denisimusIT.SQLCmd.controller.commands.*;
-import ua.com.denisimusIT.SQLCmd.controller.commands.Exit.Exit;
-import ua.com.denisimusIT.SQLCmd.controller.commands.Exit.Exeption.ExitException;
+import ua.com.denisimusIT.SQLCmd.controller.command.*;
+import ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exit;
+import ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -36,8 +36,8 @@ public class MainController {
 
     private void doWork() {
         view.write("Welcome to SQLCmd! =)");
-        view.write("For connect to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + NEWLINE + "or help command for a help call");
+        view.write("For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
+                "connectToDatabase|database|username|password" + NEWLINE + "or help command for a help call");
 
 
 

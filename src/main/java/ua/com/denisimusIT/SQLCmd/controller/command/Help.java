@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.controller.commands;
+package ua.com.denisimusIT.SQLCmd.controller.command;
 // Команда выводит в консоль список всех доступных команд•Формат: Help (без параметров)
 //•Формат вывода: текст, описания команд с любым форматированием
 
@@ -21,9 +21,9 @@ public class Help implements Command {
 
     @Override
     public void process(String command) {//TODO
-        view.write("The existing commands:");
+        view.write("The existing command:");
 
-        view.write("\tconnect|databaseName|userName|password");
+        view.write("\tconnectToDatabase|databaseName|userName|password");
         view.write("\t\tfor connection to the database with which we will work");
 
         view.write("\tlist");

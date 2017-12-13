@@ -12,7 +12,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public void connect(String databaseName, String userName, String password) {
+    public void connectToDatabase(String databaseName, String userName, String password) {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {

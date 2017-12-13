@@ -1,6 +1,5 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager.doBeforeTests;
 
-import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
@@ -22,7 +21,7 @@ public class ConnectBeforeTests {
         String database = "postgres";
         String user = "postgres";
         String password = "1111";
-        postgresDatabaseManager.connect(database,
+        postgresDatabaseManager.connectToDatabase(database,
                 user, password);
 
 

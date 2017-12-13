@@ -6,7 +6,6 @@ import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +28,7 @@ public class CurrentDatabaseTest {
 
 
         postgresDatabaseManager = new PostgresDatabaseManager();
-        postgresDatabaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager.connectToDatabase(dataBase, user, password);
     }
 
     @Before

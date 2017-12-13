@@ -36,12 +36,12 @@ public class ConnectTest {
         String database = "postgres";
         String user = "postgres";
         String password = "1111";
-        postgresDatabaseManager.connect(database,
+        postgresDatabaseManager.connectToDatabase(database,
                 user, password);
         String expected = "Opened database successfully" + newline;
         String actual = outContent.toString();
 
-        assertEquals("connect to data base", expected, actual);
+        assertEquals("connectToDatabase to data base", expected, actual);
 
     }
 
@@ -53,7 +53,7 @@ public class ConnectTest {
         String user = "postgres";
         String password = "1111";
         String message = String.format("Cant get connection for database:%s user:%s", database, user);
-        postgresDatabaseManager.connect(database,
+        postgresDatabaseManager.connectToDatabase(database,
                 user, password);
         String expected = message + " ,database does not exist" + newline;
         String actual = outContent.toString();
@@ -68,7 +68,7 @@ public class ConnectTest {
         String database = "sqlCmd";
         String user = "postgres";
         String password = "";
-        postgresDatabaseManager.connect(database,
+        postgresDatabaseManager.connectToDatabase(database,
                 user, password);
 
         String expected;
@@ -87,7 +87,7 @@ public class ConnectTest {
         String database = "sqlCmd";
         String user = "q";
         String password = "1111";
-        postgresDatabaseManager.connect(database, user, password);
+        postgresDatabaseManager.connectToDatabase(database, user, password);
         String expected;
         String actual = outContent.toString();
         expected = String.format("Cant get connection for database:%s user:%s", database, user) +

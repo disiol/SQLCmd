@@ -1,6 +1,5 @@
-package ua.com.denisimusIT.SQLCmd.controller.commands;
+package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class UnsupportedCommand implements Command {
@@ -17,6 +16,6 @@ public class UnsupportedCommand implements Command {
 
     @Override
     public void process(String command) {
-        view.write("Nonexistent commands:" + command);
+        view.write("Nonexistent command:" + command);
     }
 }

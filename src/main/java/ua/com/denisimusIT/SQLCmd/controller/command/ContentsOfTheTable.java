@@ -1,6 +1,5 @@
-package ua.com.denisimusIT.SQLCmd.controller.commands;
+package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
 import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;

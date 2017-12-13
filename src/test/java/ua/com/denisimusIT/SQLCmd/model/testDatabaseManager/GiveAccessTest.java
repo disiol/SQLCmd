@@ -32,11 +32,11 @@ public class GiveAccessTest {
     }
 
     private static void conectToDb() {
-        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(DATA_BASE, USER, PASSWORD);
     }
 
     private static void conectToTestDb() {
-        POSTGRES_DATABASE_MANAGER.connect(TEST_DATABASE_NAME, TEST_USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(TEST_DATABASE_NAME, TEST_USER, PASSWORD);
     }
 
 

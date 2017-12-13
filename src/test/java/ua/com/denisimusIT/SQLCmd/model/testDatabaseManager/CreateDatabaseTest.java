@@ -26,7 +26,7 @@ public class CreateDatabaseTest {
         String password = "1111";
 
         postgresDatabaseManager = new PostgresDatabaseManager();
-        postgresDatabaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager.connectToDatabase(dataBase, user, password);
     }
 
 

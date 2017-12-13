@@ -24,9 +24,9 @@ public class TestGetTableColumn {
 
     @BeforeClass
     public static void setUpBeforClass() {
-        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(DATA_BASE, USER, PASSWORD);
         POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
-        POSTGRES_DATABASE_MANAGER.connect(TEST_DATABASE_NAME, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(TEST_DATABASE_NAME, USER, PASSWORD);
 
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
         POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);

@@ -29,7 +29,7 @@ public class CurrentDatabaseCommandTest {
 
 
         postgresDatabaseManager = new PostgresDatabaseManager();
-        postgresDatabaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager.connectToDatabase(dataBase, user, password);
     }
 
     @Before

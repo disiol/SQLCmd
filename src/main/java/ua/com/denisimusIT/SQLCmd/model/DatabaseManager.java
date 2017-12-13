@@ -3,7 +3,7 @@ package ua.com.denisimusIT.SQLCmd.model;
 import java.util.List;
 
 public interface DatabaseManager {
-    void connect(String databaseName, String userName, String password);
+    void connectToDatabase(String databaseName, String userName, String password);
 
     void clearATable(String tableName);
 

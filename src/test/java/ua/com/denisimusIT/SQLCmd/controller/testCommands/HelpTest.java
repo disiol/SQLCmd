@@ -2,7 +2,7 @@ package ua.com.denisimusIT.SQLCmd.controller.testCommands;
 
 
 import org.junit.Test;
-import ua.com.denisimusIT.SQLCmd.controller.commands.Help;
+import ua.com.denisimusIT.SQLCmd.controller.command.Help;
 import ua.com.denisimusIT.SQLCmd.view.Console;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -25,7 +25,7 @@ public class HelpTest {
         String expected = new StringBuilder().append("Help: " + newline)
                 .append("•сonnect" + newline)
                 .append("•Команда для подключения к соответствующей БД" + newline)
-                .append("•Формат команды: connect | database | username | password" + newline)
+                .append("•Формат команды: connectToDatabase | database | username | password" + newline)
                 .append("•где: database - имя БД" + newline)
                 .append("•username - имя пользователя БД" + newline)
                 .append("•password - пароль пользователя БД" + newline)

@@ -26,9 +26,9 @@ public class CreateATableTest {
 
     @BeforeClass
     public static void setUpBeforClass() throws Exception {
-        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(DATA_BASE, USER, PASSWORD);
         POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
-        POSTGRES_DATABASE_MANAGER.connect(TEST_DATABASE_NAME, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(TEST_DATABASE_NAME, USER, PASSWORD);
 
     }
 
@@ -62,7 +62,7 @@ public class CreateATableTest {
     @AfterClass
     public static void dropDatabase() throws Exception {
         POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(TEST_DATABASE_NAME);
-        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(DATA_BASE, USER, PASSWORD);
         POSTGRES_DATABASE_MANAGER.dropDatabase(TEST_DATABASE_NAME);
 
     }

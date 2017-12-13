@@ -34,13 +34,13 @@ public class CreateUserTest {
     }
 
     private void connectToDataBase() {
-        postgresDatabaseManager.connect(dataBase, userDb, password);
+        postgresDatabaseManager.connectToDatabase(dataBase, userDb, password);
         //создать и выбрать баззу
     }
 
     private void ConnectToCrateDb() {
         ;
-        postgresDatabaseManager.connect(testDatabase, userDb, password);
+        postgresDatabaseManager.connectToDatabase(testDatabase, userDb, password);
     }
 
     private void CrateDb() {

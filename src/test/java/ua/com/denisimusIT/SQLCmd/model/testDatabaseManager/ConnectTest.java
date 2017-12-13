@@ -36,12 +36,12 @@ public class ConnectTest {
         String database = "postgres";
         String user = "postgres";
         String password = "1111";
-        postgresDatabaseManager.connect(database,
+        postgresDatabaseManager.connectToDatabase(database,
                 user, password);
         String expected = "Opened database: " + database + " successfully" + newline;
         Boolean actual = postgresDatabaseManager.isConnected();
 
-        assertTrue("connect to data base", actual);
+        assertTrue("connectToDatabase to data base", actual);
 
     }
 
@@ -52,11 +52,11 @@ public class ConnectTest {
         String database = "sqlCmd";
         String user = "postgres";
         String password = "";
-        postgresDatabaseManager.connect(database,
+        postgresDatabaseManager.connectToDatabase(database,
                 user, password);
         Boolean actual = postgresDatabaseManager.isConnected();
 
-        assertFalse("connect to data base", actual);
+        assertFalse("connectToDatabase to data base", actual);
 
         String expected;
         String actual2;

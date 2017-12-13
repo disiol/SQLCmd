@@ -1,11 +1,10 @@
-package ua.com.denisimusIT.SQLCmd.controller.commands;
+package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class ConnectToDatabase implements Command {
-    private static String COMMAND_SAMPLE = "connect|sql|postgres|1111";
+    private static String COMMAND_SAMPLE = "connectToDatabase|sql|postgres|1111";
 
 
     private final View view;
@@ -19,7 +18,7 @@ public class ConnectToDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("connect|");
+        return command.startsWith("connectToDatabase|");
     }
 
     @Override
@@ -36,7 +35,7 @@ public class ConnectToDatabase implements Command {
             String userName = data[2];
             String password = data[3];
 
-            manager.connect(databaseName, userName, password);
+            manager.connectToDatabase(databaseName, userName, password);
             view.write("Opened database: " + databaseName + " successfully");
         } catch (IllegalArgumentException e) {
            printError(e);

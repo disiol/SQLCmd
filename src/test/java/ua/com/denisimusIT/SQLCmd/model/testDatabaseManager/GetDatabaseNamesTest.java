@@ -22,7 +22,7 @@ public class GetDatabaseNamesTest {
         String dataBase = "postgres";
         String user = "postgres";
         String password = "1111";
-        postgresDatabaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager.connectToDatabase(dataBase, user, password);
 
     }
 

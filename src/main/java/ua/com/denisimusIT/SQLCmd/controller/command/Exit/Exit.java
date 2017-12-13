@@ -1,7 +1,7 @@
-package ua.com.denisimusIT.SQLCmd.controller.commands.Exit;
+package ua.com.denisimusIT.SQLCmd.controller.command.Exit;
 
-import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
-import ua.com.denisimusIT.SQLCmd.controller.commands.Exit.Exeption.ExitException;
+import ua.com.denisimusIT.SQLCmd.controller.command.Command;
+import ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class Exit implements Command {

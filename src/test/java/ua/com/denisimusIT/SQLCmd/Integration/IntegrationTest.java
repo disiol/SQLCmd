@@ -35,8 +35,8 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database , enter please a database name, " +
-                "user name and the password in a format: connect|database|username|password" + newLine +
+                "For connectToDatabase to database , enter please a database name, " +
+                "user name and the password in a format: connectToDatabase|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testExit", expected, actual);
@@ -54,11 +54,11 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)"+ newLine +
-                "For connect to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password"+ newLine +
+                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
+                "connectToDatabase|database|username|password"+ newLine +
                 "or help command for a help call"+ newLine +
-                "The existing commands:"+ newLine +
-                "\tconnect|databaseName|userName|password"+ newLine +
+                "The existing command:"+ newLine +
+                "\tconnectToDatabase|databaseName|userName|password"+ newLine +
                 "\t\tfor connection to the database with which we will work"+ newLine +
                 "\tlist"+ newLine +
                 "\t\tfor connection to the database with which we will work"+ newLine +
@@ -83,14 +83,14 @@ public class IntegrationTest {
     public void testConnect() {
 
         //given
-        in.add("connect|sql|postgres|1111");
+        in.add("connectToDatabase|sql|postgres|1111");
         //in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
+                "For connectToDatabase to database , enter please a database name, user name and the password in a format: connectToDatabase|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "Opened database: sql successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
@@ -102,15 +102,15 @@ public class IntegrationTest {
     public void testConnectException() throws Exception {
 
         //given
-        in.add("connect|sql|");
+        in.add("connectToDatabase|sql|");
         //in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + newLine +
+                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
+                "connectToDatabase|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect, " +
                 "it is expected 4, but is: 2" + newLine + "Repeat attempt." + newLine +

@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.controller.commands;
+package ua.com.denisimusIT.SQLCmd.controller.command;
 
 public class DatabaseNames {
      //TODO команда для отоброжения списка базы данных

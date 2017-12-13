@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +24,7 @@ public class GetTableNamesTest {
         String dataBase = "postgres";
         String user = "postgres";
         String password = "1111";
-        postgresDatabaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager.connectToDatabase(dataBase, user, password);
         //TODO создать и выбрать баззу
 
     }

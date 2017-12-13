@@ -1,9 +1,6 @@
-package ua.com.denisimusIT.SQLCmd.controller.commands;
+package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import ua.com.denisimusIT.SQLCmd.controller.commands.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
-import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
-import ua.com.denisimusIT.SQLCmd.view.Console;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class ListOfTablesNames implements Command {

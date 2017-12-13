@@ -18,7 +18,7 @@ public class DatabaseNamesCommandTest {
         String dataBase = "sqlCmd";
         String user = "postgres";
         String password = "1111";
-        postgresDatabaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager.connectToDatabase(dataBase, user, password);
 
         //TODO create data bese
     }

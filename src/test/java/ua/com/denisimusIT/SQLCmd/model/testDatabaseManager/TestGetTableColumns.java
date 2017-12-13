@@ -1,12 +1,8 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import org.junit.*;
-import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -25,9 +21,9 @@ public class TestGetTableColumns {
     @BeforeClass
     public static void setUpBeforClass() {
         connectTodB();
-        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(DATA_BASE, USER, PASSWORD);
         POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
-        POSTGRES_DATABASE_MANAGER.connect(TEST_DATABASE_NAME, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(TEST_DATABASE_NAME, USER, PASSWORD);
 
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
         POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
@@ -35,7 +31,7 @@ public class TestGetTableColumns {
     }
 
     private static void connectTodB(){
-        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(DATA_BASE, USER, PASSWORD);
     }
     @Test
     public void TestGetTableColumns() {

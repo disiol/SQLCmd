@@ -1,6 +1,5 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
@@ -30,7 +29,7 @@ public class DropDatabaseTest {
 
 
         postgresDatabaseManager = new PostgresDatabaseManager();
-        postgresDatabaseManager.connect(dataBase, user, password);
+        postgresDatabaseManager.connectToDatabase(dataBase, user, password);
     }
 
     @Before

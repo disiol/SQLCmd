@@ -1,7 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
@@ -29,9 +28,9 @@ public class DisconnectOfDatabaseTest {
 
     @BeforeClass
     public static void setUpBeforClass() throws Exception {
-        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(DATA_BASE, USER, PASSWORD);
         POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
-        POSTGRES_DATABASE_MANAGER.connect(TEST_DATABASE_NAME, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(TEST_DATABASE_NAME, USER, PASSWORD);
 
     }
 
@@ -57,7 +56,7 @@ public class DisconnectOfDatabaseTest {
 
     @AfterClass
     public static void dropDatabase() throws Exception {
-        POSTGRES_DATABASE_MANAGER.connect(DATA_BASE, USER, PASSWORD);
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(DATA_BASE, USER, PASSWORD);
         POSTGRES_DATABASE_MANAGER.dropDatabase(TEST_DATABASE_NAME);
 
     }
