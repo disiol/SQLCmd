@@ -42,6 +42,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
 
+
     @Override
     public void clearATable(final String tableName) {
         Statement stmt = null;
@@ -62,6 +63,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
             }
         }
 
+
+    }
+
+
+    @Override
+    public void createEmptyATable(String tableName) {
 
     }
 

@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CreateUserTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -39,7 +40,6 @@ public class CreateUserTest {
     }
 
     private void ConnectToCrateDb() {
-        ;
         postgresDatabaseManager.connectToDatabase(testDatabase, userDb, password);
     }
 
@@ -52,8 +52,15 @@ public class CreateUserTest {
         System.setOut(new PrintStream(outContent));
 
         user = "den";
-        String password = "111";
+        String password = "test";
         postgresDatabaseManager.createUser(user, password);
+
+
+
+        postgresDatabaseManager.giveAccessUserToTheDatabase(testDatabase,user);
+        postgresDatabaseManager.connectToDatabase(testDatabase, user, password);
+        assertTrue("test connekt to DB ",postgresDatabaseManager.isConnected());
+
         String expected = "Creating user: " + user + newline +
                 "It is created user: " + user + " with the password: " + password + newline;
         String actual = outContent.toString();
@@ -65,12 +72,13 @@ public class CreateUserTest {
         assertEquals("The user already is created", expected, actual);
 
 
+
     }
 
 
     @After
     public void dropDatabase() {
-        ConnectToCrateDb();
+        connectToDataBase();
         postgresDatabaseManager.dropUser(user);
         connectToDataBase();
         postgresDatabaseManager.dropDatabase(testDatabase);

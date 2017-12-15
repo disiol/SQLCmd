@@ -45,4 +45,6 @@ public interface DatabaseManager {
     List<String> getTableColumns(String tableName);
 
     boolean isConnected();
+
+    void createEmptyATable(String tableName);
 }

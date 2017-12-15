@@ -35,8 +35,6 @@ public class CreateATableTest {
 
     @Test
     public void сreateTableCompany() {
-        //TODO тест создания таблицы
-
         System.setOut(new PrintStream(OUT_CONTENT));
 
         // создает таблицу и проверает создана ли она
