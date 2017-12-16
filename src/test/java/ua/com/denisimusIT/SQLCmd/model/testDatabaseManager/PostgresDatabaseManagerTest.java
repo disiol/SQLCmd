@@ -518,6 +518,31 @@ public class PostgresDatabaseManagerTest {
         // вытаскивает значение данных  и сравнивает
     }
 
+
+    @Test
+    public void ShowDatabaseTest() {
+        String databaseName1 = "test3";
+        connectToDB();
+        List<String> databaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        databaseNames.add(databaseName1);
+        Collections.sort(databaseNames);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.createDatabase(databaseName1);
+
+
+        connectToDB();
+        String expected = databaseNames.toString();
+        List<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        Collections.sort(actualDatabaseNames);
+
+
+        assertEquals("getDatabaseNames", expected, actualDatabaseNames.toString());
+
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName1);
+
+    }
+
     @AfterClass
     public static void dropDatabase() {
         connectToDB();
