@@ -37,7 +37,7 @@ public class PostgresDatabaseManagerTest {
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName, userName);
         connectToTestDatabase();
-        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
         POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
     }
 
@@ -57,10 +57,14 @@ public class PostgresDatabaseManagerTest {
 
 
     @Test
-    public void testGetAllTableNames() {
-        Object[] tableNames = POSTGRES_DATABASE_MANAGER.getTableNames().toArray();
+    public void TestGetTableColumns() {
 
-        assertEquals("[testtable, company]", Arrays.toString(tableNames));
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
+        String tableNameTestColumns = "testtable2";
+        POSTGRES_DATABASE_MANAGER.createATable(tableNameTestColumns, columnsValues);
+
+        String actual = POSTGRES_DATABASE_MANAGER.getTableColumns(tableNameTestColumns).toString();
+        assertEquals("GetTableColumns","[id, name, password]", actual);
     }
 
     @Test
@@ -120,17 +124,7 @@ public class PostgresDatabaseManagerTest {
 
     }
 
-    @Test
-    public void testGetColumnNames() {
-        // given
-        POSTGRES_DATABASE_MANAGER.clearATable(TEST_TABLE_NAME);
 
-        // when
-        Object[] columnNames = POSTGRES_DATABASE_MANAGER.getTableColumns(TEST_TABLE_NAME).toArray();
-
-        // then
-        assertEquals("[name, password, id]", Arrays.toString(columnNames));
-    }
 
 
     @Test
