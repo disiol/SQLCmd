@@ -23,7 +23,7 @@ public class PostgresDatabaseManagerTest {
     private static final String userName = "postgres";
     private static final String password = "1111";
 
-    private static final String tesTableName = "testTable";
+    private static final String TEST_TABLE_NAME = "testTable";
     private static final String testDatabaseName = "testdatabase";
     private static final String testUserName = "testUser";
     private static final String testPassword = "password";
@@ -37,8 +37,8 @@ public class PostgresDatabaseManagerTest {
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName, userName);
         connectToTestDatabase();
-        POSTGRES_DATABASE_MANAGER.createATable(tesTableName, "");
-
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
+        POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
     }
 
 
@@ -60,7 +60,7 @@ public class PostgresDatabaseManagerTest {
     public void testGetAllTableNames() {
         Object[] tableNames = POSTGRES_DATABASE_MANAGER.getTableNames().toArray();
 
-        assertEquals("[userName, test]", Arrays.toString(tableNames));
+        assertEquals("[testtable, company]", Arrays.toString(tableNames));
     }
 
     @Test
@@ -95,36 +95,38 @@ public class PostgresDatabaseManagerTest {
     @Test
     public void testUpdateTableData() {
         // given
-        POSTGRES_DATABASE_MANAGER.clearATable(tesTableName);
+        POSTGRES_DATABASE_MANAGER.clearATable(TEST_TABLE_NAME);
+
 
         DataSet input = new DataSet();
+        input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
-        input.put("id", 13);
-        POSTGRES_DATABASE_MANAGER.createATable(tesTableName, String.valueOf(input));
+        POSTGRES_DATABASE_MANAGER.insertData(TEST_TABLE_NAME, input);
 
         // when
         DataSet newValue = new DataSet();
         newValue.put("password", "pass2");
         newValue.put("name", "Pup");
-        POSTGRES_DATABASE_MANAGER.updateTableData(tesTableName, 13, newValue);
+        POSTGRES_DATABASE_MANAGER.updateTableData(TEST_TABLE_NAME, 13, newValue);
 
         // then
-        DataSet[] users = POSTGRES_DATABASE_MANAGER.getTableData(tesTableName);
+        DataSet[] users = POSTGRES_DATABASE_MANAGER.getTableData(TEST_TABLE_NAME);
         assertEquals(1, users.length);
 
         DataSet user = users[0];
-        assertEquals("[name, password, id]", Arrays.toString(user.getNames()));
-        assertEquals("[Pup, pass2, 13]", Arrays.toString(user.getValues()));
+        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
+        assertEquals("[13, Pup, pass2]", Arrays.toString(user.getValues()));
+
     }
 
     @Test
     public void testGetColumnNames() {
         // given
-        POSTGRES_DATABASE_MANAGER.clearATable(tesTableName);
+        POSTGRES_DATABASE_MANAGER.clearATable(TEST_TABLE_NAME);
 
         // when
-        Object[] columnNames = POSTGRES_DATABASE_MANAGER.getTableColumns(tesTableName).toArray();
+        Object[] columnNames = POSTGRES_DATABASE_MANAGER.getTableColumns(TEST_TABLE_NAME).toArray();
 
         // then
         assertEquals("[name, password, id]", Arrays.toString(columnNames));

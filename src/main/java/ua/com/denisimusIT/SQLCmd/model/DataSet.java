@@ -24,8 +24,8 @@ public class DataSet {
         }
     }
 
-    public Data[] data = new Data[100]; // TODO remove magic number 100, make colekhen
-    public int index = 0;
+    private Data[] data = new Data[100]; // TODO remove magic number 100, make colekhen
+    private int index = 0;
 
     public void put(String name, Object value) {
         data[index++] = new Data(name, value);

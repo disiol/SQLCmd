@@ -38,7 +38,7 @@ public class CreateATableTest {
         System.setOut(new PrintStream(OUT_CONTENT));
 
         // создает таблицу и проверает создана ли она
-        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
 
 
         String tableName = "company";
@@ -46,7 +46,7 @@ public class CreateATableTest {
 
         String expected = "Table " + tableName + " created successfully" + NEW_LINE;
         String actual = OUT_CONTENT.toString();
-        assertEquals("сreateTableCompany", expected, actual);
+        assertEquals("create TableCompany", expected, actual);
 
 
         String expected_1 = "[id, name, password]";

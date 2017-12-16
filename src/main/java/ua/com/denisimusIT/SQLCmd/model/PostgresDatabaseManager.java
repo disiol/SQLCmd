@@ -41,6 +41,10 @@ public class PostgresDatabaseManager implements DatabaseManager {
         }
     }
 
+    @Override
+    public void createEmptyATable(String tableName) {
+
+    }
 
 
     @Override
@@ -63,12 +67,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
             }
         }
 
-
-    }
-
-
-    @Override
-    public void createEmptyATable(String tableName) {
 
     }
 
