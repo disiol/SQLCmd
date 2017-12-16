@@ -28,8 +28,6 @@ public class PostgresDatabaseManagerTest {
 
     private static final String TEST_TABLE_NAME = "testTable";
     private static final String TEST_DATABASE_NAME = "testdatabase";
-    private static final String TEST_USER = "testUser";
-    private static final String TEST_PASSWORD = "password";
     private static String user = null;
     private static String password1 = null;
     private static String testDatabaseName2 = null;
@@ -42,7 +40,7 @@ public class PostgresDatabaseManagerTest {
         POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(TEST_DATABASE_NAME, userName);
-        connectToTestDatabase();
+        connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
         POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
     }
@@ -57,8 +55,8 @@ public class PostgresDatabaseManagerTest {
         POSTGRES_DATABASE_MANAGER.connectToDatabase(TEST_DATABASE_NAME, userName, password);
     }
 
-    public static void connectToTestDatabase() {
-        POSTGRES_DATABASE_MANAGER.connectToDatabase(TEST_DATABASE_NAME, userName, password);
+    public static void connectToTestDatabase(String testDatabaseName, String userName, String password) {
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(testDatabaseName, userName, password);
     }
 
 
@@ -369,7 +367,7 @@ public class PostgresDatabaseManagerTest {
 
         //then
         POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
-        connectToTestDatabase();
+        connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
         List<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
@@ -382,7 +380,7 @@ public class PostgresDatabaseManagerTest {
         assertEquals("Database created successfully...", expectedMessage, actual);
 
         //after
-        connectToTestDatabase();
+        connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
         POSTGRES_DATABASE_MANAGER.dropDatabase(dataBaseName);
 
 
@@ -482,13 +480,14 @@ public class PostgresDatabaseManagerTest {
         assertEquals("Database drop successfully" + NEW_LINE, expectedMessage, actualMessage);
 
     }
+
     @Test
     public void dropTableCompany() {
         String tableName = "company2";
         //defore
         //get tables names
         List<String> expectedTables = POSTGRES_DATABASE_MANAGER.getTableNames();
-        POSTGRES_DATABASE_MANAGER.createATable(tableName,"");
+        POSTGRES_DATABASE_MANAGER.createATable(tableName, "");
         expectedTables.add(tableName);
         Collections.sort(expectedTables);
 
@@ -500,10 +499,9 @@ public class PostgresDatabaseManagerTest {
         System.setOut(new PrintStream(OUT_CONTENT));
 
 
-
         //тест удаления таблицы
         POSTGRES_DATABASE_MANAGER.dropTable(tableName);
-        String expected_1 = "Table " + tableName + " deleted in given database..." + NEW_LINE ;
+        String expected_1 = "Table " + tableName + " deleted in given database..." + NEW_LINE;
         String actual_1 = OUT_CONTENT.toString();
 
         assertEquals("dropTableCompanyMessage", expected_1, actual_1);
@@ -540,6 +538,45 @@ public class PostgresDatabaseManagerTest {
 
         connectToDB();
         POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName1);
+
+    }
+
+    @Test
+
+    public void GiveAccessTest() {
+        System.setOut(new PrintStream(OUT_CONTENT));
+        String testDatabaseName = "testdatabase3";
+        String testUser = "den";
+        String testPassword = "testPassword";
+
+
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.createDatabase(testDatabaseName);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.createUser(testUser, testPassword);
+
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName, testUser);
+
+        String expected = "Creating database " + testDatabaseName + NEW_LINE +
+                "Database created " + testDatabaseName + " successfully" + NEW_LINE +
+                "Creating user: den" + NEW_LINE +
+                "It is created user: den with the password: testPassword" + NEW_LINE +
+                "Access user: den to the database: " + testDatabaseName + " it is allow";
+        String actual = OUT_CONTENT.toString();
+        Assert.assertEquals("GiveAccess", expected, actual);
+
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(testDatabaseName, testUser, testPassword);
+        assertTrue("connect", POSTGRES_DATABASE_MANAGER.isConnected());
+
+
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(testDatabaseName);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName, userName);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropDatabase(testDatabaseName);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropUser(testUser);
 
     }
 

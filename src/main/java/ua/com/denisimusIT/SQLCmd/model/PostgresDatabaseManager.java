@@ -21,8 +21,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         }
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/" + databaseName, userName,
-                    password);
+                    "jdbc:postgresql://localhost:5432/" + databaseName, userName, password);
         } catch (SQLException e) {
             connection = null;
 
