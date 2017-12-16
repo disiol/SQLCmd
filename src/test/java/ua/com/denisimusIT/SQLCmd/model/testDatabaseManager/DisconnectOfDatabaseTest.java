@@ -10,6 +10,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by Denis Oleynyk on 07.10.17.
@@ -38,11 +40,12 @@ public class DisconnectOfDatabaseTest {
 
     @Test
     public void disconnectOfDatabaseTest() {
-        //TODO
-
         System.setOut(new PrintStream(OUT_CONTENT));
 
         POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(TEST_DATABASE_NAME);
+
+        boolean connected = POSTGRES_DATABASE_MANAGER.isConnected();
+        assertTrue("disconnect", connected);
 
         String expected = "Disconnect of database: " + TEST_DATABASE_NAME + " successfully" + NEW_LINE;
         String actual = OUT_CONTENT.toString();

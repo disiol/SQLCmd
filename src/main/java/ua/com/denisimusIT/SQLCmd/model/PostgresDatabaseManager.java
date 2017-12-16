@@ -34,11 +34,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public boolean isConnected() {
-        if (connection != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return connection != null;
     }
 
     @Override
