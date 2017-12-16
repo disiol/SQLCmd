@@ -482,7 +482,41 @@ public class PostgresDatabaseManagerTest {
         assertEquals("Database drop successfully" + NEW_LINE, expectedMessage, actualMessage);
 
     }
+    @Test
+    public void dropTableCompany() {
+        String tableName = "company2";
+        //defore
+        //get tables names
+        List<String> expectedTables = POSTGRES_DATABASE_MANAGER.getTableNames();
+        POSTGRES_DATABASE_MANAGER.createATable(tableName,"");
+        expectedTables.add(tableName);
+        Collections.sort(expectedTables);
 
+        List<String> actual = POSTGRES_DATABASE_MANAGER.getTableNames();
+        Collections.sort(actual);
+
+        assertEquals("сreateTableCompany", expectedTables.toString(), actual.toString());
+
+        System.setOut(new PrintStream(OUT_CONTENT));
+
+
+
+        //тест удаления таблицы
+        POSTGRES_DATABASE_MANAGER.dropTable(tableName);
+        String expected_1 = "Table " + tableName + " deleted in given database..." + NEW_LINE ;
+        String actual_1 = OUT_CONTENT.toString();
+
+        assertEquals("dropTableCompanyMessage", expected_1, actual_1);
+        expectedTables.remove(tableName);
+
+        String expected_2 = expectedTables.toString();
+        List<String> actual_2 = POSTGRES_DATABASE_MANAGER.getTableNames();
+        Collections.sort(actual_2);
+        assertEquals("dropTableCompany", expected_2, actual_2.toString());
+
+        // создает таблицу и проверает создана ли она
+        // вытаскивает значение данных  и сравнивает
+    }
 
     @AfterClass
     public static void dropDatabase() {
