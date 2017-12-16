@@ -46,5 +46,4 @@ public interface DatabaseManager {
 
     boolean isConnected();
 
-    void createEmptyATable(String tableName);
 }

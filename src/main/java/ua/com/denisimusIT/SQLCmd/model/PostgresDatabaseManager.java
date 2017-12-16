@@ -37,10 +37,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         return connection != null;
     }
 
-    @Override
-    public void createEmptyATable(String tableName) {
 
-    }
 
 
     @Override
