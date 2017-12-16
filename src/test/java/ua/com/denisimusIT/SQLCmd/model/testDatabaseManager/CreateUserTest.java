@@ -56,13 +56,14 @@ public class CreateUserTest {
         postgresDatabaseManager.createUser(user, password);
 
 
-
+        connectToDataBase();
         postgresDatabaseManager.giveAccessUserToTheDatabase(testDatabase,user);
         postgresDatabaseManager.connectToDatabase(testDatabase, user, password);
         assertTrue("test connekt to DB ",postgresDatabaseManager.isConnected());
 
         String expected = "Creating user: " + user + newline +
-                "It is created user: " + user + " with the password: " + password + newline;
+                "It is created user: " + user + " with the password: " + password + newline
+                + "Access user: "+ user + " to the database: testdatabase it is allow" ;
         String actual = outContent.toString();
         assertEquals("created user", expected, actual);
 
@@ -79,9 +80,12 @@ public class CreateUserTest {
     @After
     public void dropDatabase() {
         connectToDataBase();
-        postgresDatabaseManager.dropUser(user);
+        postgresDatabaseManager.giveAccessUserToTheDatabase(testDatabase,userDb);
         connectToDataBase();
         postgresDatabaseManager.dropDatabase(testDatabase);
+        connectToDataBase();
+        postgresDatabaseManager.dropUser(user);
+
     }
 
 }
