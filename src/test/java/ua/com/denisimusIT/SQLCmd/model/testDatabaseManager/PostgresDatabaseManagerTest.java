@@ -425,6 +425,16 @@ public class PostgresDatabaseManagerTest {
 
     }
 
+
+    @Test
+    public void currentDatabaseTest() {
+
+        String expected = "[testdatabase]";
+        String actual = POSTGRES_DATABASE_MANAGER.currentDatabase().toString();
+
+        assertEquals("currentDatabase", expected, actual);
+    }
+
     @AfterClass
     public static void dropDatabase() {
         connectToDB();
