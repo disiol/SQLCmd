@@ -451,6 +451,39 @@ public class PostgresDatabaseManagerTest {
     }
 
 
+    @Test
+    public void dropDatabaseTest() {
+        System.setOut(new PrintStream(OUT_CONTENT));
+
+        connectToDB();
+        String dataBaseName = "testdrop";
+        POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropDatabase(dataBaseName);
+
+
+        connectToDB();
+
+        List<String> dataBaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        dataBaseNames.remove(dataBaseName);
+        Collections.sort(dataBaseNames);
+
+        String expected = dataBaseNames.toString();
+        List<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        Collections.sort(actualDatabaseNames);
+        Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
+        assertEquals("dropDatabaseNames", expected, Arrays.toString(actualDatabaseNamesSorted));
+
+        String actualMessage = OUT_CONTENT.toString();
+        Object expectedMessage = "Creating database testdrop" + NEW_LINE +
+                "Database created testdrop successfully" + NEW_LINE +
+                "Database: testdrop drop successfully" + NEW_LINE;
+
+        assertEquals("Database drop successfully" + NEW_LINE, expectedMessage, actualMessage);
+
+    }
+
+
     @AfterClass
     public static void dropDatabase() {
         connectToDB();
