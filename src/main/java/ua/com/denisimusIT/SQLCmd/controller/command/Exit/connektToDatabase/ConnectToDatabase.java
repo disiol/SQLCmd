@@ -30,7 +30,7 @@ public class ConnectToDatabase implements Command {
             String[] data = command.split("\\|");
             if (data.length != count()) {
                 throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
-                        "is incorrect, it is expected %s, but is: %s", count(), data.length));
+                        "is incorrect, it is expected  %s, but is: %s", count(), data.length));
             }
             String databaseName = data[1];
             String userName = data[2];
