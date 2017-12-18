@@ -28,10 +28,10 @@ public class PostgresDatabaseManagerTest {
 
     private static final String TEST_TABLE_NAME = "testTable";
     private static final String TEST_DATABASE_NAME = "testdatabase";
-    private static String user = null;
-    private static String password1 = null;
-    private static String testDatabaseName2 = null;
-
+//    private static String user = null;
+//    private static String password1 = null;
+//    private static String testDatabaseName2 = null;
+//
 
     @BeforeClass
     public static void setup() {
@@ -391,13 +391,13 @@ public class PostgresDatabaseManagerTest {
         System.setOut(new PrintStream(OUT_CONTENT));
 
 
-        user = "den";
-        password1 = "test";
+        String user = "den";
+        String password1 = "test";
         POSTGRES_DATABASE_MANAGER.createUser(user, password1);
 
 
         connectToDB();
-        testDatabaseName2 = "test2";
+        String testDatabaseName2 = "test2";
         POSTGRES_DATABASE_MANAGER.createDatabase("test2");
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName2, user);
@@ -417,6 +417,15 @@ public class PostgresDatabaseManagerTest {
         String expected1 = "The user : " + user + "already is created";
         String actual2 = OUT_CONTENT.toString();
         Assert.assertEquals("The user already is created", expected, actual);
+
+
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(testDatabaseName2);
+        //DropDatabase
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropDatabase(testDatabaseName2);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropUser(user);
 
 
     }
@@ -588,13 +597,7 @@ public class PostgresDatabaseManagerTest {
         connectToDB();
         POSTGRES_DATABASE_MANAGER.dropDatabase(TEST_DATABASE_NAME);
 
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(testDatabaseName2);
-        //DropDatabase
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropDatabase(testDatabaseName2);
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropUser(user);
+
 
     }
 

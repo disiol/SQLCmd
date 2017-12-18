@@ -58,7 +58,7 @@ public class IntegrationTest {
                 "connectToDatabase|database|username|password"+ newLine +
                 "or help command for a help call"+ newLine +
                 "The existing command:"+ newLine +
-                "\tconnectToDatabase|databaseName|userName|password"+ newLine +
+                "\tconnect|databaseName|userName|password"+ newLine +
                 "\t\tfor connection to the database with which we will work"+ newLine +
                 "\tlist"+ newLine +
                 "\t\tfor connection to the database with which we will work"+ newLine +

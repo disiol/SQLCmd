@@ -19,7 +19,7 @@ public class ConnectToDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("connectToDatabase|");
+        return command.startsWith("connect" + "|");
     }
 
     @Override

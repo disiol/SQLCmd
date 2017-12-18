@@ -23,7 +23,7 @@ public class Help implements Command {
     public void process(String command) {//TODO
         view.write("The existing command:");
 
-        view.write("\tconnectToDatabase|databaseName|userName|password");
+        view.write("\tconnect|databaseName|userName|password");
         view.write("\t\tfor connection to the database with which we will work");
 
         view.write("\tlist");
