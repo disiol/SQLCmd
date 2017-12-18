@@ -1,30 +1,27 @@
-package ua.com.denisimusIT.SQLCmd.controller.command.Exit.connektToDatabase;
+package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import ua.com.denisimusIT.SQLCmd.controller.command.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
-public class ConnectToDatabase implements Command {
-    private static String COMMAND_SAMPLE = "connect|sql|postgres|1111";
+public class CreateDatabase implements Command {
+    private static String COMMAND_SAMPLE = "createDatabase|sql|";
 
 
-    private final View view;
-    private final DatabaseManager manager;
+    private View view;
+    private DatabaseManager manager;
 
-    public ConnectToDatabase(View view, DatabaseManager manager) {
-
+    public CreateDatabase(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
     }
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("connect" + "|");
+        return command.startsWith("createDatabase" + "|");
     }
 
     @Override
     public void process(String command) {
-
 
         String[] data = command.split("\\|");
         if (data.length != count()) {
@@ -32,20 +29,14 @@ public class ConnectToDatabase implements Command {
                     "is incorrect, it is expected  %s, but is: %s", count(), data.length));
         }
         String databaseName = data[1];
-        String userName = data[2];
-        String password = data[3];
 
-        manager.connectToDatabase(databaseName, userName, password);
+        manager.createDatabase(databaseName);
         view.write("Opened database: " + databaseName + " successfully");
 
-
     }
-
 
     private int count() {
         return COMMAND_SAMPLE.split("\\|").length;
     }
 
-
 }
-

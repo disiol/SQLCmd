@@ -21,7 +21,7 @@ public class IntegrationTest {
 
 
     private static final String TEST_TABLE_NAME = "testTable";
-    private static final String TEST_DATABASE_NAME = "testDatabase";
+    private static final String TEST_database_NAME = "testdatabase";
 
 
     @Before
@@ -43,8 +43,8 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connectToDatabase to database , enter please a database name, " +
-                "user name and the password in a format: connectToDatabase|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, " +
+                "user name and the password in a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testExit", expected, actual);
@@ -62,8 +62,8 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "The existing command:" + newLine +
                 "\tconnect|databaseName|userName|password" + newLine +
@@ -92,14 +92,13 @@ public class IntegrationTest {
 
         //given
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        //in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "Opened database: " + databaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
@@ -117,8 +116,8 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect, it is " +
                 "expected  4, but is: 3" + newLine +
@@ -128,7 +127,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testConnectExceptionDatabase() throws Exception {
+    public void testConnectExceptiondatabase() throws Exception {
 
         //given
         in.add("connect|" + "_" + "|" + userName + "|" + password);
@@ -138,12 +137,12 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "Failure! for the reason:Cant get connection for model:_ user:postgres FATAL: database \"_\" does not exist" + newLine +
                 "Repeat attempt." + newLine;
-        assertEquals("testConnectExceptionDatabase", expected, actual);//given
+        assertEquals("testConnectExceptiondatabase", expected, actual);//given
 
     }
 
@@ -158,8 +157,8 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a " +
-                "format: connectToDatabase|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "Failure! for the reason:Cant get connection for model:postgres user:postgres FATAL: " +
                 "password authentication failed for user \"" + userName + "\"" + newLine +
@@ -179,15 +178,42 @@ public class IntegrationTest {
         Main.main(new String[0]);
         //wen
         String actual = getData();
-        String expected = "Welcome to SQLCmd! =)"+ newLine +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password"+ newLine +
-                "or help command for a help call"+ newLine +
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
                 "Failure! for the reason:Cant get connection for model:postgres user:_ FATAL: password authentication failed " +
-                "for user \"_\""+ newLine +
+                "for user \"_\"" + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("testConnectExceptionPassword", expected, actual);
 
+    }
+
+
+    @Test
+
+    public void createdatabase() {
+        //given
+        String testdatabaseName2 = "testdatabaseName2";
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("createdatabase|" + testdatabaseName2);
+        //in.add("exit");
+        //then
+        Main.main(new String[0]);
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "Opened database: " + databaseName + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                testdatabaseName2 + " created" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("testConnect", expected, actual);
+
+        //TODO получить список баз данных
+        // TODO удалитьбазу данных
     }
 
 

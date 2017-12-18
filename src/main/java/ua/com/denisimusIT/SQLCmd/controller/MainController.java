@@ -20,10 +20,11 @@ public class MainController {
                 new Exit(view),
                 new Help(view),
                 new ConnectToDatabase(view, manager),
+                new CreateDatabase(view, manager),
                 new IsConnected(view, manager),
                 new ListOfTablesNames(view, manager),
-                new ContentsOfTheTable(view, manager)
-                , new UnsupportedCommand(view)
+                new ContentsOfTheTable(view, manager),
+                new UnsupportedCommand(view)
         };
     }
 
@@ -38,8 +39,8 @@ public class MainController {
 
     private void doWork() {
         view.write("Welcome to SQLCmd! =)");
-        view.write("For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password" + NEWLINE + "or help command for a help call");
+        view.write("For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + NEWLINE + "or help command for a help call");
 
 
         try {
@@ -58,9 +59,9 @@ public class MainController {
             }
         } catch (Exception e) {
 
-            if(e.toString() == "ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException"){
+            if (e.toString() == "ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException") {
                 // do nothing
-            }else {
+            } else {
                 printError(e);
             }
 
