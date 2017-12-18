@@ -61,7 +61,6 @@ public class MainController {
             if(e.toString() == "ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException"){
                 // do nothing
             }else {
-                e.printStackTrace();
                 printError(e);
             }
 
