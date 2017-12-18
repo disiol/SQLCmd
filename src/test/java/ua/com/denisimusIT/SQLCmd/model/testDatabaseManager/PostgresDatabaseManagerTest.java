@@ -28,10 +28,7 @@ public class PostgresDatabaseManagerTest {
 
     private static final String TEST_TABLE_NAME = "testTable";
     private static final String TEST_DATABASE_NAME = "testdatabase";
-//    private static String user = null;
-//    private static String password1 = null;
-//    private static String testDatabaseName2 = null;
-//
+
 
     @BeforeClass
     public static void setup() {
