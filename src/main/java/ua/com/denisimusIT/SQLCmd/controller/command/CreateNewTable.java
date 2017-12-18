@@ -1,6 +1,15 @@
 package ua.com.denisimusIT.SQLCmd.controller.command;
 
-public class CreateTable {
+public class CreateNewTable implements Command {
+    @Override
+    public boolean canProcess(String command) {
+        return false;
+    }
+
+    @Override
+    public void process(String command) {
+
+    }
 //•TODO Команда создает новую таблицу с заданными полями
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.command.create | tableName | column1 | column2 | ... | columnN
 //•где: tableName - имя таблицы
