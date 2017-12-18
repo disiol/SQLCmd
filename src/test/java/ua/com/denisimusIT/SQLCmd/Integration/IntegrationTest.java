@@ -15,6 +15,10 @@ public class IntegrationTest {
     private ConfigurableInputStream in;
     private ByteArrayOutputStream out;
 
+    private final String databaseName = "postgres";
+    private final String userName = "postgres";
+    private final String password = "1111";
+
 
     @Before
     public void setup() {
@@ -53,26 +57,26 @@ public class IntegrationTest {
         Main.main(new String[0]);
         //wen
         String actual = getData();
-        String expected = "Welcome to SQLCmd! =)"+ newLine +
+        String expected = "Welcome to SQLCmd! =)" + newLine +
                 "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password"+ newLine +
-                "or help command for a help call"+ newLine +
-                "The existing command:"+ newLine +
-                "\tconnect|databaseName|userName|password"+ newLine +
-                "\t\tfor connection to the database with which we will work"+ newLine +
-                "\tlist"+ newLine +
-                "\t\tfor connection to the database with which we will work"+ newLine +
-                "\tclear|tableName"+ newLine +
-                "\t\tfor cleaning of all table"+ newLine +
-                "\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN"+ newLine +
-                "\t\tfor creation of record in the table"+ newLine +
-                "\tfind|tableName"+ newLine +
-                "\t\tfor receiving contents of the table 'tableName'"+ newLine +
-                "\thelp"+ newLine +
-                "\t\tfor an output of this list to the screen"+ newLine +
-                "\texit"+ newLine +
-                "\t\tfor an output from the program"+ newLine +
-                "enter please command or help command for a help call"+ newLine +
+                "connectToDatabase|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "The existing command:" + newLine +
+                "\tconnect|databaseName|userName|password" + newLine +
+                "\t\tfor connection to the database with which we will work" + newLine +
+                "\tlist" + newLine +
+                "\t\tfor connection to the database with which we will work" + newLine +
+                "\tclear|tableName" + newLine +
+                "\t\tfor cleaning of all table" + newLine +
+                "\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN" + newLine +
+                "\t\tfor creation of record in the table" + newLine +
+                "\tfind|tableName" + newLine +
+                "\t\tfor receiving contents of the table 'tableName'" + newLine +
+                "\thelp" + newLine +
+                "\t\tfor an output of this list to the screen" + newLine +
+                "\texit" + newLine +
+                "\t\tfor an output from the program" + newLine +
+                "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testHelp", expected, actual);
     }
@@ -83,16 +87,17 @@ public class IntegrationTest {
     public void testConnect() {
 
         //given
-        in.add("connectToDatabase|sql|postgres|1111");
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
         //in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a format: connectToDatabase|database|username|password" + newLine +
+                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
+                "connectToDatabase|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "Opened database: sql successfully" + newLine +
+                "Opened database: " + databaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testConnect", expected, actual);
@@ -102,7 +107,7 @@ public class IntegrationTest {
     public void testConnectException() throws Exception {
 
         //given
-        in.add("connectToDatabase|sql|");
+        in.add("connect|" + databaseName + "|" + userName);
         //in.add("exit");
         //then
         Main.main(new String[0]);
@@ -113,7 +118,7 @@ public class IntegrationTest {
                 "connectToDatabase|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect, " +
-                "it is expected 4, but is: 2" + newLine + "Repeat attempt." + newLine +
+                "it is expected 4, but is: 3" + newLine + "Repeat attempt." + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testConnectExceptionParameters_3", expected, actual);//given
