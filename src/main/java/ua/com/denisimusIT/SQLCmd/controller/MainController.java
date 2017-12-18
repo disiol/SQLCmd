@@ -42,7 +42,7 @@ public class MainController {
                 "connectToDatabase|database|username|password" + NEWLINE + "or help command for a help call");
 
 
-
+        try {
             while (true) {
                 String input = view.read();
                 if (input == null) {
@@ -56,10 +56,28 @@ public class MainController {
                 }
                 view.write("enter please command or help command for a help call");
             }
+        } catch (Exception e) {
+
+            if(e.toString() == "ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException"){
+                // do nothing
+            }else {
+                e.printStackTrace();
+                printError(e);
+            }
+
+        }
 
     }
 
 
-
+    private void printError(Exception e) {
+        String message = e.getMessage();
+        Throwable cause = e.getCause();
+        if (cause != null) {
+            message += " " + cause.getMessage();
+        }
+        view.write("Failure! for the reason:" + message);
+        view.write("Repeat attempt.");
+    }
 
 }

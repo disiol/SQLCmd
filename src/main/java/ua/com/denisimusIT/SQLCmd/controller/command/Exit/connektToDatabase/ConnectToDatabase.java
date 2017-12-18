@@ -26,21 +26,17 @@ public class ConnectToDatabase implements Command {
     public void process(String command) {
 
 
-        try {
-            String[] data = command.split("\\|");
-            if (data.length != count()) {
-                throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
-                        "is incorrect, it is expected  %s, but is: %s", count(), data.length));
-            }
-            String databaseName = data[1];
-            String userName = data[2];
-            String password = data[3];
-
-            manager.connectToDatabase(databaseName, userName, password);
-            view.write("Opened database: " + databaseName + " successfully");
-        } catch (IllegalArgumentException e) {
-           printError(e);
+        String[] data = command.split("\\|");
+        if (data.length != count()) {
+            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
+                    "is incorrect, it is expected  %s, but is: %s", count(), data.length));
         }
+        String databaseName = data[1];
+        String userName = data[2];
+        String password = data[3];
+
+        manager.connectToDatabase(databaseName, userName, password);
+        view.write("Opened database: " + databaseName + " successfully");
 
 
     }
@@ -50,16 +46,6 @@ public class ConnectToDatabase implements Command {
         return COMMAND_SAMPLE.split("\\|").length;
     }
 
-
-    private void printError(Exception e) {
-        String message = e.getMessage();
-        Throwable cause = e.getCause();
-        if (cause != null) {
-            message += " " + cause.getMessage();
-        }
-        view.write("Failure! for the reason:" + message);
-        view.write("Repeat attempt.");
-    }
 
 }
 

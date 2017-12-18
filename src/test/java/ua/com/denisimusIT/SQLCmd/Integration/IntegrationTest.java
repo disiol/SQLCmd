@@ -104,7 +104,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testConnectException() throws Exception {
+    public void testConnectExceptionParameters_3() throws Exception {
 
         //given
         in.add("connect|" + databaseName + "|" + userName);
@@ -123,6 +123,26 @@ public class IntegrationTest {
                 "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testConnectExceptionParameters_3", expected, actual);//given
+
+    }
+
+    @Test
+    public void testConnectExceptionDatabase() throws Exception {
+
+        //given
+        in.add("connect|" + "_" + "|" + userName + "|" + password);
+        //in.add("exit");
+        //then
+        Main.main(new String[0]);
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)"+ newLine +
+                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
+                "connectToDatabase|database|username|password"+ newLine +
+                "or help command for a help call"+ newLine +
+                "Failure! for the reason:Cant get connection for model:_ user:postgres FATAL: database \"_\" does not exist"+ newLine +
+                "Repeat attempt." + newLine;
+        assertEquals("testConnectExceptionDatabase", expected, actual);//given
 
     }
 
