@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.controller;
+package ua.com.denisimusIT.SQLCmd.controller.command.Exit.connektToBDatabase;
 
 import ua.com.denisimusIT.SQLCmd.controller.command.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;

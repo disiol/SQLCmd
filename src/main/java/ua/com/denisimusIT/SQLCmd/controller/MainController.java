@@ -3,6 +3,8 @@ package ua.com.denisimusIT.SQLCmd.controller;
 import ua.com.denisimusIT.SQLCmd.controller.command.*;
 import ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exit;
 import ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException;
+import ua.com.denisimusIT.SQLCmd.controller.command.Exit.connektToBDatabase.ConnectToDatabase;
+import ua.com.denisimusIT.SQLCmd.controller.command.Exit.connektToBDatabase.IsConnected;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
