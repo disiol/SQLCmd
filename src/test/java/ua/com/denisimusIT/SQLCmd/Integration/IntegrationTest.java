@@ -20,6 +20,10 @@ public class IntegrationTest {
     private final String password = "1111";
 
 
+    private static final String TEST_TABLE_NAME = "testTable";
+    private static final String TEST_DATABASE_NAME = "testDatabase";
+
+
     @Before
     public void setup() {
         in = new ConfigurableInputStream();

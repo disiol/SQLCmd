@@ -37,14 +37,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
 
-
-
     @Override
     public void clearATable(final String tableName) {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM " + tableName);
+            stmt.executeUpdate("DELETE FROM " + "\"" + tableName + "\"");
             System.out.println(tableName + " cleared successfully");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,7 +65,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "CREATE TABLE  " + tableName +
+            String sql = "CREATE TABLE  " + "\"" + tableName + "\"" +
                     "(" + columnsValues + ")";
             stmt.executeUpdate(sql);
             System.out.println("Table " + tableName + " created successfully");
@@ -96,7 +94,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             int size = getSize(tableName);
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + "\"" + tableName + "\"");
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -134,7 +132,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             int size = getSize(tableName);
             stmt = connection.createStatement();
-            rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + tableName);
+            rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + "\""+ tableName+ "\"");
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -174,7 +172,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         int size = 0;
         try {
             stmt = connection.createStatement();
-            ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
+            ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + "\"" + tableName + "\"");
             rsCount.next();
             size = rsCount.getInt(1);
             rsCount.close();
@@ -221,7 +219,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             String tableNames = getNameFormatted(input, "%s,");
             String values = getValuesFormatted(input, "'%s',");
 
-            String sql = "INSERT INTO " + tableName + "(" + tableNames + ")" + "VALUES (" + values + ")";
+            String sql = "INSERT INTO " + "\"" + tableName + "\"" + "(" + tableNames + ")" + "VALUES (" + values + ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println("Invalid request");
@@ -247,7 +245,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             String tableNames = getNameFormatted(newValue, "%s = ?,");
 
-            String sql = "UPDATE public." + tableName + " SET " + tableNames + " WHERE id = ?";
+            String sql = "UPDATE public." + "\"" + tableName + "\"" + " SET " + tableNames + " WHERE id = ?";
             ps = connection.prepareStatement(sql);
 
             int index = 1;
@@ -323,7 +321,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             System.out.println("Creating database " + databaseName);
             stmt = connection.createStatement();
 
-            String sql = "CREATE DATABASE " + databaseName;
+            String sql = "CREATE DATABASE " + "\"" + databaseName + "\"";
             stmt.executeUpdate(sql);
             System.out.println("Database created " + databaseName + " successfully");
         } catch (SQLException se) {
@@ -390,7 +388,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
 
-            String sql = "DROP DATABASE " + databaseName;
+            String sql = "DROP DATABASE " + "\"" + databaseName + "\"";
             stmt.executeUpdate(sql);
             System.out.println("Database: " + databaseName + " drop successfully");
         } catch (SQLException se) {
@@ -565,7 +563,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "GRANT ALL ON DATABASE " + databaseName + " TO  " + userName;
+            String sql = "GRANT ALL ON DATABASE " + "\"" + databaseName + "\"" + " TO  " + userName;
             stmt.executeUpdate(sql);
             System.out.printf("Access user: %s to the database: %s it is allow", userName, databaseName);
         } catch (SQLException se) {

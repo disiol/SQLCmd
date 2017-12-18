@@ -77,7 +77,7 @@ public class PostgresDatabaseManagerTest {
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
 
         POSTGRES_DATABASE_MANAGER.createATable(tableName, columnsValues);
-        String expected = "[testtable, company]";
+        String expected = "[testTable, company]";
         Object[] actual = POSTGRES_DATABASE_MANAGER.getTableNames().toArray();
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
 
@@ -431,7 +431,7 @@ public class PostgresDatabaseManagerTest {
     @Test
     public void currentDatabaseTest() {
 
-        String expected = "[testdatabase]";
+        String expected = "[testDatabase]";
         String actual = POSTGRES_DATABASE_MANAGER.currentDatabase().toString();
 
         assertEquals("currentDatabase", expected, actual);
