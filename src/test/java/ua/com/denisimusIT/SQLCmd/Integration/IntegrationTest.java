@@ -160,9 +160,10 @@ public class IntegrationTest {
                 "Failure! for the reason:Cant get connection for model:postgres user:postgres FATAL: " +
                 "password authentication failed for user \"postgres\""+ newLine +
                 "Repeat attempt." + newLine;
-        assertEquals("testConnectExceptionPassword", expected, actual);//given
+        assertEquals("testConnectExceptionPassword", expected, actual);
 
     }
+
 
     public String getData() {
         try {
