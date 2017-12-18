@@ -27,7 +27,7 @@ public class PostgresDatabaseManagerTest {
     private static final String password = "1111";
 
     private static final String TEST_TABLE_NAME = "testTable";
-    private static final String TEST_DATABASE_NAME = "testdatabase";
+    private static final String TEST_DATABASE_NAME = "testDatabase";
 
 
     @BeforeClass

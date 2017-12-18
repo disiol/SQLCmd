@@ -112,13 +112,13 @@ public class IntegrationTest {
         Main.main(new String[0]);
         //wen
         String actual = getData();
-        String expected = "Welcome to SQLCmd! =)"+ newLine +
+        String expected = "Welcome to SQLCmd! =)" + newLine +
                 "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password"+ newLine +
-                "or help command for a help call"+ newLine +
+                "connectToDatabase|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
                 "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect, it is " +
-                "expected  4, but is: 3"+ newLine +
-                "Repeat attempt."+ newLine ;
+                "expected  4, but is: 3" + newLine +
+                "Repeat attempt." + newLine;
         assertEquals("testConnectExceptionParameters_3", expected, actual);//given
 
     }
@@ -133,11 +133,11 @@ public class IntegrationTest {
         Main.main(new String[0]);
         //wen
         String actual = getData();
-        String expected = "Welcome to SQLCmd! =)"+ newLine +
+        String expected = "Welcome to SQLCmd! =)" + newLine +
                 "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password"+ newLine +
-                "or help command for a help call"+ newLine +
-                "Failure! for the reason:Cant get connection for model:_ user:postgres FATAL: database \"_\" does not exist"+ newLine +
+                "connectToDatabase|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "Failure! for the reason:Cant get connection for model:_ user:postgres FATAL: database \"_\" does not exist" + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("testConnectExceptionDatabase", expected, actual);//given
 
@@ -147,18 +147,40 @@ public class IntegrationTest {
     public void testConnectExceptionPassword() throws Exception {
 
         //given
-        in.add("connect|" + databaseName + "|" + userName + "|" + "1");
+        in.add("connect|" + databaseName + "|" + userName + "|" + "_");
+        //in.add("exit");
+        //then
+        Main.main(new String[0]);
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connectToDatabase to database , enter please a database name, user name and the password in a " +
+                "format: connectToDatabase|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "Failure! for the reason:Cant get connection for model:postgres user:postgres FATAL: " +
+                "password authentication failed for user \"" + userName + "\"" + newLine +
+                "Repeat attempt." + newLine;
+        assertEquals("testConnectExceptionPassword", expected, actual);
+
+    }
+
+
+    @Test
+    public void testConnectExceptionUser() throws Exception {
+
+        //given
+        in.add("connect|" + databaseName + "|" + "_" + "|" + password);
         //in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)"+ newLine +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a " +
-                "format: connectToDatabase|database|username|password"+ newLine +
+                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
+                "connectToDatabase|database|username|password"+ newLine +
                 "or help command for a help call"+ newLine +
-                "Failure! for the reason:Cant get connection for model:postgres user:postgres FATAL: " +
-                "password authentication failed for user \"postgres\""+ newLine +
+                "Failure! for the reason:Cant get connection for model:postgres user:_ FATAL: password authentication failed " +
+                "for user \"_\""+ newLine +
                 "Repeat attempt." + newLine;
         assertEquals("testConnectExceptionPassword", expected, actual);
 
