@@ -72,6 +72,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
                 "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                //help
                 "The existing command:" + newLine +
                 "\tconnect|databaseName|userName|password" + newLine +
                 "\t\tfor connection to the database with which we will work" + newLine +
@@ -88,6 +89,7 @@ public class IntegrationTest {
                 "\texit" + newLine +
                 "\t\tfor an output from the program" + newLine +
                 "enter please command or help command for a help call" + newLine +
+                //exit
                 "See you soon!" + newLine;
         assertEquals("testHelpBeforeConnect", expected, actual);
     }
@@ -132,8 +134,10 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
                 "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                //connect
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
+                //help
                 "The existing command:" + newLine +
                 "\tconnect|databaseName|userName|password" + newLine +
                 "\t\tfor connection to the database with which we will work" + newLine +
@@ -247,11 +251,9 @@ public class IntegrationTest {
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("createDatabase|" + testDatabaseName2);
         in.add("exit");
+        //then
         Main.main(new String[0]);
 
-
-        //then
-        //  Main.main(new String[0]);
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
@@ -260,8 +262,9 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "Opened database: " + databaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                testDatabaseName2 + " created" + newLine +
-                "See you soon!" + newLine;
+                "Database created " + testDatabaseName2 + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine
+                + "See you soon!" + newLine;
         assertEquals("createDatabase", expected, actual);
 
         //TODO получить список баз данных
