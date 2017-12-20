@@ -17,8 +17,7 @@ public class CreateDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        String createDatabase = format().substring(0, description().indexOf("|"));
-        return command.startsWith(createDatabase + "|");
+        return command.startsWith("createDatabase|");
     }
 
     @Override

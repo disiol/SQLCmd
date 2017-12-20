@@ -45,29 +45,29 @@ public class MainController {
                 "connect|database|username|password" + NEWLINE + "or help command for a help call");
 
 
-        try {
-            while (true) {
-                String input = view.read();
-                if (input == null) {
-                    new Exit(view).process(input);//nul if close application
-                }
+        while (true) {
+            String input = view.read();
+            if (input == null) {
+                new Exit(view).process(input);//nul if close application
+            }
+            try {
                 for (Command command : commands) {
                     if (command.canProcess(input)) {
                         command.process(input);
                         break;
                     }
                 }
-                view.write("enter please command or help command for a help call");
-            }
-        } catch (Exception e) {
-
-            if (e.toString() == "ua.com.denisimusIT.SQLCmd.controller.command.exit.Exeption.ExitException") {
-                // do nothing
-            } else {
+            } catch (Exception e) {
+                if (e instanceof ExitException) {
+                    throw e;
+                }
+                e.printStackTrace();
                 printError(e);
+                break;
             }
-
+            view.write("enter please command or help command for a help call");
         }
+
 
     }
 

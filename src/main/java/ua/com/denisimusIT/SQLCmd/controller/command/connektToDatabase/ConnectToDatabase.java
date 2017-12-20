@@ -19,8 +19,7 @@ public class ConnectToDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        String connect = format().substring(0, description().indexOf("|"));
-        return command.startsWith(connect + "|");
+        return command.startsWith("connect|");
 
     }
 
@@ -37,11 +36,8 @@ public class ConnectToDatabase implements Command {
         String userName = data[2];
         String password = data[3];
 
-        try {
-            manager.connectToDatabase(databaseName, userName, password);
-        } catch (Exception e) {
-            printError(e);
-        }
+
+        manager.connectToDatabase(databaseName, userName, password);
         view.write("Opened database: " + databaseName + " successfully");
 
 
@@ -61,18 +57,7 @@ public class ConnectToDatabase implements Command {
 
 
     private int count() {
-        return description().split("\\|").length;
-    }
-
-
-    private void printError(Exception e) {
-        String message = e.getMessage();
-        Throwable cause = e.getCause();
-        if (cause != null) {
-            message += " " + cause.getMessage();
-        }
-        view.write("Failure! for the reason:" + message);
-        view.write("Repeat attempt.");
+        return format().split("\\|").length;
     }
 
 
