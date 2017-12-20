@@ -3,8 +3,11 @@ package ua.com.denisimusIT.SQLCmd.Integration;
 import org.junit.BeforeClass;
 import org.junit.*;
 import ua.com.denisimusIT.SQLCmd.controller.Main;
+import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
+import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
@@ -15,21 +18,24 @@ public class IntegrationTest {
     private ConfigurableInputStream in;
     private ByteArrayOutputStream out;
 
+
     private final String databaseName = "postgres";
     private final String userName = "postgres";
     private final String password = "1111";
 
 
     private static final String TEST_TABLE_NAME = "testTable";
-    private static final String TEST_database_NAME = "testdatabase";
+    private static final String TEST_database_NAME = "testDatabase";
 
 
     @Before
     public void setup() {
-        in = new ConfigurableInputStream();
         out = new ByteArrayOutputStream();
+        in = new ConfigurableInputStream();
+
         System.setIn(in);
         System.setOut(new PrintStream(out));
+
     }
 
     @Test
@@ -52,14 +58,15 @@ public class IntegrationTest {
 
     @Test
 
-    public void testHelp() {
+    public void testHelpBeforeConnect() {
 
         //given
         in.add("help");
+        in.add("exit");
 
-        //then
+        // when
         Main.main(new String[0]);
-        //wen
+        //then
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
@@ -82,7 +89,7 @@ public class IntegrationTest {
                 "\t\tfor an output from the program" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
-        assertEquals("testHelp", expected, actual);
+        assertEquals("testHelpBeforeConnect", expected, actual);
     }
 
 
@@ -105,6 +112,48 @@ public class IntegrationTest {
                 "See you soon!" + newLine;
         assertEquals("testConnect", expected, actual);
     }
+
+
+    @Test
+
+    public void testHelpAfterConnect() {
+
+        //given
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("help");
+        in.add("exit");
+
+        //then
+        Main.main(new String[0]);
+
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "Opened database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "The existing command:" + newLine +
+                "\tconnect|databaseName|userName|password" + newLine +
+                "\t\tfor connection to the database with which we will work" + newLine +
+                "\tlist" + newLine +
+                "\t\tfor connection to the database with which we will work" + newLine +
+                "\tclear|tableName" + newLine +
+                "\t\tfor cleaning of all table" + newLine +
+                "\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN" + newLine +
+                "\t\tfor creation of record in the table" + newLine +
+                "\tfind|tableName" + newLine +
+                "\t\tfor receiving contents of the table 'tableName'" + newLine +
+                "\thelp" + newLine +
+                "\t\tfor an output of this list to the screen" + newLine +
+                "\texit" + newLine +
+                "\t\tfor an output from the program" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("testHelpBeforeConnect", expected, actual);
+    }
+
 
     @Test
     public void testConnectExceptionParameters_3() throws Exception {
@@ -173,7 +222,7 @@ public class IntegrationTest {
 
         //given
         in.add("connect|" + databaseName + "|" + "_" + "|" + password);
-        //in.add("exit");
+        // in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
@@ -192,14 +241,17 @@ public class IntegrationTest {
 
     @Test
 
-    public void createdatabase() {
+    public void createDatabase() {
         //given
-        String testdatabaseName2 = "testdatabaseName2";
+        String testDatabaseName2 = "testDatabaseName2";
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("createdatabase|" + testdatabaseName2);
-        //in.add("exit");
-        //then
+        in.add("createDatabase|" + testDatabaseName2);
+        in.add("exit");
         Main.main(new String[0]);
+
+
+        //then
+        //  Main.main(new String[0]);
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
@@ -208,16 +260,16 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "Opened database: " + databaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                testdatabaseName2 + " created" + newLine +
+                testDatabaseName2 + " created" + newLine +
                 "See you soon!" + newLine;
-        assertEquals("testConnect", expected, actual);
+        assertEquals("createDatabase", expected, actual);
 
         //TODO получить список баз данных
         // TODO удалитьбазу данных
     }
 
 
-    public String getData() {
+    private String getData() {
         try {
             String result = new String(out.toByteArray(), "UTF-8");
             out.reset();

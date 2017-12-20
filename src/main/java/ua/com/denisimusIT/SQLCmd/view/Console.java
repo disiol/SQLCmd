@@ -1,5 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.view;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Console implements View {
@@ -16,7 +17,7 @@ public class Console implements View {
         try {
             Scanner scanner = new Scanner(System.in);
             return scanner.nextLine();
-        } catch (Exception e) {
+        } catch (NoSuchElementException e) {
             return null;
         }
     }

@@ -35,7 +35,11 @@ public class ConnectToDatabase implements Command {
         String userName = data[2];
         String password = data[3];
 
-        manager.connectToDatabase(databaseName, userName, password);
+        try {
+            manager.connectToDatabase(databaseName, userName, password);
+        } catch (Exception e) {
+           printError(e);
+        }
         view.write("Opened database: " + databaseName + " successfully");
 
 
@@ -44,6 +48,17 @@ public class ConnectToDatabase implements Command {
 
     private int count() {
         return COMMAND_SAMPLE.split("\\|").length;
+    }
+
+
+    private void printError(Exception e) {
+        String message = e.getMessage();
+        Throwable cause = e.getCause();
+        if (cause != null) {
+            message += " " + cause.getMessage();
+        }
+        view.write("Failure! for the reason:" + message);
+        view.write("Repeat attempt.");
     }
 
 
