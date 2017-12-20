@@ -18,4 +18,18 @@ public class UnsupportedCommand implements Command {
     public void process(String command) {
         view.write("Nonexistent command:" + command);
     }
+
+    @Override
+    public String description() {
+        //TODO
+
+        return null;
+    }
+
+    @Override
+    public String format() {
+        //TODO
+
+        return null;
+    }
 }

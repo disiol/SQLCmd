@@ -16,13 +16,25 @@ public class Exit implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals("exit");
+        return command.equals(format());
     }
 
     @Override
     public void process(String command) {
         view.write("See you soon!");
         throw new ExitException();
+    }
+
+    @Override
+    public String description() {
+        //TODO
+
+        return null;
+    }
+
+    @Override
+    public String format() {
+        return "exit";
     }
 
 }

@@ -36,6 +36,16 @@ public class CreateDatabase implements Command {
 
     }
 
+    @Override
+    public String description() {
+        return null;
+    }
+
+    @Override
+    public String format() {
+        return null;
+    }
+
     private int count() {
         return COMMAND_SAMPLE.split("\\|").length;
     }

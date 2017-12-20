@@ -23,4 +23,17 @@ public class IsConnected implements Command {
         view.write(String.format("You cannot use a command '%s' be not connected by means of a command yet " +
                 "connectToDatabase|databaseName|userName|password", command));
     }
+
+    @Override
+    public String description() {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public String format() {
+        //TODO
+
+        return null;
+    }
 }

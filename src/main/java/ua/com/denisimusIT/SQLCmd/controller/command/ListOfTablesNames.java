@@ -25,4 +25,14 @@ public class ListOfTablesNames implements Command {
         view.write("List of tablesNames " + NEWLINE);
         view.write(tableNames);
     }
+
+    @Override
+    public String description() {
+        return "shows the list of tables";
+    }
+
+    @Override
+    public String format() {
+        return "tables";
+    }
 }

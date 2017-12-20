@@ -16,7 +16,7 @@ public class Help implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals("help");
+        return command.equals(format());
     }
 
     @Override
@@ -26,8 +26,6 @@ public class Help implements Command {
         view.write("\tconnect|databaseName|userName|password");
         view.write("\t\tfor connection to the database with which we will work");
 
-        view.write("\tlist");
-        view.write("\t\tfor connection to the database with which we will work");
 
         view.write("\tclear|tableName");
         view.write("\t\tfor cleaning of all table"); // TODO а если юзер случайно ввел команду? Может переспросить его?
@@ -38,10 +36,18 @@ public class Help implements Command {
         view.write("\tfind|tableName");
         view.write("\t\tfor receiving contents of the table 'tableName'");
 
-        view.write("\thelp");
-        view.write("\t\tfor an output of this list to the screen");
 
         view.write("\texit");
         view.write("\t\tfor an output from the program");
+    }
+
+    @Override
+    public String description() {
+        return "\t\tfor an output of this list to the screen";
+    }
+
+    @Override
+    public String format() {
+        return "help";
     }
 }

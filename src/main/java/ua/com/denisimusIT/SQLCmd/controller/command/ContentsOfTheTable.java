@@ -35,6 +35,17 @@ public class ContentsOfTheTable implements Command {
 
     }
 
+    @Override
+    public String description() {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public String format() {
+        //TODO
+        return null;
+    }
 
 
     private void tableHeader(List<String> names) {

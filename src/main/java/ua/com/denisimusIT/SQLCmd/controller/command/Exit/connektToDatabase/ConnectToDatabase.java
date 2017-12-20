@@ -38,11 +38,23 @@ public class ConnectToDatabase implements Command {
         try {
             manager.connectToDatabase(databaseName, userName, password);
         } catch (Exception e) {
-           printError(e);
+            printError(e);
         }
         view.write("Opened database: " + databaseName + " successfully");
 
 
+    }
+
+    @Override
+    public String description() {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public String format() {
+        //TODO
+        return null;
     }
 
 
