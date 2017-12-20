@@ -6,24 +6,26 @@ public class CreateNewTable implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return false;
+        String create = description().substring(0,description().indexOf("|"));
+        return command.startsWith(create + "|");
     }
 
     @Override
     public void process(String command) {
+        //•TODO Команда создает новую таблицу с заданными полями
+
 
     }
 
     @Override
     public String description() {
-        return null;
+        return "for creation of record in the table";
     }
 
     @Override
     public String format() {
-        return null;
+        return "create|tableName|column1|value1|column2|value2|...|columnN|valueN";
     }
-//•TODO Команда создает новую таблицу с заданными полями
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.command.create | tableName | column1 | column2 | ... | columnN
 //•где: tableName - имя таблицы
 //•column1 - имя первого столбца записи

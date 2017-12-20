@@ -19,7 +19,8 @@ public class ContentsOfTheTable implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("find|");
+        String find = description().substring(0, description().indexOf("|"));
+        return command.startsWith(find + "|");
     }
 
     @Override
@@ -37,14 +38,12 @@ public class ContentsOfTheTable implements Command {
 
     @Override
     public String description() {
-        //TODO
-        return null;
+        return "for receiving contents of the table tableName";
     }
 
     @Override
     public String format() {
-        //TODO
-        return null;
+        return "find|tableName ";
     }
 
 

@@ -1,11 +1,11 @@
-package ua.com.denisimusIT.SQLCmd.controller.command.Exit.connektToDatabase;
+package ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase;
 
 import ua.com.denisimusIT.SQLCmd.controller.command.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class ConnectToDatabase implements Command {
-    private static String COMMAND_SAMPLE = "connect|sql|postgres|1111";
+    private static String COMMAND_SAMPLE;
 
 
     private final View view;
@@ -19,7 +19,9 @@ public class ConnectToDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("connect" + "|");
+        String connect = format().substring(0, description().indexOf("|"));
+        return command.startsWith(connect + "|");
+
     }
 
     @Override
@@ -46,20 +48,20 @@ public class ConnectToDatabase implements Command {
     }
 
     @Override
-    public String description() {
-        //TODO
-        return null;
+    public String format() {
+
+        return "connect|databaseName|userName|password";
     }
 
     @Override
-    public String format() {
-        //TODO
-        return null;
+    public String description() {
+
+        return "for connection to the database with which we will work";
     }
 
 
     private int count() {
-        return COMMAND_SAMPLE.split("\\|").length;
+        return description().split("\\|").length;
     }
 
 

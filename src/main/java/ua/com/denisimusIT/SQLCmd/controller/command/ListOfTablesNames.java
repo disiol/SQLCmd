@@ -16,7 +16,8 @@ public class ListOfTablesNames implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals("tables");
+        String tables = description();
+        return command.equals(tables);
     }
 
     @Override
@@ -27,12 +28,12 @@ public class ListOfTablesNames implements Command {
     }
 
     @Override
-    public String description() {
+    public String format() {
         return "shows the list of tables";
     }
 
     @Override
-    public String format() {
+    public String description() {
         return "tables";
     }
 }

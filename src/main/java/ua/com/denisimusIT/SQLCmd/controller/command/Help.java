@@ -2,11 +2,12 @@ package ua.com.denisimusIT.SQLCmd.controller.command;
 // Команда выводит в консоль список всех доступных команд•Формат: Help (без параметров)
 //•Формат вывода: текст, описания команд с любым форматированием
 
+import ua.com.denisimusIT.SQLCmd.controller.MainController;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class Help implements Command {
     private View view;
-    final String newline = System.lineSeparator();
+    private Command[] commands;
 
 
     public Help(View view) {
@@ -16,38 +17,39 @@ public class Help implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals(format());
+        String help = format();
+        return command.equals(help);
     }
 
-    @Override
-    public void process(String command) {//TODO
-        view.write("The existing command:");
-
-        view.write("\tconnect|databaseName|userName|password");
-        view.write("\t\tfor connection to the database with which we will work");
-
-
-        view.write("\tclear|tableName");
-        view.write("\t\tfor cleaning of all table"); // TODO а если юзер случайно ввел команду? Может переспросить его?
-
-        view.write("\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN");
-        view.write("\t\tfor creation of record in the table");
-
-        view.write("\tfind|tableName");
-        view.write("\t\tfor receiving contents of the table 'tableName'");
-
-
-        view.write("\texit");
-        view.write("\t\tfor an output from the program");
-    }
 
     @Override
     public String description() {
-        return "\t\tfor an output of this list to the screen";
+        return "for an output of this list to the screen";
+
     }
 
     @Override
     public String format() {
         return "help";
+    }
+
+
+    @Override
+    public void process(String input) {
+        view.write("The existing command: ");
+
+        for (Command command : commands) {
+            if (command.format() == null) {
+                continue;
+            }
+            view.write("\t" + command.format());
+            view.write("\t\t" + command.description());
+        }
+
+
+    }
+
+    public void setCommands(Command[] commands) {
+        this.commands = commands;
     }
 }

@@ -1,4 +1,4 @@
-package ua.com.denisimusIT.SQLCmd.controller.command.Exit.connektToDatabase;
+package ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase;
 
 import ua.com.denisimusIT.SQLCmd.controller.command.Command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
@@ -26,14 +26,11 @@ public class IsConnected implements Command {
 
     @Override
     public String description() {
-        //TODO
         return null;
     }
 
     @Override
     public String format() {
-        //TODO
-
         return null;
     }
 }

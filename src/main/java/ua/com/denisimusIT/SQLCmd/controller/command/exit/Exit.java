@@ -1,7 +1,7 @@
-package ua.com.denisimusIT.SQLCmd.controller.command.Exit;
+package ua.com.denisimusIT.SQLCmd.controller.command.exit;
 
 import ua.com.denisimusIT.SQLCmd.controller.command.Command;
-import ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException;
+import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exeption.ExitException;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class Exit implements Command {
@@ -16,7 +16,8 @@ public class Exit implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals(format());
+        String exit = format();
+        return command.equals(exit);
     }
 
     @Override
@@ -27,9 +28,8 @@ public class Exit implements Command {
 
     @Override
     public String description() {
-        //TODO
 
-        return null;
+        return "for an output from the program";
     }
 
     @Override

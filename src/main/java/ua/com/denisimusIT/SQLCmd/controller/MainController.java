@@ -1,10 +1,10 @@
 package ua.com.denisimusIT.SQLCmd.controller;
 
 import ua.com.denisimusIT.SQLCmd.controller.command.*;
-import ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exit;
-import ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException;
-import ua.com.denisimusIT.SQLCmd.controller.command.Exit.connektToDatabase.ConnectToDatabase;
-import ua.com.denisimusIT.SQLCmd.controller.command.Exit.connektToDatabase.IsConnected;
+import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exit;
+import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exeption.ExitException;
+import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.ConnectToDatabase;
+import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.IsConnected;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -16,9 +16,10 @@ public class MainController {
 
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
+        Help help = new Help(view);
         this.commands = new Command[]{
                 new Exit(view),
-                new Help(view),
+                help,
                 new ConnectToDatabase(view, manager),
                 new CreateDatabase(view, manager),
                 new IsConnected(view, manager),
@@ -26,6 +27,7 @@ public class MainController {
                 new ContentsOfTheTable(view, manager),
                 new UnsupportedCommand(view)
         };
+        help.setCommands(commands);
     }
 
     public void run() {
@@ -59,7 +61,7 @@ public class MainController {
             }
         } catch (Exception e) {
 
-            if (e.toString() == "ua.com.denisimusIT.SQLCmd.controller.command.Exit.Exeption.ExitException") {
+            if (e.toString() == "ua.com.denisimusIT.SQLCmd.controller.command.exit.Exeption.ExitException") {
                 // do nothing
             } else {
                 printError(e);
