@@ -68,28 +68,24 @@ public class IntegrationTest {
         Main.main(new String[0]);
         //then
         String actual = getData();
-        String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + newLine +
-                "or help command for a help call" + newLine +
-                //help
-                "The existing command:" + newLine +
-                "\tconnect|databaseName|userName|password" + newLine +
-                "\t\tfor connection to the database with which we will work" + newLine +
-                "\tlist" + newLine +
-                "\t\tfor connection to the database with which we will work" + newLine +
-                "\tclear|tableName" + newLine +
-                "\t\tfor cleaning of all table" + newLine +
-                "\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN" + newLine +
-                "\t\tfor creation of record in the table" + newLine +
-                "\tfind|tableName" + newLine +
-                "\t\tfor receiving contents of the table 'tableName'" + newLine +
-                "\thelp" + newLine +
-                "\t\tfor an output of this list to the screen" + newLine +
-                "\texit" + newLine +
-                "\t\tfor an output from the program" + newLine +
-                "enter please command or help command for a help call" + newLine +
-                //exit
+        String expected = "Welcome to SQLCmd! =)"+newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|database|username|password"+newLine +
+                "or help command for a help call"+newLine +
+                "The existing command: "+newLine +
+                "\texit"+newLine +
+                "\t\tfor an output from the program"+newLine +
+                "\thelp"+newLine +
+                "\t\tfor an output of this list to the screen"+newLine +
+                "\tconnect|databaseName|userName|password"+newLine +
+                "\t\tfor connection to the database with which we will work"+newLine +
+                "\tcreateDatabase|DatabaseName"+newLine +
+                "\t\tcreated database"+newLine +
+                "\tshows the list of tables"+newLine +
+                "\t\ttables"+newLine +
+                "\tfind|tableName "+newLine +
+                "\t\tfor receiving contents of the table tableName"+newLine +
+                "enter please command or help command for a help call"+newLine +
                 "See you soon!" + newLine;
         assertEquals("testHelpBeforeConnect", expected, actual);
     }
@@ -130,30 +126,24 @@ public class IntegrationTest {
 
         //wen
         String actual = getData();
-        String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + newLine +
-                "or help command for a help call" + newLine +
-                //connect
-                "Opened database: postgres successfully" + newLine +
-                "enter please command or help command for a help call" + newLine +
-                //help
-                "The existing command:" + newLine +
-                "\tconnect|databaseName|userName|password" + newLine +
-                "\t\tfor connection to the database with which we will work" + newLine +
-                "\tlist" + newLine +
-                "\t\tfor connection to the database with which we will work" + newLine +
-                "\tclear|tableName" + newLine +
-                "\t\tfor cleaning of all table" + newLine +
-                "\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN" + newLine +
-                "\t\tfor creation of record in the table" + newLine +
-                "\tfind|tableName" + newLine +
-                "\t\tfor receiving contents of the table 'tableName'" + newLine +
-                "\thelp" + newLine +
-                "\t\tfor an output of this list to the screen" + newLine +
-                "\texit" + newLine +
-                "\t\tfor an output from the program" + newLine +
-                "enter please command or help command for a help call" + newLine +
+        String expected = "Welcome to SQLCmd! =)"+newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|database|username|password"+newLine +
+                "or help command for a help call"+newLine +
+                "The existing command: "+newLine +
+                "\texit"+newLine +
+                "\t\tfor an output from the program"+newLine +
+                "\thelp"+newLine +
+                "\t\tfor an output of this list to the screen"+newLine +
+                "\tconnect|databaseName|userName|password"+newLine +
+                "\t\tfor connection to the database with which we will work"+newLine +
+                "\tcreateDatabase|DatabaseName"+newLine +
+                "\t\tcreated database"+newLine +
+                "\tshows the list of tables"+newLine +
+                "\t\ttables"+newLine +
+                "\tfind|tableName "+newLine +
+                "\t\tfor receiving contents of the table tableName"+newLine +
+                "enter please command or help command for a help call"+newLine +
                 "See you soon!" + newLine;
         assertEquals("testHelpBeforeConnect", expected, actual);
     }

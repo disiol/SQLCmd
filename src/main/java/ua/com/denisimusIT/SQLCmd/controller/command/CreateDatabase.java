@@ -17,7 +17,8 @@ public class CreateDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("createDatabase" + "|");
+        String createDatabase = format().substring(0, description().indexOf("|"));
+        return command.startsWith(createDatabase + "|");
     }
 
     @Override
@@ -38,14 +39,12 @@ public class CreateDatabase implements Command {
 
     @Override
     public String description() {
-        //TODO
-        return null;
+        return "created database";
     }
 
     @Override
     public String format() {
-       // TODO
-        return null;
+        return "createDatabase|DatabaseName";
     }
 
     private int count() {
