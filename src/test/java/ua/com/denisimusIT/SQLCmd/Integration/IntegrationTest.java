@@ -264,6 +264,44 @@ public class IntegrationTest {
     }
 
 
+    @Test
+
+    public void dropDatabase() {
+        //given
+        String testDatabaseName2 = "testDatabaseName2";
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("createDatabase|" + testDatabaseName2);
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("dropDatabase|" + testDatabaseName2);
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                //connect
+                "Opened database: " + databaseName + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                //createDatabase
+                "Database created " + testDatabaseName2 + " successfully" + newLine +
+                "enter please command or help command for a help call\n" +
+                "Opened database: postgres successfully\n" +
+                "enter please command or help command for a help call" + newLine +
+                //drop database
+                "Database  " + testDatabaseName2 + " deleted successfully" + newLine +
+                "enter please command or help command for a help call" + newLine
+                + "See you soon!" + newLine;
+        assertEquals("dropDatabase", expected, actual);
+
+        //TODO получить список баз данных
+        // TODO удалитьбазу данных
+    }
+
+
     private String getData() {
         try {
             String result = new String(out.toByteArray(), "UTF-8");

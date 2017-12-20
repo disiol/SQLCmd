@@ -25,6 +25,7 @@ public class MainController {
                 new IsConnected(view, manager),
                 new ListOfTablesNames(view, manager),
                 new ContentsOfTheTable(view, manager),
+                new DropDatabase(view,manager),
                 new UnsupportedCommand(view)
         };
         help.setCommands(commands);

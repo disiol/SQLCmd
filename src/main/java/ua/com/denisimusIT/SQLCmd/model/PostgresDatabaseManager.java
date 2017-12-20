@@ -387,7 +387,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
             String sql = "DROP DATABASE " + "\"" + databaseName + "\"";
             stmt.executeUpdate(sql);
-            System.out.println("Database: " + databaseName + " drop successfully");
         } catch (SQLException se) {
             connection = null;
             se.printStackTrace();

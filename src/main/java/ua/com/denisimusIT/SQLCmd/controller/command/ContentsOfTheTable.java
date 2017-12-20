@@ -19,8 +19,7 @@ public class ContentsOfTheTable implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        String find = description().substring(0, description().indexOf("|"));
-        return command.startsWith(find + "|");
+        return command.startsWith("find|");
     }
 
     @Override
