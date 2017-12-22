@@ -23,7 +23,7 @@ public class ListOfTablesNames implements Command {
     @Override
     public void process(String command) {
         String tableNames = manager.getTableNames().toString();
-        view.write("List of tablesNames " + NEWLINE);
+        view.write("List of tablesNames: " + NEWLINE);
         view.write(tableNames);
     }
 

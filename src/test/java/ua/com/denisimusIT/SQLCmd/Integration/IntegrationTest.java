@@ -1,10 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.Integration;
 
-import org.junit.BeforeClass;
 import org.junit.*;
 import ua.com.denisimusIT.SQLCmd.controller.Main;
-import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
-import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,26 +12,32 @@ import static org.junit.Assert.assertEquals;
 
 public class IntegrationTest {
     private String newLine = System.lineSeparator();
-    private ConfigurableInputStream in;
-    private ByteArrayOutputStream out;
+    private static ConfigurableInputStream in;
+    private static ByteArrayOutputStream out;
 
 
-    private final String databaseName = "postgres";
-    private final String userName = "postgres";
-    private final String password = "1111";
+    private static final String databaseName = "postgres";
+    private static final String userName = "postgres";
+    private static final String password = "1111";
 
 
-    private static final String TEST_TABLE_NAME = "testTable";
-    private static final String TEST_database_NAME = "testDatabase";
+    private String testTable = "testTable";
+    private static String testDatabaseName = "testDatabase";
 
 
-    @Before
-    public void setup() {
+    @BeforeClass
+    public static void setup() throws IOException {
         out = new ByteArrayOutputStream();
         in = new ConfigurableInputStream();
 
         System.setIn(in);
         System.setOut(new PrintStream(out));
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("createDatabase|" + testDatabaseName);
+        in.add("exit");
+        Main.main(new String[0]);
+        in.reset();
+
 
     }
 
@@ -52,6 +55,19 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, " +
                 "user name and the password in a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                "connect|postgres|postgres|1111" + newLine +
+                "Opened database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "createDatabase|testDatabase" + newLine +
+                "Database created testDatabase successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine +
+                "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "exit" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testExit", expected, actual);
     }
@@ -72,6 +88,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in " +
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                //help
                 "The existing command: " + newLine +
                 "\texit" + newLine +
                 "\t\tfor an output from the program" + newLine +
@@ -86,6 +103,7 @@ public class IntegrationTest {
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
                 "enter please command or help command for a help call" + newLine +
+                //exit
                 "See you soon!" + newLine;
         assertEquals("testHelpBeforeConnect", expected, actual);
     }
@@ -105,6 +123,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
                 "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                //connect
                 "Opened database: " + databaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
@@ -130,8 +149,10 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in " +
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                //connect
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
+                //help
                 "The existing command: " + newLine +
                 "\texit" + newLine +
                 "\t\tfor an output from the program" + newLine +
@@ -146,6 +167,7 @@ public class IntegrationTest {
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
                 "enter please command or help command for a help call" + newLine +
+                //exit
                 "See you soon!" + newLine;
         assertEquals("testHelpBeforeConnect", expected, actual);
     }
@@ -218,7 +240,7 @@ public class IntegrationTest {
 
         //given
         in.add("connect|" + databaseName + "|" + "_" + "|" + password);
-        // in.add("exit");
+        in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
@@ -236,12 +258,56 @@ public class IntegrationTest {
 
 
     @Test
-
     public void createDatabase() {
         //given
-        String testDatabaseName2 = "testDatabaseName2";
+        String testDatabaseName3 = "testDatabaseName3";
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("createDatabase|" + testDatabaseName2);
+        in.add("createDatabase|" + testDatabaseName3);
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password " +
+                "in a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|postgres|postgres|1111" + newLine +
+                "Opened database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "createDatabase|testDatabase" + newLine +
+                "Database created testDatabase successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine +
+                "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|postgres|postgres|1111" + newLine +
+                "Opened database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "createDatabase|testDatabaseName3" + newLine +
+                "Database created testDatabaseName3 successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("createDatabase", expected, actual);
+
+
+        //TODO получить список баз данных
+        // TODO удалитьбазу данных
+    }
+
+
+    @Test
+    public void createTable() {
+        //given
+        String testTable2 = "testTable2";
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("createTable|" + testTable2);
+        in.add("find|" + testTable2);
         in.add("exit");
         //then
         Main.main(new String[0]);
@@ -254,10 +320,10 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "Opened database: " + databaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "Database created " + testDatabaseName2 + " successfully" + newLine +
+                "Database created " + testDatabaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine
                 + "See you soon!" + newLine;
-        assertEquals("createDatabase", expected, actual);
+        assertEquals("createTable", expected, actual);
 
         //TODO получить список баз данных
         // TODO удалитьбазу данных
@@ -268,7 +334,7 @@ public class IntegrationTest {
 
     public void dropDatabase() {
         //given
-        String testDatabaseName2 = "testDatabaseName2";
+        String testDatabaseName2 = "testDatabaseName3";
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("createDatabase|" + testDatabaseName2);
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
@@ -277,24 +343,41 @@ public class IntegrationTest {
         //then
         Main.main(new String[0]);
 
+
         //wen
         String actual = getData();
-        String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + newLine +
-                "or help command for a help call" + newLine +
-                //connect
-                "Opened database: " + databaseName + " successfully" + newLine +
-                "enter please command or help command for a help call" + newLine +
-                //createDatabase
-                "Database created " + testDatabaseName2 + " successfully" + newLine +
-                "enter please command or help command for a help call\n" +
-                "Opened database: postgres successfully\n" +
-                "enter please command or help command for a help call" + newLine +
-                //drop database
-                "Database  " + testDatabaseName2 + " deleted successfully" + newLine +
-                "enter please command or help command for a help call" + newLine
-                + "See you soon!" + newLine;
+        String expected =
+                //before class
+                "Welcome to SQLCmd! =)" + newLine +
+                        "For connect to database to database , enter please a database name, user name and the" +
+                        " password in a format: connect|database|username|password" + newLine +
+                        "or help command for a help call" + newLine +
+                        "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                        "Opened database: postgres successfully" + newLine +
+                        "enter please command or help command for a help call" + newLine +
+                        "createDatabase|" + testDatabaseName + newLine +
+                        "Database created testDatabase successfully" + newLine +
+                        "enter please command or help command for a help call" + newLine +
+                        "exit" + newLine +
+                        "See you soon!" + newLine +
+                        "Welcome to SQLCmd! =)" + newLine +
+                        "For connect to database to database , enter please a database name, user name and the" +
+                        " password in a format: connect|database|username|password" + newLine +
+                        "or help command for a help call" + newLine +
+                        "connect|postgres|postgres|1111" + newLine +
+                        "Opened database: postgres successfully" + newLine +
+                        "enter please command or help command for a help call" + newLine +
+                        "createDatabase|testDatabaseName3" + newLine +
+                        "Database created testDatabaseName3 successfully" + newLine +
+                        "enter please command or help command for a help call" + newLine +
+                        "connect|postgres|postgres|1111" + newLine +
+                        "Opened database: postgres successfully" + newLine +
+                        "enter please command or help command for a help call" + newLine +
+                        "dropDatabase|testDatabaseName3" + newLine +
+                        "Database  testDatabaseName3 deleted successfully" + newLine +
+                        "enter please command or help command for a help call" + newLine +
+                        "exit" + newLine +
+                        "See you soon!" + newLine;
         assertEquals("dropDatabase", expected, actual);
 
         //TODO получить список баз данных
@@ -310,5 +393,17 @@ public class IntegrationTest {
         } catch (UnsupportedEncodingException e) {
             return e.getMessage();
         }
+    }
+
+
+    @AfterClass
+
+    public static void dropDatabaseAfter() throws IOException {
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("dropDatabase|" + testDatabaseName);
+        in.add("exit");
+        Main.main(new String[0]);
+        in.reset();
+
     }
 }

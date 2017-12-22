@@ -38,7 +38,7 @@ public class PostgresDatabaseManagerTest {
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(TEST_DATABASE_NAME, userName);
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
-        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
+        String columnsValues = "id, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
         POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
     }
 
@@ -371,11 +371,6 @@ public class PostgresDatabaseManagerTest {
         assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
 
 
-        Object expectedMessage = "Creating database testdatabase2" + NEW_LINE +
-                "Database created testdatabase2 successfully" + NEW_LINE;
-        String actual = OUT_CONTENT.toString();
-        assertEquals("Database created successfully...", expectedMessage, actual);
-
         //after
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
         POSTGRES_DATABASE_MANAGER.dropDatabase(dataBaseName);
@@ -398,10 +393,6 @@ public class PostgresDatabaseManagerTest {
         POSTGRES_DATABASE_MANAGER.createDatabase("test2");
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName2, user);
-        POSTGRES_DATABASE_MANAGER.connectToDatabase(testDatabaseName2, user, password1);
-
-        Assert.assertTrue("test connekt to DB ", POSTGRES_DATABASE_MANAGER.isConnected());
-
         String expected = "Creating user: " + user + NEW_LINE +
                 "It is created user: " + user + " with the password: " + password1 + NEW_LINE
                 + "Creating database test2" + NEW_LINE +
@@ -413,12 +404,10 @@ public class PostgresDatabaseManagerTest {
 
         String expected1 = "The user : " + user + "already is created";
         String actual2 = OUT_CONTENT.toString();
-        Assert.assertEquals("The user already is created", expected, actual);
+        Assert.assertEquals("The user already is created", expected1, actual2);
 
 
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(testDatabaseName2);
-        //DropDatabase
+
         connectToDB();
         POSTGRES_DATABASE_MANAGER.dropDatabase(testDatabaseName2);
         connectToDB();
@@ -477,14 +466,6 @@ public class PostgresDatabaseManagerTest {
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("dropDatabaseNames", expected, Arrays.toString(actualDatabaseNamesSorted));
-
-        String actualMessage = OUT_CONTENT.toString();
-        Object expectedMessage = "Creating database testdrop" + NEW_LINE +
-                "Database created testdrop successfully" + NEW_LINE +
-                "Database: testdrop drop successfully" + NEW_LINE;
-
-        assertEquals("Database drop successfully" + NEW_LINE, expectedMessage, actualMessage);
-
     }
 
     @Test
@@ -564,11 +545,8 @@ public class PostgresDatabaseManagerTest {
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName, testUser);
 
-        String expected = "Creating database " + testDatabaseName + NEW_LINE +
-                "Database created " + testDatabaseName + " successfully" + NEW_LINE +
-                "Creating user: den" + NEW_LINE +
-                "It is created user: den with the password: testPassword" + NEW_LINE +
-                "Access user: den to the database: " + testDatabaseName + " it is allow";
+        String expected = "Creating user: den" + NEW_LINE +
+                "Access user: den to the database: testdatabase3 it is allow";
         String actual = OUT_CONTENT.toString();
         Assert.assertEquals("GiveAccess", expected, actual);
 
@@ -593,7 +571,6 @@ public class PostgresDatabaseManagerTest {
         //DropDatabase
         connectToDB();
         POSTGRES_DATABASE_MANAGER.dropDatabase(TEST_DATABASE_NAME);
-
 
 
     }

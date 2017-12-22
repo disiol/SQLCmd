@@ -16,7 +16,6 @@ public class ClearTable implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        String clear = format().substring(0, description().indexOf("|"));
         return command.startsWith("clear" + "|");
     }
 
