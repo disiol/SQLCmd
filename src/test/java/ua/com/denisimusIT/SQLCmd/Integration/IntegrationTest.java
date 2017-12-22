@@ -273,7 +273,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password " +
                 "in a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|postgres|postgres|1111" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "createDatabase|testDatabase" + newLine +
@@ -315,14 +315,33 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "Opened database: " + databaseName + " successfully" + newLine +
+                "connect|postgres|postgres|1111" + newLine +
+                "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "Database created " + testDatabaseName + " successfully" + newLine +
-                "enter please command or help command for a help call" + newLine
-                + "See you soon!" + newLine;
+                "createDatabase|testDatabase" + newLine +
+                "Database created testDatabase successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine +
+                "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|postgres|postgres|1111" + newLine +
+                "Opened database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "createTable|testTable2" + newLine +
+                "Nonexistent command:createTable|testTable2" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "find|testTable2" + newLine +
+                "Contents of the table testTable2:" + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "•+ " + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine ;
         assertEquals("createTable", expected, actual);
 
         //TODO получить список баз данных
