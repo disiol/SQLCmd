@@ -30,8 +30,6 @@ public interface DatabaseManager {
 
     void dropDatabase(final String databaseName);
 
-    void selectDatabase(String databaseName);
-
     void disconnectOfDatabase(String databaseName);
 
     List<String> currentDatabase();

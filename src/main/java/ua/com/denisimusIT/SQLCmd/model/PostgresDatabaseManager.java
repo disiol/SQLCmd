@@ -411,10 +411,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     }
 
-    @Override
-    public void selectDatabase(String databaseName) {
-        //TODO
-    }
+
 
     @Override
     public void disconnectOfDatabase(String databaseName) {
