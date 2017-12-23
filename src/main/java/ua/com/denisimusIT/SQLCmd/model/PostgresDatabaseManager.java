@@ -216,10 +216,10 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
 
-            String tableNames = getNameFormatted(input, "%s,");
+            String columnName = getNameFormatted(input, "%s,");
             String values = getValuesFormatted(input, "'%s',");
 
-            String sql = "INSERT INTO " + "\"" + tableName + "\"" + "(" + tableNames + ")" + "VALUES (" + values + ")";
+            String sql = "INSERT INTO " + "\"" + tableName + "\"" + "(" + columnName + ")" + "VALUES (" + values + ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println("Invalid request");
