@@ -65,7 +65,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "CREATE TABLE  " + "\"" + tableName + "\"" +
+            String sql = "CREATE TABLE IF NOT EXISTS  " + "\"" + tableName + "\"" +
                     "(" + columnsValues + ")";
             stmt.executeUpdate(sql);
             System.out.println("Table " + tableName + " created successfully");
@@ -132,7 +132,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             int size = getSize(tableName);
             stmt = connection.createStatement();
-            rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + "\""+ tableName+ "\"");
+            rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + "\"" + tableName + "\"");
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -240,7 +240,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void updateTableData(final String tableName, int id, DataSet newValue) {
-        //TODO добавить выбор схемы
+        //TODO добавить выбор схемы и колонки
+
         PreparedStatement ps = null;
         try {
             String tableNames = getNameFormatted(newValue, "%s = ?,");
@@ -412,7 +413,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
 
-
     @Override
     public void disconnectOfDatabase(String databaseName) {
 
@@ -420,10 +420,10 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
 
-            String sql = "SELECT pg_terminate_backend(pg_stat_activity.pid)"+ NEW_LINE +
-                    "FROM pg_stat_activity"+ NEW_LINE +
+            String sql = "SELECT pg_terminate_backend(pg_stat_activity.pid)" + NEW_LINE +
+                    "FROM pg_stat_activity" + NEW_LINE +
                     "WHERE pg_stat_activity.datname = " + "'" + databaseName + "'" + NEW_LINE +
-                    "  AND pid <> pg_backend_pid();"+ NEW_LINE;
+                    "  AND pid <> pg_backend_pid();" + NEW_LINE;
             stmt.execute(sql);
             System.out.println("Disconnect of database: " + databaseName + " successfully");
         } catch (SQLException se) {
