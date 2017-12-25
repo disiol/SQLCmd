@@ -370,12 +370,6 @@ public class PostgresDatabaseManagerTest {
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
 
-
-        Object expectedMessage = "Creating database testdatabase2" + NEW_LINE +
-                "Database created testdatabase2 successfully" + NEW_LINE;
-        String actual = OUT_CONTENT.toString();
-        assertEquals("Database created successfully...", expectedMessage, actual);
-
         //after
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
         POSTGRES_DATABASE_MANAGER.dropDatabase(dataBaseName);
@@ -403,9 +397,7 @@ public class PostgresDatabaseManagerTest {
         Assert.assertTrue("test connekt to DB ", POSTGRES_DATABASE_MANAGER.isConnected());
 
         String expected = "Creating user: " + user + NEW_LINE +
-                "It is created user: " + user + " with the password: " + password1 + NEW_LINE
-                + "Creating database test2" + NEW_LINE +
-                "Database created test2 successfully" + NEW_LINE +
+                "It is created user: " + user + " with the password: " + password1 + NEW_LINE +
                 "Access user: den to the database: test2 it is allow";
         String actual = OUT_CONTENT.toString();
         Assert.assertEquals("created user", expected, actual);
@@ -477,13 +469,6 @@ public class PostgresDatabaseManagerTest {
         Collections.sort(actualDatabaseNames);
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("dropDatabaseNames", expected, Arrays.toString(actualDatabaseNamesSorted));
-
-        String actualMessage = OUT_CONTENT.toString();
-        Object expectedMessage = "Creating database testdrop" + NEW_LINE +
-                "Database created testdrop successfully" + NEW_LINE +
-                "Database: testdrop drop successfully" + NEW_LINE;
-
-        assertEquals("Database drop successfully" + NEW_LINE, expectedMessage, actualMessage);
 
     }
 
@@ -564,9 +549,7 @@ public class PostgresDatabaseManagerTest {
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName, testUser);
 
-        String expected = "Creating database " + testDatabaseName + NEW_LINE +
-                "Database created " + testDatabaseName + " successfully" + NEW_LINE +
-                "Creating user: den" + NEW_LINE +
+        String expected = "Creating user: den" + NEW_LINE +
                 "It is created user: den with the password: testPassword" + NEW_LINE +
                 "Access user: den to the database: " + testDatabaseName + " it is allow";
         String actual = OUT_CONTENT.toString();
@@ -593,7 +576,6 @@ public class PostgresDatabaseManagerTest {
         //DropDatabase
         connectToDB();
         POSTGRES_DATABASE_MANAGER.dropDatabase(TEST_DATABASE_NAME);
-
 
 
     }
