@@ -26,7 +26,7 @@ public class PostgresDatabaseManagerTest {
     private static final String userName = "postgres";
     private static final String password = "1111";
 
-    private static final String TEST_TABLE_NAME = "testTable";
+    private static final String TEST_TABLE_NAME = "\"testTable\"";
     private static final String TEST_DATABASE_NAME = "testDatabase";
 
 
@@ -34,9 +34,9 @@ public class PostgresDatabaseManagerTest {
     public static void setup() {
 
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME);
+        POSTGRES_DATABASE_MANAGER.createDatabase("\"" + TEST_DATABASE_NAME + "\"");
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(TEST_DATABASE_NAME, userName);
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\""+TEST_DATABASE_NAME + "\"", userName);
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
         String columnsValues = "id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
         POSTGRES_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
@@ -377,6 +377,7 @@ public class PostgresDatabaseManagerTest {
 
 
     }
+
     @Ignore("сделаю после рефактроринга ексепшенов")
     @Test
     public void createUserTest() {
@@ -566,10 +567,12 @@ public class PostgresDatabaseManagerTest {
     @AfterClass
     public static void dropDatabase() {
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(TEST_DATABASE_NAME);
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase("\"" + TEST_DATABASE_NAME + "\"");
         //DropDatabase
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropDatabase(TEST_DATABASE_NAME);
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(userName,"\"" + TEST_DATABASE_NAME + "\"");
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropDatabase("\"" + TEST_DATABASE_NAME + "\"");
 
 
     }
