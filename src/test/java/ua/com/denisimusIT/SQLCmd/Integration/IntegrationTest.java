@@ -85,6 +85,8 @@ public class IntegrationTest {
                 "\t\ttables" + newLine +
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
+                "\tdropDatabase|DatabaseName" +newLine+
+                "\t\tDelete database"+ newLine+
                 "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testHelpBeforeConnect", expected, actual);
@@ -145,6 +147,8 @@ public class IntegrationTest {
                 "\t\ttables" + newLine +
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
+                "\tdropDatabase|DatabaseName" + newLine +
+                "\t\tDelete database" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testHelpBeforeConnect", expected, actual);
@@ -272,7 +276,7 @@ public class IntegrationTest {
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("createDatabase|" + testDatabaseName2);
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("dropDatabase|" + testDatabaseName2);
+        in.add("dropDatabase|" + "testDatabaseName2");
         in.add("exit");
         //then
         Main.main(new String[0]);
