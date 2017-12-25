@@ -1,18 +1,15 @@
 package ua.com.denisimusIT.SQLCmd.controller.command;
 
 public class CreateNewTable implements Command {
-    //TODO
-
+    private String newLine = System.lineSeparator();
 
     @Override
     public boolean canProcess(String command) {
-        String create = description().substring(0,description().indexOf("|"));
-        return command.startsWith(create + "|");
+        return command.startsWith("create" + "|");
     }
 
     @Override
     public void process(String command) {
-        //•TODO Команда создает новую таблицу с заданными полями
 
 
     }
@@ -24,7 +21,10 @@ public class CreateNewTable implements Command {
 
     @Override
     public String format() {
-        return "create|tableName|column1|value1|column2|value2|...|columnN|valueN";
+        return "for create table without values:" + newLine
+                + "create|tableName|column1, column2, value2,...,columnN, valueN" + newLine +
+                "for create table with values:" + newLine
+                + "create|tableName|column1 value1, column2, value2,...,columnN, valueN";
     }
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.command.create | tableName | column1 | column2 | ... | columnN
 //•где: tableName - имя таблицы
@@ -33,4 +33,4 @@ public class CreateNewTable implements Command {
 //•columnN - имя n-го столбца записи
 //•Формат вывода: текстовое сообщение с результатом выполнения
 //операции
-    }
+}

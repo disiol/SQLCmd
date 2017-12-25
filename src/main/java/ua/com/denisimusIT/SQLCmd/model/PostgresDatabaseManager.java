@@ -65,7 +65,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "CREATE TABLE  " + "\"" + tableName + "\"" +
+            String sql = "CREATE TABLE IF NOT EXISTS  " + "\"" + tableName + "\"" +
                     "(" + columnsValues + ")";
             stmt.executeUpdate(sql);
             System.out.println("Table " + tableName + " created successfully");
@@ -132,7 +132,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             int size = getSize(tableName);
             stmt = connection.createStatement();
-            rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + "\""+ tableName+ "\"");
+            rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + "\"" + tableName + "\"");
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -216,10 +216,10 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
 
-            String tableNames = getNameFormatted(input, "%s,");
+            String columnName = getNameFormatted(input, "%s,");
             String values = getValuesFormatted(input, "'%s',");
 
-            String sql = "INSERT INTO " + "\"" + tableName + "\"" + "(" + tableNames + ")" + "VALUES (" + values + ")";
+            String sql = "INSERT INTO " + "\"" + tableName + "\"" + "(" + columnName + ")" + "VALUES (" + values + ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println("Invalid request");
@@ -240,7 +240,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void updateTableData(final String tableName, int id, DataSet newValue) {
-        //TODO добавить выбор схемы
+        //TODO добавить выбор схемы и колонки
+
         PreparedStatement ps = null;
         try {
             String tableNames = getNameFormatted(newValue, "%s = ?,");
@@ -319,7 +320,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "CREATE DATABASE "  + databaseName;
+            String sql = "CREATE DATABASE " + "\" + databaseName + \"";
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
@@ -385,7 +386,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
 
-            String sql = "DROP DATABASE "  + databaseName ;
+            String sql = "DROP DATABASE " + "\" + databaseName + \"";
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
@@ -411,10 +412,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     }
 
-    @Override
-    public void selectDatabase(String databaseName) {
-        //TODO
-    }
 
     @Override
     public void disconnectOfDatabase(String databaseName) {
@@ -423,10 +420,10 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
 
-            String sql = "SELECT pg_terminate_backend(pg_stat_activity.pid)\n" +
-                    "FROM pg_stat_activity\n" +
+            String sql = "SELECT pg_terminate_backend(pg_stat_activity.pid)" + NEW_LINE +
+                    "FROM pg_stat_activity" + NEW_LINE +
                     "WHERE pg_stat_activity.datname = " + "'" + databaseName + "'" + NEW_LINE +
-                    "  AND pid <> pg_backend_pid();\n";
+                    "  AND pid <> pg_backend_pid();" + NEW_LINE;
             stmt.execute(sql);
             System.out.println("Disconnect of database: " + databaseName + " successfully");
         } catch (SQLException se) {
@@ -559,7 +556,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "GRANT ALL ON DATABASE " + "\"" + databaseName + "\"" + " TO  " + userName;
+            String sql = "GRANT ALL ON DATABASE " + "\" + databaseName + \"" + " TO  " + userName;
             stmt.executeUpdate(sql);
             System.out.printf("Access user: %s to the database: %s it is allow", userName, databaseName);
         } catch (SQLException se) {

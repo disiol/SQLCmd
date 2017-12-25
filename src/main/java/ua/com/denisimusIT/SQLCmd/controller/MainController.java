@@ -22,10 +22,11 @@ public class MainController {
                 help,
                 new ConnectToDatabase(view, manager),
                 new CreateDatabase(view, manager),
+                new DropDatabase(view,manager),
                 new IsConnected(view, manager),
                 new ListOfTablesNames(view, manager),
                 new ContentsOfTheTable(view, manager),
-                new DropDatabase(view,manager),
+                new CreateNewTable(view,manager),
                 new UnsupportedCommand(view)
         };
         help.setCommands(commands);
@@ -62,7 +63,7 @@ public class MainController {
                 if (e instanceof ExitException) {
                     throw e;
                 }
-                e.printStackTrace();
+                //e.printStackTrace();
                 printError(e);
                 break;
             }

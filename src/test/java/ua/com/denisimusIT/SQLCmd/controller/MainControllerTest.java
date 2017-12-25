@@ -14,11 +14,10 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.runner.JUnitCore.main;
 
 public class MainControllerTest {
-    private  final  MainController mainController = new MainController(new Console(),new PostgresDatabaseManager());
-    private static final  String NEWLINE = System.lineSeparator();
+    private final MainController mainController = new MainController(new Console(), new PostgresDatabaseManager());
+    private static final String NEWLINE = System.lineSeparator();
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayInputStream  byteArrayInputStream = new ByteArrayInputStream(NEWLINE.getBytes());
-
+    private final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(NEWLINE.getBytes());
 
 
     @Test
@@ -28,23 +27,20 @@ public class MainControllerTest {
         System.setIn(byteArrayInputStream);
         System.setOut(new PrintStream(outContent));
 
-      
-        
+
         //then
         Main.main(new String[0]);
         //wen
-        String expected = "Welcome to SQLCmd! =)"+NEWLINE +
-                "For connectToDatabase to database , enter please a database name, user name and the password in a format: " +
-                "connectToDatabase|database|username|password"+NEWLINE +
-                "or help command for a help call"+NEWLINE +
+        String expected = "Welcome to SQLCmd! =)" + NEWLINE +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|database|username|password" + NEWLINE +
+                "or help command for a help call" + NEWLINE +
                 "You cannot use a command '' be not connected by means of a command " +
-                "yet connectToDatabase|databaseName|userName|password"+NEWLINE +
+                "yet connectToDatabase|databaseName|userName|password" + NEWLINE +
                 "enter please command or help command for a help call" + NEWLINE
                 + "See you soon!" + NEWLINE;
         String actual = outContent.toString();
         assertEquals("MainControllerTest", expected, actual);
-
-
 
 
     }

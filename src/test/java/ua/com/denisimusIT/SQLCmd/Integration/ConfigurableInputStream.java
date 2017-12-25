@@ -7,17 +7,20 @@ public class ConfigurableInputStream extends InputStream {
     private String newLine = System.lineSeparator();
     private String line;
     private boolean endLine = false;
+    private String printed = "";
 
     @Override
     public int read() throws IOException {
 
         if (line.length() == 0) {
+            printInput();
             return -1;
         }
 
 
         if (endLine) {
             endLine = false;
+            printInput();
             return -1;
         }
 
@@ -27,17 +30,26 @@ public class ConfigurableInputStream extends InputStream {
 
         if (newLine.charAt(0) == ch) {
             endLine = true;
+        } else {
+            printed += ch;
         }
 
 
         return (int) ch;
     }
 
+
+    private void printInput() {
+        System.out.println(printed);
+        printed = "";
+    }
+
     public void add(String line) {
         if (this.line == null) {
-            this.line = line;
+            this.line = line + newLine;
         } else {
-            this.line += newLine + line;
+            this.line += line + newLine;
+
 
         }
     }
