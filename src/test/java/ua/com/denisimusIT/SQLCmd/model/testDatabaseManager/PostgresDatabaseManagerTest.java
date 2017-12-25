@@ -567,10 +567,10 @@ public class PostgresDatabaseManagerTest {
     @AfterClass
     public static void dropDatabase() {
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase("\"" + TEST_DATABASE_NAME + "\"");
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase( TEST_DATABASE_NAME);
         //DropDatabase
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(userName,"\"" + TEST_DATABASE_NAME + "\"");
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + TEST_DATABASE_NAME + "\"",userName);
         connectToDB();
         POSTGRES_DATABASE_MANAGER.dropDatabase("\"" + TEST_DATABASE_NAME + "\"");
 
