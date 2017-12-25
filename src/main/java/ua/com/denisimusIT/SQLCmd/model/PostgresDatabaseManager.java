@@ -319,7 +319,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "CREATE DATABASE " + "\"" + databaseName + "\"";
+            String sql = "CREATE DATABASE "  + databaseName;
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
@@ -385,7 +385,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
 
-            String sql = "DROP DATABASE " + "\"" + databaseName + "\"";
+            String sql = "DROP DATABASE "  + databaseName ;
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;

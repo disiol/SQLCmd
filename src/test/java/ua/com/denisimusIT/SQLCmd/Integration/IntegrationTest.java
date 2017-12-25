@@ -85,8 +85,8 @@ public class IntegrationTest {
                 "\t\ttables" + newLine +
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
-                "\tdropDatabase|DatabaseName" +newLine+
-                "\t\tDelete database"+ newLine+
+                "\tdropDatabase|DatabaseName" + newLine +
+                "\t\tDelete database" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testHelpBeforeConnect", expected, actual);
@@ -222,7 +222,7 @@ public class IntegrationTest {
 
         //given
         in.add("connect|" + databaseName + "|" + "_" + "|" + password);
-        // in.add("exit");
+        in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
@@ -272,11 +272,11 @@ public class IntegrationTest {
 
     public void dropDatabase() {
         //given
-        String testDatabaseName2 = "testDatabaseName2";
+        String testDatabaseName5 = "testDatabaseName5";
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("createDatabase|" + testDatabaseName2);
+        in.add("createDatabase|" + testDatabaseName5);
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("dropDatabase|" + "testDatabaseName2");
+        in.add("dropDatabase|"  + testDatabaseName5 );
         in.add("exit");
         //then
         Main.main(new String[0]);
@@ -291,12 +291,12 @@ public class IntegrationTest {
                 "Opened database: " + databaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 //createDatabase
-                "Database created " + testDatabaseName2 + " successfully" + newLine +
-                "enter please command or help command for a help call\n" +
-                "Opened database: postgres successfully\n" +
+                "Database created " + testDatabaseName5 + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 //drop database
-                "Database  " + testDatabaseName2 + " deleted successfully" + newLine +
+                "Database  " + testDatabaseName5 + " deleted successfully" + newLine +
                 "enter please command or help command for a help call" + newLine
                 + "See you soon!" + newLine;
         assertEquals("dropDatabase", expected, actual);

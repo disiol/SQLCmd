@@ -17,7 +17,7 @@ public class DropDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("dropDatabase" +"|");
+        return command.startsWith("dropDatabase" + "|");
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DropDatabase implements Command {
         }
         String databaseName = data[1];
 
-        manager.dropDatabase(databaseName);
+        manager.dropDatabase("\"" + databaseName + "\"");
         view.write("Database  " + databaseName + " deleted successfully");
 
 
