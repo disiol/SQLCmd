@@ -117,6 +117,7 @@ public class IntegrationTest {
 
         //given
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("exit");
         //then
         Main.main(new String[0]);
         //wen
@@ -128,6 +129,7 @@ public class IntegrationTest {
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: " + databaseName + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
                 "See you soon!" + newLine;
         assertEquals("testConnect", expected, actual);
     }
@@ -194,39 +196,11 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in a " +
-                "format: connect|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: " + databaseName + " successfully" + newLine +
-                "enter please command or help command for a help call" + newLine +
-                "help" + newLine +
-                "The existing command: " + newLine +
-                "\texit" + newLine +
-                "\t\tfor an output from the program" + newLine +
-                "\thelp" + newLine +
-                "\t\tfor an output of this list to the screen" + newLine +
-                "\tconnect|databaseName|userName|password" + newLine +
-                "\t\tfor connection to the database with which we will work" + newLine +
-                "\tcreateDatabase|DatabaseName" + newLine +
-                "\t\tcreated database" + newLine +
-                "\tdropDatabase|DatabaseName" + newLine +
-                "\t\tDelete database" + newLine +
-                "\tshows the list of tables" + newLine +
-                "\t\ttables" + newLine +
-                "\tfind|tableName " + newLine +
-                "\t\tfor receiving contents of the table tableName" + newLine +
-                "\tFor create table with columns:" + newLine +
-                "create|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
-                "\tExample: " + newLine +
-                "\t\tcreate|tableName|id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL" + newLine +
-                "for create table without columns:" + newLine +
-                "create|tableName|" + newLine +
-                "" + newLine +
-                "\t\tfor creation of record in the table" + newLine +
-                "enter please command or help command for a help call" + newLine +
-                "exit" + newLine +
-                "See you soon!" + newLine;
+                "connect|" + databaseName + "|" + userName + newLine +
+                "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect, it is expected  4, but is: 3" + newLine +
+                "Repeat attempt." + newLine;
         assertEquals("testConnectExceptionParameters_3", expected, actual);//given
 
     }
@@ -245,6 +219,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
                 "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                "connect|" + "_" + "|" + userName + "|" + password + newLine +
                 "Failure! for the reason:Cant get connection for model:_ user:postgres FATAL: database \"_\" does not exist" + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("testConnectExceptiondatabase", expected, actual);//given
@@ -265,6 +240,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in a " +
                 "format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + "_" + newLine +
                 "Failure! for the reason:Cant get connection for model:postgres user:postgres FATAL: " +
                 "password authentication failed for user \"" + userName + "\"" + newLine +
                 "Repeat attempt." + newLine;
@@ -287,6 +263,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
                 "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + "_" + "|" + password + newLine +
                 "Failure! for the reason:Cant get connection for model:postgres user:_ FATAL: password authentication failed " +
                 "for user \"_\"" + newLine +
                 "Repeat attempt." + newLine;

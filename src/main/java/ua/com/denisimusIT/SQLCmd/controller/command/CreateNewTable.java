@@ -30,13 +30,14 @@ public class CreateNewTable implements Command {
 //        }
         String tableName = data[1];
         String columnsValues = data[2];
-        manager.createATable(tableName,columnsValues);
+        manager.createATable("\"" + tableName + "\"", columnsValues);
         view.write("The table: " + tableName.toString() + " is created successfully");
     }
 
     @Override
     public String description() {
-        return "for creation of record in the table";
+
+        return "";
     }
 
     @Override
@@ -44,9 +45,9 @@ public class CreateNewTable implements Command {
         return "For create table with columns:" + newLine
                 + "create|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
                 "\tExample: " + newLine +
-                "\t\tcreate|tableName|id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL" + newLine +
-                "for create table without columns:" + newLine
-                + "create|tableName|" + newLine;
+                "\tcreate|tableName|id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL" + newLine +
+                "\tfor create table without columns:" + newLine
+                + "\tcreate|tableName|";
     }
 
     private int count() {
