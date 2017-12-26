@@ -10,7 +10,7 @@ public class Main {
         View view = new Console();
         DatabaseManager databaseManager = new PostgresDatabaseManager();
         MainController mainController = new MainController(view,databaseManager);
-        mainController.run();
+        mainController.run();//TODO сделать вывод в консоль имя текуйщей базы данных
 
 
     }
