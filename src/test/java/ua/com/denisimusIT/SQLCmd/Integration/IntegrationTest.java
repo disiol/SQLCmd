@@ -72,6 +72,11 @@ public class IntegrationTest {
         assertEquals("testExit", expected, actual);
     }
 
+    @Before
+    public void resetIn() throws IOException {
+        in.reset();
+    }
+
     @Test
 
     public void testHelpBeforeConnect() {
@@ -414,6 +419,10 @@ public class IntegrationTest {
         }
     }
 
+    @Before
+    public void resetOut() throws IOException {
+        out.reset();
+    }
 
     @AfterClass
 
