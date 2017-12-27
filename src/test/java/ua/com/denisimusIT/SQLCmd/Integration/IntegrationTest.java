@@ -36,7 +36,6 @@ public class IntegrationTest {
         in.add("createDatabase|" + testDatabaseName);
         in.add("exit");
         Main.main(new String[0]);
-        in.reset();
 
 
     }
@@ -295,7 +294,8 @@ public class IntegrationTest {
         in.reset();
         out.reset();
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("dropTable|" + testDatabaseName5);
+        in.add("dropDatabase|" + testDatabaseName5);
+        in.add("exit");
         Main.main(new String[0]);
 
     }
@@ -408,10 +408,13 @@ public class IntegrationTest {
 
     public static void dropDatabaseAfter() throws IOException {
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        Main.main(new String[0]);
         in.add("dropDatabase|" + testDatabaseName);
         in.add("exit");
         Main.main(new String[0]);
-        in.reset();
+        String toString = out.toString();
+
+
 
     }
 }

@@ -17,7 +17,7 @@ public class DropDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("dropDatabase" + "|");
+        return command.startsWith("dropDatabase|");
     }
 
     @Override

@@ -27,7 +27,7 @@ public class PostgresDatabaseManagerTest {
     private static final String password = "1111";
 
     private static final String TEST_TABLE_NAME = "\"testTable\"";
-    private static final String TEST_DATABASE_NAME = "testDatabase";
+    private static final String TEST_DATABASE_NAME = "testDatabase2";
 
 
     @BeforeClass
@@ -337,9 +337,6 @@ public class PostgresDatabaseManagerTest {
         String tableName = "company2";
         POSTGRES_DATABASE_MANAGER.createATable(tableName, columnsValues);
 
-        String expected = "Table " + tableName + " created successfully" + NEW_LINE;
-        String actual = OUT_CONTENT.toString();
-        assertEquals("create TableCompany", expected, actual);
 
 
         String expected_1 = "[id, name, password]";
@@ -420,7 +417,7 @@ public class PostgresDatabaseManagerTest {
     @Test
     public void currentDatabaseTest() {
 
-        String expected = "[testDatabase]";
+        String expected = "["+TEST_DATABASE_NAME +"]";
         String actual = POSTGRES_DATABASE_MANAGER.currentDatabase().toString();
 
         assertEquals("currentDatabase", expected, actual);
