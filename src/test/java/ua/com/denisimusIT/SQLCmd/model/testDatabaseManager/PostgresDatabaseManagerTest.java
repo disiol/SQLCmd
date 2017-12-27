@@ -381,6 +381,7 @@ public class PostgresDatabaseManagerTest {
     @Ignore("сделаю после рефактроринга ексепшенов")
     @Test
     public void createUserTest() {
+        //todo
         System.setOut(new PrintStream(OUT_CONTENT));
 
 

@@ -16,24 +16,24 @@ public class ListOfTablesNames implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        String tables = description();
+        String tables = format();
         return command.equals(tables);
     }
 
     @Override
     public void process(String command) {
         String tableNames = manager.getTableNames().toString();
-        view.write("List of tablesNames: " + NEWLINE);
+        view.write("List of tablesNames: ");
         view.write(tableNames);
     }
 
     @Override
     public String format() {
-        return "shows the list of tables";
+        return "tables";
     }
 
     @Override
     public String description() {
-        return "tables";
+        return "shows the list of tables";
     }
 }

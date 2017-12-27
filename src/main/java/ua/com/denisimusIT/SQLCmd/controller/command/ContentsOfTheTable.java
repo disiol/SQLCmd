@@ -26,8 +26,7 @@ public class ContentsOfTheTable implements Command {
     public void process(String command) {
         String[] dataCommand = command.split("\\|");
         String tableName = dataCommand[1];
-
-        view.write("Contents of the table " + tableName + ":");
+        //TODO chek
         List<String> tableColumns = manager.getTableColumns(tableName);
         tableHeader(tableColumns);
 

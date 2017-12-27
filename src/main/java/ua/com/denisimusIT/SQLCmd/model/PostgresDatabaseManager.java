@@ -43,7 +43,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate("DELETE FROM " + tableName);
-            System.out.println(tableName + " cleared successfully");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -68,7 +67,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
             String sql = "CREATE TABLE IF NOT EXISTS  " + tableName +
                     "(" + columnsValues + ")";
             stmt.executeUpdate(sql);
-            System.out.println("Table " + tableName + " created successfully");
 
         } catch (Exception e) {
             e.printStackTrace();

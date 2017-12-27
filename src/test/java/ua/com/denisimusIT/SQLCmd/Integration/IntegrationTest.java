@@ -93,16 +93,12 @@ public class IntegrationTest {
                 "\t\tcreated database" + newLine +
                 "\tdropDatabase|DatabaseName" + newLine +
                 "\t\tDelete database" + newLine +
-                "\tshows the list of tables" + newLine +
-                "\t\ttables" + newLine +
+                "\ttables" + newLine +
+                "\t\tshows the list of tables" + newLine +
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
-                "\tFor create table with columns:" + newLine +
+                "\tFor create table:" + newLine +
                 "create|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
-                "\tExample: " + newLine +
-                "\tcreate|tableName|id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL" + newLine +
-                "\tfor create table without columns:" + newLine +
-                "\tcreate|tableName|" + newLine +
                 "\t\t" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -168,16 +164,12 @@ public class IntegrationTest {
                 "\t\tcreated database" + newLine +
                 "\tdropDatabase|DatabaseName" + newLine +
                 "\t\tDelete database" + newLine +
-                "\tshows the list of tables" + newLine +
-                "\t\ttables" + newLine +
+                "\ttables" + newLine +
+                "\t\tshows the list of tables" + newLine +
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
-                "\tFor create table with columns:" + newLine +
+                "\tFor create table:" + newLine +
                 "create|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
-                "\tExample: " + newLine +
-                "\tcreate|tableName|id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL" + newLine +
-                "\tfor create table without columns:" + newLine +
-                "\tcreate|tableName|" + newLine +
                 "\t\t" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -273,11 +265,11 @@ public class IntegrationTest {
 
 
     @Test
-    public void createDatabase() {
+    public void createDatabase() throws IOException {
         //given
-        String testDatabaseName3 = "testDatabaseName3";
+        String testDatabaseName5 = "testDatabaseName5";
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("createDatabase|" + testDatabaseName3);
+        in.add("createDatabase|" + testDatabaseName5);
         in.add("exit");
         //then
         Main.main(new String[0]);
@@ -288,32 +280,43 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in " +
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|postgres|postgres|1111" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "createDatabase|testDatabaseName3" + newLine +
-                "Database created testDatabaseName3 successfully" + newLine +
+                "createDatabase|" + testDatabaseName5 + newLine +
+                "Database created " + testDatabaseName5 + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
         assertEquals("createDatabase", expected, actual);
 
 
-        //TODO получить список баз данных
-        // TODO удалитьбазу данных
+        //dell database
+        in.reset();
+        out.reset();
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("dropTable|" + testDatabaseName5);
+        Main.main(new String[0]);
+
     }
 
 
     @Test
-    public void createTable() {
+    public void createTable() throws IOException {
+
+        //TODO take  list of tables before test nad add  testTable2 nam to the list
         //given
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
+
         String testTable2 = "testTable2";
+
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("createTable|" + testTable2);
-        in.add("find|" + testTable2);
+        in.add("create|" + testTable2 + "|" + columnsValues);
+        in.add("tables");
         in.add("exit");
         //then
         Main.main(new String[0]);
+
 
         //wen
         String actual = getData();
@@ -323,32 +326,25 @@ public class IntegrationTest {
                 "connect|postgres|postgres|1111" + newLine +
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "createDatabase|testDatabase" + newLine +
-                "Database created testDatabase successfully" + newLine +
+                "create|" + testTable2 + "|" + columnsValues + newLine +
+                "The table: testTable2 is created successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "exit" + newLine +
-                "See you soon!" + newLine +
-                "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
-                "or help command for a help call" + newLine +
-                "connect|postgres|postgres|1111" + newLine +
-                "Opened database: postgres successfully" + newLine +
-                "enter please command or help command for a help call" + newLine +
-                "createTable|testTable2" + newLine +
-                "Nonexistent command:createTable|testTable2" + newLine +
-                "enter please command or help command for a help call" + newLine +
-                "find|testTable2" + newLine +
-                "Contents of the table testTable2:" + newLine +
-                "•+--------------------------------------------------" + newLine +
-                "•+ " + newLine +
-                "•+--------------------------------------------------" + newLine +
+                "tables" + newLine +
+                "List of tablesNames: " + newLine +
+                "[company, testTable2, testtable]" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
         assertEquals("createTable", expected, actual);
 
-        //TODO получить список баз данных
-        // TODO удалитьбазу данных
+        //dell table
+        in.reset();
+        out.reset();
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("dropTable|" + testTable2);
+        Main.main(new String[0]);
+
+
     }
 
 
@@ -356,11 +352,11 @@ public class IntegrationTest {
 
     public void dropDatabase() {
         //given
-        String testDatabaseName2 = "testDatabaseName3";
+        String testDatabaseName4 = "testDatabaseName4";
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("createDatabase|" + testDatabaseName2);
+        in.add("createDatabase|" + testDatabaseName4);
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("dropDatabase|" + testDatabaseName2);
+        in.add("dropDatabase|" + testDatabaseName4);
         in.add("exit");
         //then
         Main.main(new String[0]);
@@ -372,17 +368,17 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the" +
                 " password in a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|postgres|postgres|1111" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "createDatabase|testDatabaseName3" + newLine +
-                "Database created testDatabaseName3 successfully" + newLine +
+                "createDatabase|" + testDatabaseName4 + newLine +
+                "Database created " + testDatabaseName4 + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "connect|postgres|postgres|1111" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "dropDatabase|testDatabaseName3" + newLine +
-                "Database  testDatabaseName3 deleted successfully" + newLine +
+                "dropDatabase|" + testDatabaseName4 + newLine +
+                "Database  " + testDatabaseName4 + " deleted successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;

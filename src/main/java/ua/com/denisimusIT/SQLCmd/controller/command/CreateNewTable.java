@@ -7,6 +7,7 @@ public class CreateNewTable implements Command {
     private String newLine = System.lineSeparator();
     private View view;
     private DatabaseManager manager;
+    private int minQuantity = 3;
 
     public CreateNewTable(View view, DatabaseManager manager) {
 
@@ -24,10 +25,11 @@ public class CreateNewTable implements Command {
         String[] data = command.split("\\|");
 
         //TODO проверку
-//        if (data.length != count()) {
-//            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
-//                    "is incorrect, it is expected  %s, but is: %s", count(), data.length));
-//        }
+        if (data.length != minQuantity) {
+            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
+                    "is incorrect, it is expected  %s, but is: %s", minQuantity, data.length) + newLine +
+                    "\texample: create|tableName|column1 column type, column2 column type,...,columnN column typ");
+        }
         String tableName = data[1];
         String columnsValues = data[2];
         manager.createATable("\"" + tableName + "\"", columnsValues);
@@ -42,17 +44,10 @@ public class CreateNewTable implements Command {
 
     @Override
     public String format() {
-        return "For create table with columns:" + newLine
-                + "create|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
-                "\tExample: " + newLine +
-                "\tcreate|tableName|id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL" + newLine +
-                "\tfor create table without columns:" + newLine
-                + "\tcreate|tableName|";
+        return "For create table:" + newLine
+                + "create|tableName|column1 column type, column2 column type,...,columnN column type";
     }
 
-    private int count() {
-        return format().split("\\|").length;
-    }
 
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.command.create | tableName | column1 | column2 | ... | columnN
 //•где: tableName - имя таблицы
