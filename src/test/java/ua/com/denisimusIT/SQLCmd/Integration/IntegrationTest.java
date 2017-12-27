@@ -322,7 +322,43 @@ public class IntegrationTest {
                 "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect," +
                 " it is expected  4, but is: 3" + newLine +
                 "Repeat attempt." + newLine;
-        assertEquals("createDatabase", expected, actual);
+        assertEquals("ExceptionParameters_3", expected, actual);
+
+
+        //dell database
+        in.reset();
+        out.reset();
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        Main.main(new String[0]);
+        in.add("dropDatabase|" + testDatabaseName5);
+        in.add("exit");
+        Main.main(new String[0]);
+
+    }
+
+
+
+    @Test
+    public void createDatabaseExceptionParameters_2() throws IOException {
+        //given
+        String testDatabaseName5 = "testDatabaseName5";
+        in.add("connect|" + databaseName);
+        in.add("createDatabase|" + testDatabaseName5);
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + databaseName + newLine +
+                "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect," +
+                " it is expected  4, but is: 2" + newLine +
+                "Repeat attempt." + newLine;
+        assertEquals("ExceptionParameters_2", expected, actual);
 
 
         //dell database
