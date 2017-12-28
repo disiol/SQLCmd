@@ -5,6 +5,8 @@ import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class CreateDatabase implements Command {
 
+    private String newLine = System.lineSeparator();
+
 
     private View view;
     private DatabaseManager manager;

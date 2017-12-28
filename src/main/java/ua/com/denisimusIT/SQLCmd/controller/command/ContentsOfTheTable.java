@@ -38,6 +38,7 @@ public class ContentsOfTheTable implements Command {
     @Override
     public String description() {
         return "for receiving contents of the table tableName";
+
     }
 
     @Override

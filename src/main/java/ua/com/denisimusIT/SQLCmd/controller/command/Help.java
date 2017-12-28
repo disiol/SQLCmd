@@ -8,6 +8,7 @@ import ua.com.denisimusIT.SQLCmd.view.View;
 public class Help implements Command {
     private View view;
     private Command[] commands;
+    private String newLine = System.lineSeparator();
 
 
     public Help(View view) {
@@ -36,14 +37,14 @@ public class Help implements Command {
 
     @Override
     public void process(String input) {
-        view.write("The existing command: ");
+        view.write("The existing command: " + newLine);
 
         for (Command command : commands) {
             if (command.format() == null) {
                 continue;
             }
             view.write("\t" + command.format());
-            view.write("\t\t" + command.description());
+            view.write("\t\t" + command.description() + newLine);
         }
 
 
