@@ -23,7 +23,7 @@ public class DisconnectOfDatabase implements Command {
         String[] dataCommand = command.split("\\|");
         String databaseName = dataCommand[1];
         //TODO chek
-        manager.disconnectOfDatabase(databaseName);
+        manager.disconnectOfDatabase("\"" + databaseName + "\"");
     }
 
     @Override

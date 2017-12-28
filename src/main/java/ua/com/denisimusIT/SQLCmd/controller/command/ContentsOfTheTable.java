@@ -26,7 +26,11 @@ public class ContentsOfTheTable implements Command {
     public void process(String command) {
         String[] dataCommand = command.split("\\|");
         String tableName = dataCommand[1];
-        //TODO chek
+        int count = 2;
+        if (dataCommand.length != count) {
+            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
+                    "is incorrect, it is expected  %s, but is: %s", count, dataCommand.length));
+        }
         List<String> tableColumns = manager.getTableColumns( tableName );
         printHeader(tableColumns);
 

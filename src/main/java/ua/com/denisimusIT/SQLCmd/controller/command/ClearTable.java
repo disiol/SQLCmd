@@ -8,6 +8,8 @@ public class ClearTable implements Command {
 
     private DatabaseManager manager;
     private View view;
+    private String newLine = System.lineSeparator();
+
 
     public ClearTable(DatabaseManager manager, View view) {
         this.manager = manager;
@@ -21,8 +23,20 @@ public class ClearTable implements Command {
 
     @Override
     public void process(String command) {
-        //TODO •Команда очищает содержимое указанной (всей) таблицы
         // TODO а если юзер случайно ввел команду? Может переспросить его?
+
+        String[] data = command.split("\\|");
+
+
+        int minQuantity = 2;
+        if (data.length != minQuantity) {
+            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
+                    "is incorrect, it is expected  %s, but is: %s", minQuantity, data.length) + newLine +
+                    "\texample: create|tableName|column1 column type, column2 column type,...,columnN column typ");
+        }
+        String tableName = data[1];
+        manager.clearATable("\"" + tableName + "\"");
+        view.write("The table: " + tableName.toString() + " is cleared successfully");
 
     }
 
