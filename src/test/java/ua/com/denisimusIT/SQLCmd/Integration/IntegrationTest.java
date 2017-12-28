@@ -37,7 +37,6 @@ public class IntegrationTest {
         System.setOut(new PrintStream(out));
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("createDatabase|" + testDatabaseName);
-        in.add("disconnect|" + testDatabaseName + "|" + userName);
         in.add("connect|" + testDatabaseName + "|" + userName + "|" + password);
         in.add("create|" + testTable + "|" + columnsValues);
         in.add("exit");
