@@ -21,12 +21,15 @@ public class IntegrationTest {
     private static final String password = "1111";
 
 
-    private String testTable = "testTable";
+    private static String testTable = "testTable";
     private static String testDatabaseName = "testDatabase";
 
 
     @BeforeClass
     public static void setup() throws IOException {
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
+
+
         out = new ByteArrayOutputStream();
         in = new ConfigurableInputStream();
 
@@ -34,11 +37,164 @@ public class IntegrationTest {
         System.setOut(new PrintStream(out));
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("createDatabase|" + testDatabaseName);
+        Main.main(new String[0]);
+        in.add("connect|" + testDatabaseName + "|" + userName + "|" + password);
+        in.add("create|" + testTable + "|" + columnsValues);
         in.add("exit");
         Main.main(new String[0]);
 
 
     }
+
+    @Test
+    public void testListWithoutConnect() {
+        // given
+        in.add("list");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "list" + newLine +
+                "You cannot use a command 'list' be not connected by means of a command yet " +
+                "connectToDatabase|databaseName|userName|password" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("testListWithoutConnect", expected, getData());
+    }
+
+    @Test
+    public void testFindWithoutConnect() {
+        // given
+        in.add("find|user");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        assertEquals("testFindWithoutConnect", "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "find|user" + newLine +
+                "You cannot use a command 'find|user' be not connected by means of a command yet " +
+                "connectToDatabase|databaseName|userName|password" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine, getData());
+    }
+
+    @Test
+    public void testUnsupported() {
+        // given
+        in.add("unsupported");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "unsupported" + newLine +
+                "You cannot use a command 'unsupported' be not connected by means of a command yet " +
+                "connectToDatabase|databaseName|userName|password" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals(expected, getData());
+    }
+
+    @Test
+    public void testUnsupportedAfterConnect() {
+        // given
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("unsupported");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "unsupported" + newLine +
+                "Nonexistent command:unsupported" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+
+        assertEquals("testUnsupportedAfterConnect", expected, getData());
+    }
+
+    @Test
+    public void testListAfterConnect() {
+        // given
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("list");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "list" + newLine +
+                "Nonexistent command:list" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+
+        assertEquals("testListAfterConnect", expected, getData());
+    }
+
+    @Test
+    public void testFindAfterConnect() {
+        // given
+        in.add("connect|" + testDatabaseName + "|" + userName + "|" + password);
+        in.add("find|" + testTable);
+        in.add("exit");
+        // when
+        Main.main(new String[0]);
+
+        // then
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + testDatabaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: " + testDatabaseName + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "find|" + testTable + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "•+ id + name + password + " + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("testFindAfterConnect", expected, getData());
+    }
+
 
     @Test
 
@@ -77,28 +233,44 @@ public class IntegrationTest {
         //then
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in " +
-                "a format: connect|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "help" + newLine +
                 "The existing command: " + newLine +
+                "" + newLine +
                 "\texit" + newLine +
                 "\t\tfor an output from the program" + newLine +
+                "" + newLine +
                 "\thelp" + newLine +
                 "\t\tfor an output of this list to the screen" + newLine +
+                "" + newLine +
                 "\tconnect|databaseName|userName|password" + newLine +
                 "\t\tfor connection to the database with which we will work" + newLine +
+                "" + newLine +
                 "\tcreateDatabase|DatabaseName" + newLine +
                 "\t\tcreated database" + newLine +
+                "" + newLine +
                 "\tdropDatabase|DatabaseName" + newLine +
                 "\t\tDelete database" + newLine +
+                "" + newLine +
                 "\ttables" + newLine +
                 "\t\tshows the list of tables" + newLine +
+                "" + newLine +
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
-                "\tFor create table:" + newLine +
-                "create|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
-                "\t\t" + newLine +
+                "" + newLine +
+                "\tcreate|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
+                "\t\tFor create table:" + newLine +
+                "" + newLine +
+                "\tinsertToTable|tableName|column1|value1|column2|value2| ... |columnN | valueN" + newLine +
+                "\t\tCommand for an insertion of one line in the given table • where: tableName - a table name" + newLine +
+                "  \t• column1 - a name of the first column of record" + newLine +
+                "  \t• value1 - value of the first column of record" + newLine +
+                "  \t• column2 - a name of the second column of record" + newLine +
+                "  \t• value2 - value of the second column of record" + newLine +
+                "  \t• columnN - the record column name n-go" + newLine +
+                "  \t• valueN - n-go value of a column of record" + newLine +
+                "" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -148,28 +320,45 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in " +
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                "connect|postgres|postgres|1111" + newLine +
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "help" + newLine +
                 "The existing command: " + newLine +
+                "" + newLine +
                 "\texit" + newLine +
                 "\t\tfor an output from the program" + newLine +
+                "" + newLine +
                 "\thelp" + newLine +
                 "\t\tfor an output of this list to the screen" + newLine +
+                "" + newLine +
                 "\tconnect|databaseName|userName|password" + newLine +
                 "\t\tfor connection to the database with which we will work" + newLine +
+                "" + newLine +
                 "\tcreateDatabase|DatabaseName" + newLine +
                 "\t\tcreated database" + newLine +
+                "" + newLine +
                 "\tdropDatabase|DatabaseName" + newLine +
                 "\t\tDelete database" + newLine +
+                "" + newLine +
                 "\ttables" + newLine +
                 "\t\tshows the list of tables" + newLine +
+                "" + newLine +
                 "\tfind|tableName " + newLine +
                 "\t\tfor receiving contents of the table tableName" + newLine +
-                "\tFor create table:" + newLine +
-                "create|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
-                "\t\t" + newLine +
+                "" + newLine +
+                "\tcreate|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
+                "\t\tFor create table:" + newLine +
+                "" + newLine +
+                "\tinsertToTable|tableName|column1|value1|column2|value2| ... |columnN | valueN" + newLine +
+                "\t\tCommand for an insertion of one line in the given table • where: tableName - a table name" + newLine +
+                "  \t• column1 - a name of the first column of record" + newLine +
+                "  \t• value1 - value of the first column of record" + newLine +
+                "  \t• column2 - a name of the second column of record" + newLine +
+                "  \t• value2 - value of the second column of record" + newLine +
+                "  \t• columnN - the record column name n-go" + newLine +
+                "  \t• valueN - n-go value of a column of record" + newLine +
+                newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -337,7 +526,6 @@ public class IntegrationTest {
     }
 
 
-
     @Test
     public void createDatabaseExceptionParameters_2() throws IOException {
         //given
@@ -393,7 +581,8 @@ public class IntegrationTest {
         //wen
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|postgres|postgres|1111" + newLine +
                 "Opened database: postgres successfully" + newLine +

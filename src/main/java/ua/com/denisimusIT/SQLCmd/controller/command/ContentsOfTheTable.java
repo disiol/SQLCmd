@@ -27,10 +27,10 @@ public class ContentsOfTheTable implements Command {
         String[] dataCommand = command.split("\\|");
         String tableName = dataCommand[1];
         //TODO chek
-        List<String> tableColumns = manager.getTableColumns(tableName);
-        tableHeader(tableColumns);
+        List<String> tableColumns = manager.getTableColumns( tableName );
+        printHeader(tableColumns);
 
-        DataSet[] tableData = manager.getTableData(tableName);
+        DataSet[] tableData = manager.getTableData(tableName );
         printTable(tableData);
 
     }
@@ -47,16 +47,16 @@ public class ContentsOfTheTable implements Command {
     }
 
 
-    private void tableHeader(List<String> names) {
+    private void printHeader(List<String> tableColumns) {
         String result = beginSymbol;
-        for (String name : names) {
+        for (String name : tableColumns) {
 
             result += name + " + ";
 
         }
 
         view.write(separator);
-        view.write(result);
+        view.write(result.toString());
         view.write(separator);
 
 

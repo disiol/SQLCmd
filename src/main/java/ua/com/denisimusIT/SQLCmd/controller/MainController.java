@@ -22,11 +22,12 @@ public class MainController {
                 help,
                 new ConnectToDatabase(view, manager),
                 new CreateDatabase(view, manager),
-                new DropDatabase(view,manager),
+                new DropDatabase(view, manager),
                 new IsConnected(view, manager),
                 new ListOfTablesNames(view, manager),
                 new ContentsOfTheTable(view, manager),
-                new CreateNewTable(view,manager),
+                new CreateNewTable(view, manager),
+                new InsertALineIntoTheTable(view, manager),
                 new UnsupportedCommand(view)
         };
         help.setCommands(commands);
