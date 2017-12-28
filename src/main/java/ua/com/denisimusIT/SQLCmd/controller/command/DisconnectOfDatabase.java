@@ -6,6 +6,8 @@ import ua.com.denisimusIT.SQLCmd.view.View;
 public class DisconnectOfDatabase implements Command {
     private View view;
     private DatabaseManager manager;
+    private String newLine = System.lineSeparator();
+
 
     public DisconnectOfDatabase(View view, DatabaseManager manager) {
 
@@ -22,7 +24,12 @@ public class DisconnectOfDatabase implements Command {
     public void process(String command) {
         String[] dataCommand = command.split("\\|");
         String databaseName = dataCommand[1];
-        //TODO chek
+        int minQuantity = 2;
+        if (dataCommand.length != minQuantity) {
+            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
+                    "is incorrect, it is expected  %s, but is: %s", minQuantity, dataCommand.length) + newLine +
+                    "\texample: create|tableName|column1 column type, column2 column type,...,columnN column typ");
+        }
         manager.disconnectOfDatabase("\"" + databaseName + "\"");
     }
 
