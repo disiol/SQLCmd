@@ -24,7 +24,7 @@ public class CreateNewTable implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        //TODO проверку
+
         if (data.length != minQuantity) {
             throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
                     "is incorrect, it is expected  %s, but is: %s", minQuantity, data.length) + newLine +
@@ -39,13 +39,13 @@ public class CreateNewTable implements Command {
     @Override
     public String description() {
 
-        return "";
+        return "For create table:";
     }
 
     @Override
     public String format() {
-        return "For create table:" + newLine
-                + "create|tableName|column1 column type, column2 column type,...,columnN column type";
+        return
+                "create|tableName|column1 column type, column2 column type,...,columnN column type";
     }
 
 

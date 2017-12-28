@@ -28,6 +28,7 @@ public class MainController {
                 new ContentsOfTheTable(view, manager),
                 new CreateNewTable(view, manager),
                 new InsertALineIntoTheTable(view, manager),
+                new DisconnectOfDatabase(view, manager),
                 new UnsupportedCommand(view)
         };
         help.setCommands(commands);

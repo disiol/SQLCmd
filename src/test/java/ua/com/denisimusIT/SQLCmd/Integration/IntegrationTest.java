@@ -37,7 +37,7 @@ public class IntegrationTest {
         System.setOut(new PrintStream(out));
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("createDatabase|" + testDatabaseName);
-        Main.main(new String[0]);
+        in.add("disconnect|" + testDatabaseName + "|" + userName);
         in.add("connect|" + testDatabaseName + "|" + userName + "|" + password);
         in.add("create|" + testTable + "|" + columnsValues);
         in.add("exit");
@@ -233,7 +233,8 @@ public class IntegrationTest {
         //then
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
-                "For connect to database to database , enter please a database name, user name and the password in a format: connect|database|username|password" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "help" + newLine +
                 "The existing command: " + newLine +
@@ -270,7 +271,9 @@ public class IntegrationTest {
                 "  \t• value2 - value of the second column of record" + newLine +
                 "  \t• columnN - the record column name n-go" + newLine +
                 "  \t• valueN - n-go value of a column of record" + newLine +
-                "" + newLine +
+                newLine +
+                "\tdisconnect|database|User" + newLine +
+                "\t\tDisconnect of database" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -358,6 +361,9 @@ public class IntegrationTest {
                 "  \t• value2 - value of the second column of record" + newLine +
                 "  \t• columnN - the record column name n-go" + newLine +
                 "  \t• valueN - n-go value of a column of record" + newLine +
+                newLine +
+                "\tdisconnect|database|User" + newLine +
+                "\t\tDisconnect of database" + newLine +
                 newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -649,6 +655,37 @@ public class IntegrationTest {
         // TODO удалитьбазу данных
     }
 
+    @Test
+
+    public void disconnectOfDatabase() {
+        //given
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("disconnect|" + databaseName);
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+
+
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|database|username|password"+ newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "disconnect|" + databaseName + newLine +
+                "Disconnect of database: postgres successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("disconnectOfDatabase", expected, actual);
+
+        //TODO получить список баз данных
+        // TODO удалитьбазу данных
+    }
+
 
     private String getData() {
         try {
@@ -669,7 +706,9 @@ public class IntegrationTest {
 
     public static void dropDatabaseAfter() throws IOException {
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("disconnect|" + testDatabaseName);
         Main.main(new String[0]);
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("dropDatabase|" + testDatabaseName);
         in.add("exit");
         Main.main(new String[0]);
