@@ -171,6 +171,7 @@ public class IntegrationTest {
     public void testFindAfterConnect() {
         // given
         in.add("connect|" + testDatabaseName + "|" + userName + "|" + password);
+        in.add("clear|" + testTable);
         in.add("find|" + testTable);
         in.add("exit");
         // when
@@ -183,6 +184,9 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "connect|" + testDatabaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: " + "\"" + testDatabaseName + "\"" + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "clear|" + testTable + newLine +
+                "The table: testTable is cleared successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "find|" + testTable + newLine +
                 "•+--------------------------------------------------" + newLine +
@@ -714,30 +718,35 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         // then
-        assertEquals("testFindAfterConnect_withData", "Привет юзер!\r" + newLine +
-                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r" + newLine +
-                // connect
-                "Успех!\r" + newLine +
-                "Введи команду (или help для помощи):\r" + newLine +
-                // clear|user
-                "Таблица user была успешно очищена.\r" + newLine +
-                "Введи команду (или help для помощи):\r" + newLine +
-                // create|user|id|13|name|Stiven|password|*****
-                "Запись {names:[id, name, password], values:[13, Stiven, *****]} была успешно создана в таблице 'user'.\r" + newLine +
-                "Введи команду (или help для помощи):\r" + newLine +
-                // create|user|id|14|name|Eva|password|+++++
-                "Запись {names:[id, name, password], values:[14, Eva, +++++]} была успешно создана в таблице 'user'.\r" + newLine +
-                "Введи команду (или help для помощи):\r" + newLine +
-                // find|user
-                "--------------------\r" + newLine +
-                "|name|password|id|\r" + newLine +
-                "--------------------\r" + newLine +
-                "|Stiven|*****|13|\r" + newLine +
-                "|Eva|+++++|14|\r" + newLine +
-                "--------------------\r" + newLine +
-                "Введи команду (или help для помощи):\r" + newLine +
-                // exit
-                "До скорой встречи!\r" + newLine, getData());
+        assertEquals("testFindAfterConnect_withData", "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + testDatabaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: \"testDatabase\" successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "clear|testTable" + newLine +
+                "The table: testTable is cleared successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "insert|testTable|id|13|name|Stiven|password|*****" + newLine +
+                "The record {names:[id, name, password],values:[13, Stiven, *****]} was successfully created in the " +
+                "table' by testTable'." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "insert|testTable|id|14|name|Eva|password|+++++" + newLine +
+                "The record {names:[id, name, password],values:[14, Eva, +++++]} was successfully created in the " +
+                "table' by testTable'." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "find|testTable" + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "•+ id + name + password + " + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "•+ 13 + Stiven + ***** + " + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "•+ 14 + Eva + +++++ + " + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine, getData());
     }
 
     @Test
