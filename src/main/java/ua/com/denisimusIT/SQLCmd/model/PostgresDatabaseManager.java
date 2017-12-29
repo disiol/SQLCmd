@@ -92,7 +92,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             int size = getSize(tableName);
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + "\"" + tableName + "\"");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM "  + tableName );
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -170,7 +170,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         int size = 0;
         try {
             stmt = connection.createStatement();
-            ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + "\"" + tableName + "\"");
+            ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " +   tableName );
             rsCount.next();
             size = rsCount.getInt(1);
             rsCount.close();
