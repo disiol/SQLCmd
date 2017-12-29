@@ -182,7 +182,7 @@ public class IntegrationTest {
                 "format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + testDatabaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: " + testDatabaseName + " successfully" + newLine +
+                "Opened database: " + "\"" + testDatabaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "find|" + testTable + newLine +
                 "•+--------------------------------------------------" + newLine +
@@ -685,7 +685,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in " +
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|"  + databaseName  + "|" + userName + "|" + password + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "disconnect|" + databaseName + newLine +
