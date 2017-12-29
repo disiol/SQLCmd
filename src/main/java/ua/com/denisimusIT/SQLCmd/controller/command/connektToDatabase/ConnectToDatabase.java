@@ -38,7 +38,7 @@ public class ConnectToDatabase implements Command {
 
 
         manager.connectToDatabase(databaseName, userName, password);
-        view.write("Opened database: " + databaseName + " successfully");
+        view.write("Opened database: " + "\"" + databaseName + "\"" + " successfully");
 
 
     }

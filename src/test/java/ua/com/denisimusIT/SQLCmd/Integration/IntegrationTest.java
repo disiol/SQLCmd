@@ -110,7 +110,7 @@ public class IntegrationTest {
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
-        assertEquals(expected, getData());
+        assertEquals("testUnsupported", expected, getData());
     }
 
     @Test
@@ -129,7 +129,7 @@ public class IntegrationTest {
                 "format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: postgres successfully" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "unsupported" + newLine +
                 "Nonexistent command:unsupported" + newLine +
@@ -156,7 +156,7 @@ public class IntegrationTest {
                 "format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: postgres successfully" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "list" + newLine +
                 "Nonexistent command:list" + newLine +
@@ -265,8 +265,9 @@ public class IntegrationTest {
                 "\tcreate|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
                 "\t\tFor create table:" + newLine +
                 "" + newLine +
-                "\tinsertToTable|tableName|column1|value1|column2|value2| ... |columnN | valueN" + newLine +
-                "\t\tCommand for an insertion of one line in the given table • where: tableName - a table name" + newLine +
+                "\tinsert|tableName|column1|value1|column2|value2| ... |columnN | valueN" + newLine +
+                "\t\tCommand for an insertion of one line in the given table " + newLine +
+                "  \t• where: tableName - a table name" + newLine +
                 "  \t• column1 - a name of the first column of record" + newLine +
                 "  \t• value1 - value of the first column of record" + newLine +
                 "  \t• column2 - a name of the second column of record" + newLine +
@@ -274,6 +275,9 @@ public class IntegrationTest {
                 "  \t• columnN - the record column name n-go" + newLine +
                 "  \t• valueN - n-go value of a column of record" + newLine +
                 newLine +
+                "\tclear|tableName" + newLine +
+                "\t\tfor cleaning of all table" + newLine
+                + newLine +
                 "\tdisconnect|database" + newLine +
                 "\t\tDisconnect of database" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
@@ -298,8 +302,8 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
                 "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: " + databaseName + " successfully" + newLine +
+                "connect|"  + databaseName  + "|" + userName + "|" + password + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -326,7 +330,7 @@ public class IntegrationTest {
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|postgres|postgres|1111" + newLine +
-                "Opened database: postgres successfully" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "help" + newLine +
                 "The existing command: " + newLine +
@@ -358,14 +362,18 @@ public class IntegrationTest {
                 "\tcreate|tableName|column1 column type, column2 column type,...,columnN column type" + newLine +
                 "\t\tFor create table:" + newLine +
                 "" + newLine +
-                "\tinsertToTable|tableName|column1|value1|column2|value2| ... |columnN | valueN" + newLine +
-                "\t\tCommand for an insertion of one line in the given table • where: tableName - a table name" + newLine +
+                "\tinsert|tableName|column1|value1|column2|value2| ... |columnN | valueN" + newLine +
+                "\t\tCommand for an insertion of one line in the given table " + newLine +
+                "  \t• where: tableName - a table name" + newLine +
                 "  \t• column1 - a name of the first column of record" + newLine +
                 "  \t• value1 - value of the first column of record" + newLine +
                 "  \t• column2 - a name of the second column of record" + newLine +
                 "  \t• value2 - value of the second column of record" + newLine +
                 "  \t• columnN - the record column name n-go" + newLine +
                 "  \t• valueN - n-go value of a column of record" + newLine +
+                newLine +
+                "\tclear|tableName" + newLine +
+                "\t\tfor cleaning of all table" + newLine +
                 newLine +
                 "\tdisconnect|database" + newLine +
                 "\t\tDisconnect of database" + newLine +
@@ -482,7 +490,7 @@ public class IntegrationTest {
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: postgres successfully" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "createDatabase|" + testDatabaseName5 + newLine +
                 "Database created " + testDatabaseName5 + " successfully" + newLine +
@@ -596,7 +604,7 @@ public class IntegrationTest {
                 "format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|postgres|postgres|1111" + newLine +
-                "Opened database: postgres successfully" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "create|" + testTable2 + "|" + columnsValues + newLine +
                 "The table: testTable2 is created successfully" + newLine +
@@ -641,13 +649,13 @@ public class IntegrationTest {
                 " password in a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: postgres successfully" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "createDatabase|" + testDatabaseName4 + newLine +
                 "Database created " + testDatabaseName4 + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: postgres successfully" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "dropDatabase|" + testDatabaseName4 + newLine +
                 "Database  " + testDatabaseName4 + " deleted successfully" + newLine +
@@ -677,10 +685,10 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in " +
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: postgres successfully" + newLine +
+                "connect|" + "\"" + databaseName + "\"" + "|" + userName + "|" + password + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "disconnect|" + databaseName + newLine +
+                "disconnect|" + "\"" + databaseName + "\"" + newLine +
                 "Disconnect of database: \"postgres\" successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -695,48 +703,47 @@ public class IntegrationTest {
     @Test
     public void testFindAfterConnect_withData() {
 
-
-        in.add("connect|sqlcmd|postgres|postgres");
-        in.add("clear|user");
-        in.add("create|user|id|13|name|Stiven|password|*****");
-        in.add("create|user|id|14|name|Eva|password|+++++");
-        in.add("find|user");
+        in.add("connect|" + testDatabaseName + "|" + userName + "|" + password);
+        in.add("clear|" + testTable);
+        in.add("insert|" + testTable + "|id|13|name|Stiven|password|*****");
+        in.add("insert|" + testTable + "|id|14|name|Eva|password|+++++");
+        in.add("find|" + testTable);
         in.add("exit");
 
         // when
         Main.main(new String[0]);
 
         // then
-        assertEquals("Привет юзер!\r\n" +
-                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
+        assertEquals("testFindAfterConnect_withData", "Привет юзер!\r" + newLine +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r" + newLine +
                 // connect
-                "Успех!\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
+                "Успех!\r" + newLine +
+                "Введи команду (или help для помощи):\r" + newLine +
                 // clear|user
-                "Таблица user была успешно очищена.\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
+                "Таблица user была успешно очищена.\r" + newLine +
+                "Введи команду (или help для помощи):\r" + newLine +
                 // create|user|id|13|name|Stiven|password|*****
-                "Запись {names:[id, name, password], values:[13, Stiven, *****]} была успешно создана в таблице 'user'.\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
+                "Запись {names:[id, name, password], values:[13, Stiven, *****]} была успешно создана в таблице 'user'.\r" + newLine +
+                "Введи команду (или help для помощи):\r" + newLine +
                 // create|user|id|14|name|Eva|password|+++++
-                "Запись {names:[id, name, password], values:[14, Eva, +++++]} была успешно создана в таблице 'user'.\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
+                "Запись {names:[id, name, password], values:[14, Eva, +++++]} была успешно создана в таблице 'user'.\r" + newLine +
+                "Введи команду (или help для помощи):\r" + newLine +
                 // find|user
-                "--------------------\r\n" +
-                "|name|password|id|\r\n" +
-                "--------------------\r\n" +
-                "|Stiven|*****|13|\r\n" +
-                "|Eva|+++++|14|\r\n" +
-                "--------------------\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
+                "--------------------\r" + newLine +
+                "|name|password|id|\r" + newLine +
+                "--------------------\r" + newLine +
+                "|Stiven|*****|13|\r" + newLine +
+                "|Eva|+++++|14|\r" + newLine +
+                "--------------------\r" + newLine +
+                "Введи команду (или help для помощи):\r" + newLine +
                 // exit
-                "До скорой встречи!\r\n", getData());
+                "До скорой встречи!\r" + newLine, getData());
     }
 
     @Test
     public void testClearWithError() {
         // given
-        in.add("connect|sqlcmd|postgres|postgres");
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("clear|sadfasd|fsf|fdsf");
         in.add("exit");
 
@@ -744,43 +751,44 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         // then
-        assertEquals("Привет юзер!\r\n" +
-                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
-                // connect
-                "Успех!\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
-                // clear|sadfasd|fsf|fdsf
-                "Неудача! по причине: Формат команды 'clear|tableName', а ты ввел: clear|sadfasd|fsf|fdsf\r\n" +
-                "Повтори попытку.\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
-                // exit
-                "До скорой встречи!\r\n", getData());
+        assertEquals("testClearWithError", "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "clear|sadfasd|fsf|fdsf" + newLine +
+                "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect, it is " +
+                "expected  2, but is: 4" + newLine +
+                "\texample: create|tableName|column1 column type, column2 column type,...,columnN column typ" + newLine +
+                "Repeat attempt." + newLine, getData());
     }
 
     @Test
-    public void testCreateWithErrors() {
+    public void testInsertWithErrors() {
         // given
-        in.add("connect|sqlcmd|postgres|postgres");
-        in.add("create|user|error");
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("insert|user|error");
         in.add("exit");
 
         // when
         Main.main(new String[0]);
 
         // then
-        assertEquals("Привет юзер!\r\n" +
-                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
-                // connect
-                "Успех!\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
-                // create|user|error
-                "Неудача! по причине: Должно быть четное количество параметров в формате 'create|tableName|column1|value1|column2|value2|...|columnN|valueN', а ты прислал: 'create|user|error'\r\n" +
-                "Повтори попытку.\r\n" +
-                "Введи команду (или help для помощи):\r\n" +
-                // exit
-                "До скорой встречи!\r\n", getData());
+        assertEquals("testInsertWithErrors", "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|database|username|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|postgres|postgres|1111" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "insert|user|error" + newLine +
+                "The table: user is created successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine, getData());
     }
-
 
 
     private String getData() {
@@ -812,7 +820,7 @@ public class IntegrationTest {
         Main.main(new String[0]);
         in.add("exit");
         Main.main(new String[0]);
-        System.err.println(out.toString());
+        //   System.err.println(out.toString());
 
 
     }

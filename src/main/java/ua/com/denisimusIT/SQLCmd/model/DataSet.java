@@ -49,9 +49,6 @@ public class DataSet {
 
     @Override
     public String toString() {
-        return "DataSet{" + newline +
-                "names:" + Arrays.toString(getNames()) + newline +
-                "values:" + Arrays.toString(getValues()) + newline +
-                "}";
+        return "{names:" + Arrays.toString(getNames()) + ",values:" + Arrays.toString(getValues()) +"}";
     }
 }

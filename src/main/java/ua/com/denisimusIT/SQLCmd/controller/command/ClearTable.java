@@ -11,14 +11,14 @@ public class ClearTable implements Command {
     private String newLine = System.lineSeparator();
 
 
-    public ClearTable(DatabaseManager manager, View view) {
-        this.manager = manager;
+    public ClearTable(View view, DatabaseManager manager) {
         this.view = view;
+        this.manager = manager;
     }
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("clear" + "|");
+        return command.startsWith("clear|");
     }
 
     @Override

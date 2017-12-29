@@ -8,7 +8,6 @@ public class InsertALineIntoTheTable implements Command {
     private String newLine = System.lineSeparator();
     private View view;
     private DatabaseManager manager;
-    private int minQuantity;
 
     public InsertALineIntoTheTable(View view, DatabaseManager manager) {
 
@@ -18,7 +17,7 @@ public class InsertALineIntoTheTable implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals("insertToTable|");
+        return command.startsWith("insert|");
     }
 
     @Override
@@ -47,7 +46,8 @@ public class InsertALineIntoTheTable implements Command {
 
     @Override
     public String description() {
-        return "Command for an insertion of one line in the given table • where: tableName - a table name" + newLine +
+        return "Command for an insertion of one line in the given table " + newLine +
+                "  \t• where: tableName - a table name" + newLine +
                 "  \t• column1 - a name of the first column of record" + newLine +
                 "  \t• value1 - value of the first column of record" + newLine +
                 "  \t• column2 - a name of the second column of record" + newLine +
@@ -58,7 +58,7 @@ public class InsertALineIntoTheTable implements Command {
 
     @Override
     public String format() {
-        return "insertToTable|tableName|column1|value1|column2|value2| ... |columnN | valueN";
+        return "insert|tableName|column1|value1|column2|value2| ... |columnN | valueN";
     }
 
 }
