@@ -5,6 +5,7 @@ import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exit;
 import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exeption.ExitException;
 import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.ConnectToDatabase;
 import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.IsConnected;
+import ua.com.denisimusIT.SQLCmd.controller.command.exit.GifAccessToDatabase;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -22,6 +23,7 @@ public class MainController {
                 help,
                 new ConnectToDatabase(view, manager),
                 new CreateDatabase(view, manager),
+                new GifAccessToDatabase(view, manager),
                 new DropDatabase(view, manager),
                 new IsConnected(view, manager),
                 new ListOfTablesNames(view, manager),

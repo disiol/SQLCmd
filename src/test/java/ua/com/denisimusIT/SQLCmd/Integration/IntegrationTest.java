@@ -250,6 +250,9 @@ public class IntegrationTest {
                 "\tcreateDatabase|DatabaseName" + newLine +
                 "\t\tcreated database" + newLine +
                 "" + newLine +
+                "\tgiveAccess|databaseName|userName" + newLine +
+                "\t\tGive access user to database" + newLine +
+                "" + newLine +
                 "\tdropDatabase|DatabaseName" + newLine +
                 "\t\tDelete database" + newLine +
                 "" + newLine +
@@ -271,7 +274,7 @@ public class IntegrationTest {
                 "  \t• columnN - the record column name n-go" + newLine +
                 "  \t• valueN - n-go value of a column of record" + newLine +
                 newLine +
-                "\tdisconnect|database|User" + newLine +
+                "\tdisconnect|database" + newLine +
                 "\t\tDisconnect of database" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -340,6 +343,9 @@ public class IntegrationTest {
                 "\tcreateDatabase|DatabaseName" + newLine +
                 "\t\tcreated database" + newLine +
                 "" + newLine +
+                "\tgiveAccess|databaseName|userName" + newLine +
+                "\t\tGive access user to database" + newLine +
+                "" + newLine +
                 "\tdropDatabase|DatabaseName" + newLine +
                 "\t\tDelete database" + newLine +
                 "" + newLine +
@@ -361,7 +367,7 @@ public class IntegrationTest {
                 "  \t• columnN - the record column name n-go" + newLine +
                 "  \t• valueN - n-go value of a column of record" + newLine +
                 newLine +
-                "\tdisconnect|database|User" + newLine +
+                "\tdisconnect|database" + newLine +
                 "\t\tDisconnect of database" + newLine +
                 newLine +
                 "enter please command or help command for a help call" + newLine +
@@ -669,7 +675,7 @@ public class IntegrationTest {
         String actual = getData();
         String expected = "Welcome to SQLCmd! =)" + newLine +
                 "For connect to database to database , enter please a database name, user name and the password in " +
-                "a format: connect|database|username|password"+ newLine +
+                "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: postgres successfully" + newLine +
@@ -684,6 +690,97 @@ public class IntegrationTest {
         //TODO получить список баз данных
         // TODO удалитьбазу данных
     }
+
+
+    @Test
+    public void testFindAfterConnect_withData() {
+
+
+        in.add("connect|sqlcmd|postgres|postgres");
+        in.add("clear|user");
+        in.add("create|user|id|13|name|Stiven|password|*****");
+        in.add("create|user|id|14|name|Eva|password|+++++");
+        in.add("find|user");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        assertEquals("Привет юзер!\r\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
+                // connect
+                "Успех!\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // clear|user
+                "Таблица user была успешно очищена.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // create|user|id|13|name|Stiven|password|*****
+                "Запись {names:[id, name, password], values:[13, Stiven, *****]} была успешно создана в таблице 'user'.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // create|user|id|14|name|Eva|password|+++++
+                "Запись {names:[id, name, password], values:[14, Eva, +++++]} была успешно создана в таблице 'user'.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // find|user
+                "--------------------\r\n" +
+                "|name|password|id|\r\n" +
+                "--------------------\r\n" +
+                "|Stiven|*****|13|\r\n" +
+                "|Eva|+++++|14|\r\n" +
+                "--------------------\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // exit
+                "До скорой встречи!\r\n", getData());
+    }
+
+    @Test
+    public void testClearWithError() {
+        // given
+        in.add("connect|sqlcmd|postgres|postgres");
+        in.add("clear|sadfasd|fsf|fdsf");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        assertEquals("Привет юзер!\r\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
+                // connect
+                "Успех!\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // clear|sadfasd|fsf|fdsf
+                "Неудача! по причине: Формат команды 'clear|tableName', а ты ввел: clear|sadfasd|fsf|fdsf\r\n" +
+                "Повтори попытку.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // exit
+                "До скорой встречи!\r\n", getData());
+    }
+
+    @Test
+    public void testCreateWithErrors() {
+        // given
+        in.add("connect|sqlcmd|postgres|postgres");
+        in.add("create|user|error");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        assertEquals("Привет юзер!\r\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
+                // connect
+                "Успех!\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // create|user|error
+                "Неудача! по причине: Должно быть четное количество параметров в формате 'create|tableName|column1|value1|column2|value2|...|columnN|valueN', а ты прислал: 'create|user|error'\r\n" +
+                "Повтори попытку.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // exit
+                "До скорой встречи!\r\n", getData());
+    }
+
 
 
     private String getData() {
@@ -704,13 +801,18 @@ public class IntegrationTest {
     @AfterClass
 
     public static void dropDatabaseAfter() throws IOException {
-      //  in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("disconnect|" + testDatabaseName);
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("dropDatabase|" + testDatabaseName);
+        in.add("disconnect|" + testDatabaseName);
+        Main.main(new String[0]);
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("giveAccess|" + testDatabaseName + "|" + userName);
+        Main.main(new String[0]);
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("dropDatabase|" + testDatabaseName); //TODO
+        Main.main(new String[0]);
         in.add("exit");
         Main.main(new String[0]);
-        String toString = out.toString();
+        System.err.println(out.toString());
 
 
     }

@@ -28,7 +28,7 @@ public class DisconnectOfDatabase implements Command {
         if (dataCommand.length != minQuantity) {
             throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
                     "is incorrect, it is expected  %s, but is: %s", minQuantity, dataCommand.length) + newLine +
-                    "\texample: create|tableName|column1 column type, column2 column type,...,columnN column typ");
+                    "\texample: disconnect|database");
         }
         manager.disconnectOfDatabase("\"" + databaseName + "\"");
     }
@@ -40,6 +40,6 @@ public class DisconnectOfDatabase implements Command {
 
     @Override
     public String format() {
-        return "disconnect|database|User";
+        return "disconnect|database";
     }
 }
