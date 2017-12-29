@@ -675,7 +675,7 @@ public class IntegrationTest {
                 "Opened database: postgres successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "disconnect|" + databaseName + newLine +
-                "Disconnect of database: postgres successfully" + newLine +
+                "Disconnect of database: \"postgres\" successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -704,9 +704,8 @@ public class IntegrationTest {
     @AfterClass
 
     public static void dropDatabaseAfter() throws IOException {
-        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+      //  in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("disconnect|" + testDatabaseName);
-        Main.main(new String[0]);
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("dropDatabase|" + testDatabaseName);
         in.add("exit");
