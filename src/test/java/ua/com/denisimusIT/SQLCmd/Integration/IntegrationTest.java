@@ -302,7 +302,7 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
                 "connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|"  + databaseName  + "|" + userName + "|" + password + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -685,10 +685,10 @@ public class IntegrationTest {
                 "For connect to database to database , enter please a database name, user name and the password in " +
                 "a format: connect|database|username|password" + newLine +
                 "or help command for a help call" + newLine +
-                "connect|" + "\"" + databaseName + "\"" + "|" + userName + "|" + password + newLine +
+                "connect|"  + databaseName  + "|" + userName + "|" + password + newLine +
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "disconnect|" + "\"" + databaseName + "\"" + newLine +
+                "disconnect|" + databaseName + newLine +
                 "Disconnect of database: \"postgres\" successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -784,10 +784,9 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "insert|user|error" + newLine +
-                "The table: user is created successfully" + newLine +
-                "enter please command or help command for a help call" + newLine +
-                "exit" + newLine +
-                "See you soon!" + newLine, getData());
+                "Failure! for the reason:Shall be even the number of parameters in a format'create |tableName| column1 " +
+                "|value1| of column2 |value2|... |columnN| valueN',and you sent: 'insert|user|error'" + newLine +
+                "Repeat attempt." + newLine, getData());
     }
 
 
