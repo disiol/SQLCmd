@@ -10,6 +10,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     private Connection connection;
     private final static String NEW_LINE = System.lineSeparator();
 
+    //TODO clouse resurses
 
     @Override
     public void connectToDatabase(String databaseName, String userName, String password) {

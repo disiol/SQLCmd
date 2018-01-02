@@ -1,11 +1,9 @@
 package ua.com.denisimusIT.SQLCmd.controller;
 
 import ua.com.denisimusIT.SQLCmd.controller.command.*;
-import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exit;
+import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.*;
+import ua.com.denisimusIT.SQLCmd.controller.command.exit.*;
 import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exeption.ExitException;
-import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.ConnectToDatabase;
-import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.IsConnected;
-import ua.com.denisimusIT.SQLCmd.controller.command.exit.GifAccessToDatabase;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
