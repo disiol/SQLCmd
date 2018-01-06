@@ -69,7 +69,7 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "list" + newLine +
                 "You cannot use a command 'list' be not connected by means of a command yet " +
-                "connectToDatabase|databaseName|userName|password" + newLine +
+                "connect|databaseName|userName|password" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -92,7 +92,7 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "find|user" + newLine +
                 "You cannot use a command 'find|user' be not connected by means of a command yet " +
-                "connectToDatabase|databaseName|userName|password" + newLine +
+                "connect|databaseName|userName|password" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine, getData());
@@ -114,7 +114,7 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "unsupported" + newLine +
                 "You cannot use a command 'unsupported' be not connected by means of a command yet " +
-                "connectToDatabase|databaseName|userName|password" + newLine +
+                "connect|databaseName|userName|password" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
