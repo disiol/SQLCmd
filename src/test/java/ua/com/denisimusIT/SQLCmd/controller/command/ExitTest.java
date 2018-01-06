@@ -56,8 +56,6 @@ public class ExitTest {
     public void descriptionTest() {
         //wen
         view.write(command.description());
-        //TODO
-
         //then
         verify(view).write("for an output from the program");
     }

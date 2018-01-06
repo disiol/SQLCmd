@@ -30,13 +30,11 @@ public class ClearTable implements Command {
 
         int minQuantity = 2;
         if (data.length != minQuantity) {
-            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
-                    "is incorrect, it is expected  %s, but is: %s", minQuantity, data.length) + newLine +
-                    "\texample: create|tableName|column1 column type, column2 column type,...,columnN column typ");
+            throw new IllegalArgumentException("Team format 'clear|tableName', and you have entered: " + command);
         }
         String tableName = data[1];
         manager.clearATable("\"" + tableName + "\"");
-        view.write("The table: " + tableName.toString() + " is cleared successfully");
+        view.write(String.format("The table: \"%s\"  is cleared successfully", data[1]));
 
     }
 
@@ -49,7 +47,5 @@ public class ClearTable implements Command {
     public String format() {
         return "clear|tableName";
     }
-//•Формат: ua.com.denisimusIT.SQLCmd.controller.command.clearATable | tableName
-//•где tableName - имя очищаемой таблицы
-//•Формат вывода: текстовое сообщение с результатом выполнения операции
+
 }
