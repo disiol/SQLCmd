@@ -167,7 +167,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     private int getSize(String tableName) {
-        Statement stmt = null;
+        Statement stmt;
         int size = 0;
         try {
             stmt = connection.createStatement();
@@ -596,7 +596,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new LinkedList<>();
         }
     }
 

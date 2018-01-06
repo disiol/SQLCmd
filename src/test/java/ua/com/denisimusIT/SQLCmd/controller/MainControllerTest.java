@@ -33,10 +33,10 @@ public class MainControllerTest {
         //wen
         String expected = "Welcome to SQLCmd! =)" + NEWLINE +
                 "For connect to database to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + NEWLINE +
+                "connect|databaseName|userName|password" + NEWLINE +
                 "or help command for a help call" + NEWLINE +
                 "You cannot use a command '' be not connected by means of a command " +
-                "yet connectToDatabase|databaseName|userName|password" + NEWLINE +
+                "yet connect|databaseName|userName|password" + NEWLINE +
                 "enter please command or help command for a help call" + NEWLINE
                 + "See you soon!" + NEWLINE;
         String actual = outContent.toString();

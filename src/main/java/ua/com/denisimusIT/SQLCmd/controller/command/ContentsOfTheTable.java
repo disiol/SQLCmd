@@ -31,7 +31,7 @@ public class ContentsOfTheTable implements Command {
             throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
                     "is incorrect, it is expected  %s, but is: %s", count, dataCommand.length));
         }
-        List<String> tableColumns = manager.getTableColumns(  tableName );
+        List<String> tableColumns = manager.getTableColumns(tableName);
         printHeader(tableColumns);
 
         DataSet[] tableData = manager.getTableData("\"" + tableName + "\"");
@@ -47,7 +47,7 @@ public class ContentsOfTheTable implements Command {
 
     @Override
     public String format() {
-        return "find|tableName ";
+        return "find|tableName";
     }
 
 
@@ -60,7 +60,7 @@ public class ContentsOfTheTable implements Command {
         }
 
         view.write(separator);
-        view.write(result.toString());
+        view.write(result);
         view.write(separator);
 
 
@@ -83,6 +83,7 @@ public class ContentsOfTheTable implements Command {
         }
         view.write(result);
         view.write(separator);
+
     }
 
 }

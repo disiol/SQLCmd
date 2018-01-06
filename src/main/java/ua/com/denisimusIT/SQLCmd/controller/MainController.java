@@ -12,10 +12,13 @@ public class MainController {
     private static final String NEWLINE = System.lineSeparator();
     private final Command[] commands;
     private View view;
+    private String connectFormat;
 
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
         Help help = new Help(view);
+        connectFormat = new ConnectToDatabase(view, manager).format();
+
         this.commands = new Command[]{
                 new Exit(view),
                 help,
@@ -47,7 +50,7 @@ public class MainController {
     private void doWork() {
         view.write("Welcome to SQLCmd! =)");
         view.write("For connect to database to database , enter please a database name, user name and the password in a format: " +
-                "connect|database|username|password" + NEWLINE + "or help command for a help call");
+                connectFormat + NEWLINE + "or help command for a help call");
 
 
         while (true) {

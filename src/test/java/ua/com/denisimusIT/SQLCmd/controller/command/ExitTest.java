@@ -1,7 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exeption.ExitException;
 import ua.com.denisimusIT.SQLCmd.controller.command.exit.Exit;
 import ua.com.denisimusIT.SQLCmd.view.View;
