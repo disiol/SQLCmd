@@ -30,7 +30,7 @@ public class ClearTable implements Command {
 
         int minQuantity = 2;
         if (data.length != minQuantity) {
-            throw new IllegalArgumentException("Team format 'clear|tableName', and you have entered: " + command);
+            throw new IllegalArgumentException(String.format("Team format %s, and you have entered: %s",format().toString(), command));
         }
         String tableName = data[1];
         manager.clearATable("\"" + tableName + "\"");
