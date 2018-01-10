@@ -70,7 +70,7 @@ public class ClearTableTest {
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsLessThan2",
-                    "Team format 'clear|tableName', and you have entered: clear", e.getMessage());
+                    "Team format clear|tableName, and you have entered: clear", e.getMessage());
         }
     }
 
@@ -83,7 +83,25 @@ public class ClearTableTest {
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsMoreThan2",
-                    "Team format 'clear|tableName', and you have entered: clear|table|qwe", e.getMessage());
+                    "Team format clear|tableName, and you have entered: clear|table|qwe", e.getMessage());
         }
     }
+
+    @Test
+    public void descriptionTest() {
+        // when
+        view.write(command.description());
+        // then
+        verify(view).write("for cleaning of all table");
+    }
+
+    @Test
+    public void formatTest() {
+        // when
+
+        view.write(command.format());
+
+        verify(view).write("clear|tableName");
+    }
+
 }
