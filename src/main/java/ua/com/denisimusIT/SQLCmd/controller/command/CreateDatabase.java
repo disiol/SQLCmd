@@ -26,13 +26,13 @@ public class CreateDatabase implements Command {
 
         String[] data = command.split("\\|");
         if (data.length != count()) {
-            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
-                    "is incorrect, it is expected  %s, but is: %s", count(), data.length));
+            throw new IllegalArgumentException(String.format("Team format %s, and you have entered: %s",
+                                                    format().toString(), command.toString()));
         }
         String databaseName = data[1];
 
         manager.createDatabase("\"" + databaseName + "\"" );
-        view.write("Database created " + databaseName  + " successfully");
+        view.write("The database: " + databaseName  + " successfully");
 
 
     }
