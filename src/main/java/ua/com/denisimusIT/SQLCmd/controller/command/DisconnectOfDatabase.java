@@ -31,6 +31,8 @@ public class DisconnectOfDatabase implements Command {
                     "\texample: disconnect|database");
         }
         manager.disconnectOfDatabase("\"" + databaseName + "\"");
+        //TODO exehen tabel didon crate and masege
+
     }
 
     @Override

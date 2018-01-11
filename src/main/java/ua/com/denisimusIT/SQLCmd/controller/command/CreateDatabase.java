@@ -31,7 +31,9 @@ public class CreateDatabase implements Command {
         }
         String databaseName = data[1];
 
+
         manager.createDatabase("\"" + databaseName + "\"" );
+        //TODO exehen database didtn crate
         view.write("The database: " + databaseName  + " successfully");
 
 

@@ -23,8 +23,11 @@ public class ListOfTablesNames implements Command {
     @Override
     public void process(String command) {
         String tableNames = manager.getTableNames().toString();
+        //TODO validations chek
+
         view.write("List of tablesNames: ");
         view.write(tableNames);
+
     }
 
     @Override

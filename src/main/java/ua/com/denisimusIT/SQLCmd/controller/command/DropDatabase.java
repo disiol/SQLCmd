@@ -31,6 +31,8 @@ public class DropDatabase implements Command {
 
         manager.dropDatabase("\"" + databaseName + "\"");
         view.write("Database  " + databaseName + " deleted successfully");
+        //TODO exption Database didon crate and masrge
+
 
 
     }

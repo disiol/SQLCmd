@@ -40,6 +40,7 @@ public class InsertALineIntoTheTable implements Command {
             dataSet.put(columnName, value);
         }
         manager.insertData("\"" + tableName + "\"", dataSet);
+        //TODO exption table didon crate
 
         view.write(String.format("The record %s was successfully created in the table' by %s'.", dataSet, tableName));
     }

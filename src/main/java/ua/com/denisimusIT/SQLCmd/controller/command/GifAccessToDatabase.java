@@ -31,6 +31,8 @@ public class GifAccessToDatabase implements Command {
         String databaseName = dataCommand[1];
         String userName = dataCommand[2];
         manager.giveAccessUserToTheDatabase("\"" + databaseName + "\"", userName);
+        //TODO exption Database didon crate
+
         view.write("Give access " + userName + " to database : " + databaseName.toString() + " is successfully");
 
     }

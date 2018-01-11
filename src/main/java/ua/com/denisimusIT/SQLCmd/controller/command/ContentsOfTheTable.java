@@ -31,6 +31,8 @@ public class ContentsOfTheTable implements Command {
             throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
                     "is incorrect, it is expected  %s, but is: %s", count, dataCommand.length));
         }
+        //TODO exehen tabel didon crate
+
         List<String> tableColumns = manager.getTableColumns(tableName);
         printHeader(tableColumns);
 
