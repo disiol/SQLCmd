@@ -33,6 +33,7 @@ public class CreateNewTable implements Command {
         String tableName = data[1];
         String columnsValues = data[2];
         manager.createATable("\"" + tableName + "\"", columnsValues);
+        //TODO exehen tabel didon crate
         view.write("The table: " + tableName.toString() + " is created successfully");
     }
 
@@ -49,11 +50,4 @@ public class CreateNewTable implements Command {
     }
 
 
-//•Формат: ua.com.denisimusIT.SQLCmd.controller.command.create | tableName | column1 | column2 | ... | columnN
-//•где: tableName - имя таблицы
-//•column1 - имя первого столбца записи
-//•column2 - имя второго столбца записи
-//•columnN - имя n-го столбца записи
-//•Формат вывода: текстовое сообщение с результатом выполнения
-//операции
 }
