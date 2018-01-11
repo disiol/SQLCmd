@@ -28,9 +28,6 @@ public class IntegrationTest {
     private static String testDatabaseName = "testDatabase1";
 
 
-
-
-
     @BeforeClass
     public static void setup() throws IOException {
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
@@ -47,8 +44,7 @@ public class IntegrationTest {
         in.add("create|" + testTable + "|" + columnsValues);
         in.add("exit");
         Main.main(new String[0]);
-     //   System.err.println(out.toString());
-
+        //   System.err.println(out.toString());
 
 
     }
@@ -194,9 +190,9 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + testDatabaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "clear|" + testTable + newLine +
-                "The table: testTable is cleared successfully" + newLine +
+                "The table: " + "\"" + testTable + "\"" + "  is cleared successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "find|" + testTable + newLine +
+                "find|"  + testTable  + newLine +
                 "•+--------------------------------------------------" + newLine +
                 "•+ id + name + password + " + newLine +
                 "•+--------------------------------------------------" + newLine +
@@ -776,9 +772,7 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "clear|sadfasd|fsf|fdsf" + newLine +
-                "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect, it is " +
-                "expected  2, but is: 4" + newLine +
-                "\texample: create|tableName|column1 column type, column2 column type,...,columnN column typ" + newLine +
+                "Failure! for the reason:Team format 'clear|tableName', and you have entered: clear|sadfasd|fsf|fdsf" + newLine +
                 "Repeat attempt." + newLine, getData());
     }
 
