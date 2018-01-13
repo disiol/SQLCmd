@@ -7,6 +7,8 @@ import ua.com.denisimusIT.SQLCmd.view.View;
 import java.util.List;
 
 public class ContentsOfTheTable implements Command {
+    private String newLine = System.lineSeparator();
+
     private final View view;
     private final DatabaseManager manager;
     private String separator = "•+--------------------------------------------------";
@@ -25,12 +27,14 @@ public class ContentsOfTheTable implements Command {
     @Override
     public void process(String command) {
         String[] dataCommand = command.split("\\|");
-        String tableName = dataCommand[1];
         int count = 2;
         if (dataCommand.length != count) {
-            throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
-                    "is incorrect, it is expected  %s, but is: %s", count, dataCommand.length));
+            throw new IllegalArgumentException(String.format("Team format find|tableName, and you have entered: %s",
+                    count, dataCommand.length) + newLine +
+                    String.format("Team format find|tableName, and you have entered: %s", command));
         }
+        String tableName = dataCommand[1];
+
         //TODO exehen tabel didon crate
 
         List<String> tableColumns = manager.getTableColumns(tableName);
