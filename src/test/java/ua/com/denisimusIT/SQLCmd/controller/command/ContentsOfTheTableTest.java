@@ -13,9 +13,12 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 public class ContentsOfTheTableTest {
+    private String newLine = System.lineSeparator();
+
     private DatabaseManager manager;
     private View view;
     private Command command;
@@ -93,6 +96,44 @@ public class ContentsOfTheTableTest {
 
         // then
         assertFalse(canProcess);
+    }
+
+
+    @Test
+    public void testCantProcessClearWithoutParametersString() {
+        // when
+        boolean canProcess = command.canProcess("");
+
+        // then
+        assertFalse("testCantProcessClearWithoutParametersString", canProcess);
+    }
+
+    @Test
+    public void testValidationErrorWhenCountParametersIsLessThan2() {
+        // when
+        try {
+            command.process("find");
+            fail();
+        } catch (IllegalArgumentException e) {
+            // then
+            assertEquals("testValidationErrorWhenCountParametersIsLessThan2",
+                    "Team format find|tableName, and you have entered: 2" + newLine +
+                            "Team format find|tableName, and you have entered: find", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testValidationErrorWhenCountParametersIsMoreThan2() {
+        // when
+        try {
+            command.process("find|table|qwe");
+            fail();
+        } catch (IllegalArgumentException e) {
+            // then
+            assertEquals("testValidationErrorWhenCountParametersIsMoreThan2",
+                    "Team format find|tableName, and you have entered: 2" + newLine +
+                             "Team format find|tableName, and you have entered: find|table|qwe", e.getMessage());
+        }
     }
 
     @Test
