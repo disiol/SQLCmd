@@ -65,12 +65,12 @@ public class ClearTableTest {
     public void testValidationErrorWhenCountParametersIsLessThan2() {
         // when
         try {
-            command.process("clear");
+            command.process("clear|");
             fail();
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsLessThan2",
-                    "Team format clear|tableName, and you have entered: clear", e.getMessage());
+                    "Team format clear|tableName, and you have entered: clear|", e.getMessage());
         }
     }
 
