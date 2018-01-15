@@ -33,7 +33,7 @@ public class DisconnectOfDatabase implements Command {
         manager.disconnectOfDatabase(databaseName);
         view.write(String.format("Disconnect of database %s is successfully" , databaseName));
 
-        //TODO exception Database didont crate
+        //TODO exception Database dit not crate
 
     }
 
