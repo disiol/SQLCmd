@@ -14,7 +14,7 @@ import static org.mockito.Mockito.verify;
  * Created by indigo on 01.09.2015.
  */
 public class DisconnectOfDatabaseTest {
-
+    //TODO
     private DatabaseManager manager;
     private View view;
     private Command command;
@@ -23,27 +23,27 @@ public class DisconnectOfDatabaseTest {
     public void setup() {
         manager = mock(DatabaseManager.class);
         view = mock(View.class);
-        command = new CreateDatabase(view, manager);
+        command = new DisconnectOfDatabase(view, manager);
     }
 
     @Test
-    public void testCreateDatabase() {
+    public void DisconnectOfDatabaseTest() {
         // given
 
         // when
         String databaseName = "testDatabase";
-        command.process("createDatabase" +"|" + databaseName);
+        command.process("disconnect" + "|" + databaseName);
 
         // then
-        verify(manager).createDatabase("\"" + databaseName + "\"");
-        verify(view).write(String.format("The database: %s successfully", databaseName));
+        verify(manager).disconnectOfDatabase(databaseName);
+        verify(view).write(String.format("Disconnect of database %s is successfully", databaseName));
     }
 
 
     @Test
     public void testCanProcessClearWithParametersString() {
         // when
-        boolean canProcess = command.canProcess("createDatabase|user");
+        boolean canProcess = command.canProcess("disconnect|testDatabase");
 
         // then
         assertTrue("testCanProcessClearWithParametersString", canProcess);
@@ -52,7 +52,7 @@ public class DisconnectOfDatabaseTest {
     @Test
     public void testCantProcessClearWithoutParametersString() {
         // when
-        boolean canProcess = command.canProcess("createDatabase");
+        boolean canProcess = command.canProcess("disconnect");
 
         // then
         assertFalse("testCantProcessClearWithoutParametersString", canProcess);
@@ -62,12 +62,13 @@ public class DisconnectOfDatabaseTest {
     public void testValidationErrorWhenCountParametersIsLessThan2() {
         // when
         try {
-            command.process("clear");
+            command.process("disconnect");
             fail();
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsLessThan2",
-                    "Team format createDatabase|DatabaseName, and you have entered: clear", e.getMessage());
+                    "The number of parameters partitioned by the character '|' is incorrect, it is expected  2, but is: 1\n" +
+                            "\tTeam format disconnect|databaseName, and you have entered: disconnect", e.getMessage());
         }
     }
 
@@ -75,12 +76,13 @@ public class DisconnectOfDatabaseTest {
     public void testValidationErrorWhenCountParametersIsMoreThan2() {
         // when
         try {
-            command.process("createDatabase|table|qwe");
+            command.process("disconnect|table|qwe");
             fail();
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsMoreThan2",
-                    "Team format createDatabase|DatabaseName, and you have entered: createDatabase|table|qwe", e.getMessage());
+                    "The number of parameters partitioned by the character '|' is incorrect, it is expected  2, but is: 3\n" +
+                            "\tTeam format disconnect|databaseName, and you have entered: disconnect|table|qwe", e.getMessage());
         }
     }
 
@@ -89,7 +91,7 @@ public class DisconnectOfDatabaseTest {
         // when
         view.write(command.description());
         // then
-        verify(view).write("created database");
+        verify(view).write("Disconnect of database");
     }
 
     @Test
@@ -97,7 +99,7 @@ public class DisconnectOfDatabaseTest {
         // when
         view.write(command.format());
         // then
-        verify(view).write("createDatabase|DatabaseName");
+        verify(view).write("disconnect|databaseName");
     }
 
 }
