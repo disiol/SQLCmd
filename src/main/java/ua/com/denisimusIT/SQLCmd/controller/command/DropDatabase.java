@@ -4,10 +4,12 @@ import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class DropDatabase implements Command {
+    private String newLine = System.lineSeparator();
 
 
     private View view;
     private DatabaseManager manager;
+
 
     public DropDatabase(View view, DatabaseManager manager) {
 
@@ -25,14 +27,14 @@ public class DropDatabase implements Command {
         String[] data = command.split("\\|");
         if (data.length != count()) {
             throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
-                    "is incorrect, it is expected  %s, but is: %s", count(), data.length));
+                    "is incorrect, it is expected  %s, but is: %s", count(), data.length) + newLine +
+                    String.format("\tTeam format %s, and you have entered: %s", format(),command));
         }
         String databaseName = data[1];
 
-        manager.dropDatabase("\"" + databaseName + "\"");
+        manager.dropDatabase(databaseName);
         view.write("Database  " + databaseName + " deleted successfully");
-        //TODO exption Database didon crate and masrge
-
+        //TODO exception Database did not crate
 
 
     }
