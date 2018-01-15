@@ -23,15 +23,17 @@ public class DisconnectOfDatabase implements Command {
     @Override
     public void process(String command) {
         String[] dataCommand = command.split("\\|");
-        String databaseName = dataCommand[1];
         int minQuantity = 2;
         if (dataCommand.length != minQuantity) {
             throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
                     "is incorrect, it is expected  %s, but is: %s", minQuantity, dataCommand.length) + newLine +
-                    "\texample: disconnect|database");
+                   String.format("\tTeam format %s, and you have entered: %s" , format(), command) );
         }
-        manager.disconnectOfDatabase("\"" + databaseName + "\"");
-        //TODO exehen Database didon crate and masege
+        String databaseName = dataCommand[1];
+        manager.disconnectOfDatabase(databaseName);
+        view.write(String.format("Disconnect of database %s is successfully" , databaseName));
+
+        //TODO exception Database didont crate
 
     }
 
@@ -42,6 +44,6 @@ public class DisconnectOfDatabase implements Command {
 
     @Override
     public String format() {
-        return "disconnect|database";
+        return "disconnect|databaseName";
     }
 }
