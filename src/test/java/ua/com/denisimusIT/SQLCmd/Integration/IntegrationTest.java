@@ -2,9 +2,6 @@ package ua.com.denisimusIT.SQLCmd.Integration;
 
 import org.junit.*;
 import ua.com.denisimusIT.SQLCmd.controller.Main;
-import ua.com.denisimusIT.SQLCmd.controller.command.Command;
-import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.ConnectToDatabase;
-import ua.com.denisimusIT.SQLCmd.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -192,7 +189,7 @@ public class IntegrationTest {
                 "clear|" + testTable + newLine +
                 "The table: " + "\"" + testTable + "\"" + "  is cleared successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
-                "find|"  + testTable  + newLine +
+                "find|" + testTable + newLine +
                 "•+--------------------------------------------------" + newLine +
                 "•+ id + name + password + " + newLine +
                 "•+--------------------------------------------------" + newLine +
@@ -501,7 +498,7 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "createDatabase|" + testDatabaseName5 + newLine +
-                "Database created " + testDatabaseName5 + " successfully" + newLine +
+                "The database: " + testDatabaseName5 + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -660,7 +657,7 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "createDatabase|" + testDatabaseName4 + newLine +
-                "Database created " + testDatabaseName4 + " successfully" + newLine +
+                "The database: " + testDatabaseName4 + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
@@ -707,7 +704,7 @@ public class IntegrationTest {
         // TODO удалитьбазу данных
     }
 
-    @Ignore("сделаю после модульного теста insert")
+    // @Ignore("сделаю после модульного теста insert")
     @Test
     public void testFindAfterConnect_withData() {
 
@@ -727,10 +724,10 @@ public class IntegrationTest {
                 "format: connect|databaseName|userName|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + testDatabaseName + "|" + userName + "|" + password + newLine +
-                "Opened database: \"testDatabase\" successfully" + newLine +
+                "Opened database: \"" + testDatabaseName + "\" successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "clear|testTable" + newLine +
-                "The table: testTable is cleared successfully" + newLine +
+                "The table: \"testTable\"  is cleared successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "insert|testTable|id|13|name|Stiven|password|*****" + newLine +
                 "The record {names:[id, name, password], values:[13, Stiven, *****]} was successfully created in the " +
@@ -772,7 +769,7 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "clear|sadfasd|fsf|fdsf" + newLine +
-                "Failure! for the reason:Team format 'clear|tableName', and you have entered: clear|sadfasd|fsf|fdsf" + newLine +
+                "Failure! for the reason:Team format clear|tableName, and you have entered: clear|sadfasd|fsf|fdsf" + newLine +
                 "Repeat attempt." + newLine, getData());
     }
 
