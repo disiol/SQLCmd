@@ -14,10 +14,12 @@ import static org.mockito.Mockito.verify;
  * Created by indigo on 01.09.2015.
  */
 public class DisconnectOfDatabaseTest {
-    //TODO
     private DatabaseManager manager;
     private View view;
     private Command command;
+
+    private String newLine = System.lineSeparator();
+
 
     @Before
     public void setup() {
@@ -67,7 +69,8 @@ public class DisconnectOfDatabaseTest {
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsLessThan2",
-                    "The number of parameters partitioned by the character '|' is incorrect, it is expected  2, but is: 1\n" +
+                    "The number of parameters partitioned by the character '|' is incorrect, it is expected  2," +
+                            " but is: 1"+ newLine +
                             "\tTeam format disconnect|databaseName, and you have entered: disconnect", e.getMessage());
         }
     }
@@ -81,7 +84,9 @@ public class DisconnectOfDatabaseTest {
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsMoreThan2",
-                    "The number of parameters partitioned by the character '|' is incorrect, it is expected  2, but is: 3\n" +
+                    "The number of parameters partitioned by the character '|' is incorrect, it is expected  2, " +
+                            "but is: 3"+ newLine
+                            +
                             "\tTeam format disconnect|databaseName, and you have entered: disconnect|table|qwe", e.getMessage());
         }
     }
