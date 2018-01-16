@@ -5,7 +5,7 @@ import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class ConnectToDatabase implements Command {
-    private static String COMMAND_SAMPLE;
+    private String newLine = System.lineSeparator();
 
 
     private final View view;
@@ -16,7 +16,6 @@ public class ConnectToDatabase implements Command {
         this.view = view;
         this.manager = manager;
     }
-
 
 
     @Override
@@ -32,7 +31,8 @@ public class ConnectToDatabase implements Command {
         String[] data = command.split("\\|");
         if (data.length != count()) {
             throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
-                    "is incorrect, it is expected  %s, but is: %s", count(), data.length));
+                    "is incorrect, it is expected %s, but is: %s", count(), data.length) + newLine +
+                    String.format("\tTeam format %s, and you have entered: %s", format(), command));
         }
         String databaseName = data[1];
         String userName = data[2];
@@ -40,6 +40,7 @@ public class ConnectToDatabase implements Command {
 
 
         manager.connectToDatabase(databaseName, userName, password);
+        //TODO exception  connect
         view.write("Opened database: " + "\"" + databaseName + "\"" + " successfully");
 
 
