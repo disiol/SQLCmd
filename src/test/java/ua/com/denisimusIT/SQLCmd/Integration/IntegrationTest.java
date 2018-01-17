@@ -133,7 +133,7 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "unsupported" + newLine +
-                "Nonexistent command:unsupported" + newLine +
+                "Unsupported command:unsupported" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -160,7 +160,7 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "list" + newLine +
-                "Nonexistent command:list" + newLine +
+                "Unsupported command:list" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -283,7 +283,7 @@ public class IntegrationTest {
                 "\tclear|tableName" + newLine +
                 "\t\tfor cleaning of all table" + newLine
                 + newLine +
-                "\tdisconnect|database" + newLine +
+                "\tdisconnect|databaseName" + newLine +
                 "\t\tDisconnect of database" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -380,7 +380,7 @@ public class IntegrationTest {
                 "\tclear|tableName" + newLine +
                 "\t\tfor cleaning of all table" + newLine +
                 newLine +
-                "\tdisconnect|database" + newLine +
+                "\tdisconnect|databaseName" + newLine +
                 "\t\tDisconnect of database" + newLine +
                 newLine +
                 "enter please command or help command for a help call" + newLine +
@@ -405,7 +405,9 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + newLine +
                 "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect," +
-                " it is expected  4, but is: 3" + newLine +
+                " it is expected 4, but is: 3" + newLine +
+                "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres|postgres"
+                + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("testConnectExceptionParameters_3", expected, actual);//given
 
@@ -533,7 +535,9 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + newLine +
                 "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect," +
-                " it is expected  4, but is: 3" + newLine +
+                " it is expected 4, but is: 3" + newLine +
+                "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres|postgres"
+                + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("ExceptionParameters_3", expected, actual);
 
@@ -568,7 +572,8 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + newLine +
                 "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect," +
-                " it is expected  4, but is: 2" + newLine +
+                " it is expected 4, but is: 2" + newLine +
+                "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres" + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("ExceptionParameters_2", expected, actual);
 
@@ -694,7 +699,7 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "disconnect|" + databaseName + newLine +
-                "Disconnect of database: \"postgres\" successfully" + newLine +
+                "Disconnect of database postgres is successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
