@@ -15,7 +15,7 @@ public class IsConnected implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return !manager.isConnected();
+        return manager.isConnected();
     }
 
     @Override
