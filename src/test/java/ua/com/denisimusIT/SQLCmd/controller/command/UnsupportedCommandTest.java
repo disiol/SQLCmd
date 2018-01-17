@@ -2,49 +2,38 @@ package ua.com.denisimusIT.SQLCmd.controller.command;
 
 import org.junit.Before;
 import org.junit.Test;
-import ua.com.denisimusIT.SQLCmd.controller.command.connektToDatabase.IsConnect;
-import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.*;
 
-public class UnsupportedComandTest {
+public class UnsupportedCommandTest {
     View view;
-    DatabaseManager databaseManager;
-    Command isConnect;
+    Command unsupportedCommand;
 
     @Before
     public void setup() {
         view = mock(View.class);
-        databaseManager = mock(DatabaseManager.class);
-        isConnect = new IsConnect(view, databaseManager);
+        unsupportedCommand = new UnsupportedCommand(view);
     }
 
     @Test
     public void canProcessTrueTest() {
         //wen
-        boolean canProcess = isConnect.canProcess("ffff");
+        boolean canProcess = unsupportedCommand.canProcess("ffff");
 
         //then
         assertTrue("canProcessTrueTest", canProcess);
     }
 
-    @Test
-    public void canProcessFalseTest() {
-        when(databaseManager.isConnected()).thenReturn(true);
-        boolean canProcess = isConnect.canProcess("ffff");
-        assertFalse("canProcessFalseTest", canProcess);
-    }
 
     @Test
     public void processTest() {
-        String command = "help";
-        String message = String.format("You cannot use a command '%s' be not connected by means of a command yet " +
-                "connect|databaseName|userName|password", command);
+        String command = "ygygiygi";
+        String message = String.format("Unsupported command:%s", command);
         //wen
-        isConnect.canProcess(command);
-        isConnect.process(command);
+        unsupportedCommand.canProcess(command);
+        unsupportedCommand.process(command);
         //then
         verify(view).write(message);
 
@@ -52,12 +41,12 @@ public class UnsupportedComandTest {
 
     @Test
     public void descriptionTest() {
-        assertNull("descriptionTest", isConnect.description());
+        assertNull("descriptionTest", unsupportedCommand.description());
     }
 
     @Test
     public void formatTest() {
-        assertNull("descriptionTest", isConnect.format());
+        assertNull("descriptionTest", unsupportedCommand.format());
 
     }
 }
