@@ -424,7 +424,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
                     "WHERE pg_stat_activity.datname = " + "'" + databaseName + "'" + NEW_LINE +
                     "  AND pid <> pg_backend_pid();" + NEW_LINE;
             stmt.execute(sql);
-            System.out.println("Disconnect of database: " + databaseName + " successfully");
         } catch (SQLException se) {
             connection = null;
             se.printStackTrace();
