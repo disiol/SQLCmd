@@ -34,7 +34,6 @@ public class CrateNewTableTest {
         // given
         String columnsValues = "id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
         String tableName = "user";
-        command.canProcess("create|" + tableName + "|" + columnsValues);
         // when
         command.process("create|" + tableName + "|" + columnsValues);
         // then
