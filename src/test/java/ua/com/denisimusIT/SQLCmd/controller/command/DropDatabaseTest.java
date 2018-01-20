@@ -41,7 +41,7 @@ public class DropDatabaseTest {
         verify(view).write(String.format("Database  %s deleted successfully", databaseName));
     }
 
-    
+
 
     @Test
     public void DropDatabaseManagerTest() {
