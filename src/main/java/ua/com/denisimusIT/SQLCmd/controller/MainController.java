@@ -86,7 +86,7 @@ public class MainController {
         if (cause != null) {
             message += " " + cause.getMessage();
         }
-        view.write("Failure! for the reason:" + message);
+        view.write("Failure! for the reason: " + message);
         view.write("Repeat attempt.");
     }
 
