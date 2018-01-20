@@ -24,10 +24,9 @@ public class InsertALineIntoTheTable implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
         if (data.length % 2 != 0) {
-            throw new IllegalArgumentException(String.format("Shall be even " +
-                    "the number of parameters in a format" +
-                    "'create |tableName| column1 |value1| of column2 |value2|... |columnN| valueN'," +
-                    "and you sent: '%s'", command));
+            throw new IllegalArgumentException(String.format("Shall be even the number of parameters in a format " +
+                    "'insert |tableName| column1 |value1| of column2 |value2|... |columnN| valueN'," +
+                    "and you have entered: '%s'", command));
         }
 
         String tableName = data[1];
@@ -42,7 +41,7 @@ public class InsertALineIntoTheTable implements Command {
         manager.insertData("\"" + tableName + "\"", dataSet);
         //TODO exption table didon crate
 
-        view.write(String.format("The record %s was successfully created in the table' by %s'.", dataSet, tableName));
+        view.write(String.format("The record %s was successfully created in the table: %s", dataSet, tableName));
     }
 
     @Override

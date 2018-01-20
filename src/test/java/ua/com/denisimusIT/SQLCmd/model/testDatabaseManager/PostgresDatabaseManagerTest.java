@@ -423,11 +423,11 @@ public class PostgresDatabaseManagerTest {
         assertEquals("currentDatabase", expected, actual);
     }
 
-
+    @Ignore()
     @Test
     public void disconnectOfDatabaseTest() {
         System.setOut(new PrintStream(OUT_CONTENT));
-
+//TODO  after refactoring exe
         POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(TEST_DATABASE_NAME);
 
         boolean connected = POSTGRES_DATABASE_MANAGER.isConnected();

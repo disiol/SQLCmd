@@ -709,7 +709,6 @@ public class IntegrationTest {
         // TODO удалитьбазу данных
     }
 
-    // @Ignore("сделаю после модульного теста insert")
     @Test
     public void testFindAfterConnect_withData() {
 
@@ -774,7 +773,7 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "clear|sadfasd|fsf|fdsf" + newLine +
-                "Failure! for the reason:Team format clear|tableName, and you have entered: clear|sadfasd|fsf|fdsf" + newLine +
+                "Failure! for the reason: Team format clear|tableName, and you have entered: clear|sadfasd|fsf|fdsf" + newLine +
                 "Repeat attempt." + newLine, getData());
     }
 
