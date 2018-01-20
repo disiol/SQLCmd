@@ -29,7 +29,7 @@ public class DropDatabaseTest {
     }
 
     @Test
-    public void DropDatabaseTest() {
+    public void DropDatabaseMassageTest() {
         // given
 
         // when
@@ -39,6 +39,20 @@ public class DropDatabaseTest {
         // then
         verify(manager).dropDatabase(databaseName);
         verify(view).write(String.format("Database  %s deleted successfully", databaseName));
+    }
+
+    
+
+    @Test
+    public void DropDatabaseManagerTest() {
+        // given
+
+        // when
+        String databaseName = "testDatabase";
+        command.process("dropDatabase" + "|" + databaseName);
+
+        // then
+        verify(manager).dropDatabase(databaseName);
     }
 
 
