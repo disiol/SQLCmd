@@ -404,7 +404,7 @@ public class IntegrationTest {
                 "format: connect|databaseName|userName|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + newLine +
-                "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect," +
+                "Failure! for the reason: The number of parameters partitioned by the character '|' is incorrect," +
                 " it is expected 4, but is: 3" + newLine +
                 "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres|postgres"
                 + newLine +
@@ -428,7 +428,7 @@ public class IntegrationTest {
                 "connect|databaseName|userName|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + "_" + "|" + userName + "|" + password + newLine +
-                "Failure! for the reason:Cant get connection for model:_ user:postgres FATAL: database \"_\" does not exist" + newLine +
+                "Failure! for the reason: Cant get connection for model:_ user:postgres FATAL: database \"_\" does not exist" + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("testConnectExceptiondatabase", expected, actual);//given
 
@@ -449,7 +449,7 @@ public class IntegrationTest {
                 "format: connect|databaseName|userName|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + "_" + newLine +
-                "Failure! for the reason:Cant get connection for model:postgres user:postgres FATAL: " +
+                "Failure! for the reason: Cant get connection for model:postgres user:postgres FATAL: " +
                 "password authentication failed for user \"" + userName + "\"" + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("testConnectExceptionPassword", expected, actual);
@@ -472,8 +472,7 @@ public class IntegrationTest {
                 "connect|databaseName|userName|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + "_" + "|" + password + newLine +
-                "Failure! for the reason:Cant get connection for model:postgres user:_ FATAL: password authentication failed " +
-                "for user \"_\"" + newLine +
+                "Failure! for the reason: Cant get connection for model:postgres user:_ FATAL: password authentication failed for user \"_\"" + newLine +
                 "Repeat attempt." + newLine;
         assertEquals("testConnectExceptionPassword", expected, actual);
 
@@ -534,7 +533,7 @@ public class IntegrationTest {
                 "a format: connect|databaseName|userName|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + newLine +
-                "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect," +
+                "Failure! for the reason: The number of parameters partitioned by the character '|' is incorrect," +
                 " it is expected 4, but is: 3" + newLine +
                 "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres|postgres"
                 + newLine +
@@ -571,7 +570,7 @@ public class IntegrationTest {
                 "a format: connect|databaseName|userName|password" + newLine +
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + newLine +
-                "Failure! for the reason:The number of parameters partitioned by the character '|' is incorrect," +
+                "Failure! for the reason: The number of parameters partitioned by the character '|' is incorrect," +
                 " it is expected 4, but is: 2" + newLine +
                 "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres" + newLine +
                 "Repeat attempt." + newLine;
@@ -734,12 +733,12 @@ public class IntegrationTest {
                 "The table: \"testTable\"  is cleared successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "insert|testTable|id|13|name|Stiven|password|*****" + newLine +
-                "The record {names:[id, name, password], values:[13, Stiven, *****]} was successfully created in the " +
-                "table' by testTable'." + newLine +
+                "The record {names:[id, name, password], values:[13, Stiven, *****]} was successfully created " +
+                "in the table: testTable" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "insert|testTable|id|14|name|Eva|password|+++++" + newLine +
-                "The record {names:[id, name, password], values:[14, Eva, +++++]} was successfully created in the " +
-                "table' by testTable'." + newLine +
+                "The record {names:[id, name, password], values:[14, Eva, +++++]} was successfully created " +
+                "in the table: testTable" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "find|testTable" + newLine +
                 "•+--------------------------------------------------" + newLine +
@@ -796,8 +795,8 @@ public class IntegrationTest {
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "insert|user|error" + newLine +
-                "Failure! for the reason:Shall be even the number of parameters in a format'create |tableName| column1 " +
-                "|value1| of column2 |value2|... |columnN| valueN',and you sent: 'insert|user|error'" + newLine +
+                "Failure! for the reason: Shall be even the number of parameters in a format 'insert |tableName| column1 " +
+                "|value1| of column2 |value2|... |columnN| valueN',and you have entered: 'insert|user|error'" + newLine +
                 "Repeat attempt." + newLine, getData());
     }
 
