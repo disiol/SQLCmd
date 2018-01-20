@@ -106,8 +106,9 @@ public class InsertALineIntoTheTableTest {
             fail();
         } catch (IllegalArgumentException e) {
             // then
-            assertEquals("testValidationErrorWhenCountParametersIsMoreThan2",
-                    "Team format clear|tableName, and you have entered: clear|table|qwe", e.getMessage());
+            assertEquals("Shall be even the number of parameters in a format " +
+                    "'insert |tableName| column1 |value1| of column2 |value2|... |columnN| valueN'" +
+                    ",and you sent: 'clear|table|qwe'", e.getMessage());
         }
     }
 
@@ -116,7 +117,14 @@ public class InsertALineIntoTheTableTest {
         // when
         view.write(command.description());
         // then
-        verify(view).write("for cleaning of all table");
+        verify(view).write("Command for an insertion of one line in the given table " + newLine +
+                "  \t• where: tableName - a table name" + newLine +
+                "  \t• column1 - a name of the first column of record" + newLine +
+                "  \t• value1 - value of the first column of record" + newLine +
+                "  \t• column2 - a name of the second column of record" + newLine +
+                "  \t• value2 - value of the second column of record" + newLine +
+                "  \t• columnN - the record column name n-go" + newLine +
+                "  \t• valueN - n-go value of a column of record");
     }
 
     @Test
@@ -125,7 +133,7 @@ public class InsertALineIntoTheTableTest {
 
         view.write(command.format());
 
-        verify(view).write("clear|tableName");
+        verify(view).write("insert|tableName|column1|value1|column2|value2| ... |columnN | valueN");
     }
 
 }
