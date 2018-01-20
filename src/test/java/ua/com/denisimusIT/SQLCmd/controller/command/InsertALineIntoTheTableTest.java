@@ -34,7 +34,7 @@ public class InsertALineIntoTheTableTest {
         user1.put("password", "*****");
         command.process("insert|" + tableName + "|id|12|name|Stiven|password|*****");
         // then
-        verify(view).write(String.format("The record %s was successfully created in the table: %s'.", user1, tableName));
+        verify(view).write(String.format("The record %s was successfully created in the table: %s", user1, tableName));
 
     }
 
@@ -45,7 +45,7 @@ public class InsertALineIntoTheTableTest {
         String tableName = "User";
 
         DataSet user1 = new DataSet();
-        user1.put("id", 12);
+        user1.put("id", "12");
         user1.put("name", "Stiven");
         user1.put("password", "*****");
         command.process("insert|" + tableName + "|id|12|name|Stiven|password|*****");
@@ -54,9 +54,6 @@ public class InsertALineIntoTheTableTest {
 
     }
 
-    private void shouldPrint(String expected, String message) {
-        ;
-    }
 
     @Test
     public void testCanProcessClearWithParametersString() {
@@ -89,12 +86,13 @@ public class InsertALineIntoTheTableTest {
     public void testValidationErrorWhenCountParametersIsLessThan2() {
         // when
         try {
-            command.process("clear|");
+            command.process("insert|");
             fail();
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsLessThan2",
-                    "Team format clear|tableName, and you have entered: clear|", e.getMessage());
+                    "Shall be even the number of parameters in a format 'insert |tableName| column1 |value1| " +
+                            "of column2 |value2|... |columnN| valueN',and you have entered: 'insert|'", e.getMessage());
         }
     }
 
@@ -102,13 +100,13 @@ public class InsertALineIntoTheTableTest {
     public void testValidationErrorWhenCountParametersIsMoreThan2() {
         // when
         try {
-            command.process("clear|table|qwe");
+            command.process("insert|table|qwe");
             fail();
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("Shall be even the number of parameters in a format " +
-                    "'insert |tableName| column1 |value1| of column2 |value2|... |columnN| valueN'" +
-                    ",and you sent: 'clear|table|qwe'", e.getMessage());
+                    "'insert |tableName| column1 |value1| of column2 |value2|... |columnN| valueN',and you have entered:" +
+                    " 'insert|table|qwe'", e.getMessage());
         }
     }
 
