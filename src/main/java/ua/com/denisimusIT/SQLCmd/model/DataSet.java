@@ -78,4 +78,23 @@ public class DataSet {
                 "values:" + Arrays.toString(getValues()) +
                 "}";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DataSet)) return false;
+
+        DataSet dataSet = (DataSet) o;
+
+        if (freeIndex != dataSet.freeIndex) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(data, dataSet.data);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(data);
+        result = 31 * result + freeIndex;
+        return result;
+    }
 }
