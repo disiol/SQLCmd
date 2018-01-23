@@ -28,7 +28,6 @@ public class CreateDatabaseTest {
 
     @Test
     public void testCreateDatabase() {
-        // given
 
         // when
         String databaseName = "testDatabase";
