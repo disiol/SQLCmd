@@ -32,6 +32,7 @@ public class MainController {
                 new CreateNewTable(view, manager),
                 new InsertALineIntoTheTable(view, manager),
                 new ClearTable(view, manager),
+                new DropTable(view, manager),
                 new DisconnectOfDatabase(view, manager),
                 new UnsupportedCommand(view)
         };
