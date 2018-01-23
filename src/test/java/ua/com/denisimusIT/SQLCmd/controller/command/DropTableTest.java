@@ -11,6 +11,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class DropTableTest {
+    private String newLine = System.lineSeparator();
+
     private View view;
     private DatabaseManager databaseManager;
     private Command command;
@@ -31,7 +33,7 @@ public class DropTableTest {
 
     @Test
     public void canProcessFalse() {
-        boolean canProcess = command.canProcess("dropTable|table");
+        boolean canProcess = command.canProcess("dropTable");
         assertFalse("canProcessFalse", canProcess);
     }
 
@@ -51,8 +53,8 @@ public class DropTableTest {
     public void dropTableTest() {
         String tableName = "table";
         command.process("dropTable|" + tableName);
-        verify(databaseManager).dropTable("\"" +tableName +"\"");
-        verify(view).write(String.format("The Table: %s successfully", tableName));
+        verify(databaseManager).dropTable("\"" + tableName + "\"");
+        verify(view).write("Table  " + "\"" + tableName + "\"" + " deleted successfully");
 
     }
 
@@ -66,7 +68,9 @@ public class DropTableTest {
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsLessThan2",
-                    "Team format dropTable|table, and you have entered: clear", e.getMessage());
+                    "The number of parameters partitioned by the character '|' is incorrect, it is expected  2, " +
+                            "but is: 1" + newLine +
+                            "\tTeam format dropTable|tableName, and you have entered: clear", e.getMessage());
         }
     }
 
@@ -79,7 +83,9 @@ public class DropTableTest {
         } catch (IllegalArgumentException e) {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsMoreThan2",
-                    "Team format createDatabase|DatabaseName, and you have entered: dropTable|table|table|qwe", e.getMessage());
+                    "The number of parameters partitioned by the character '|' is incorrect, it is expected  2, " +
+                            "but is: 4" + newLine +
+                            "\tTeam format dropTable|tableName, and you have entered: dropTable|table|table|qwe", e.getMessage());
         }
     }
 
@@ -87,12 +93,12 @@ public class DropTableTest {
     @Test
     public void description() {
         String description = command.description();
-        assertEquals("description", "dropTable",description);
+        assertEquals("description", "Delete table", description);
     }
 
     @Test
     public void format() {
         String format = command.format();
-        assertEquals("format","dropTable|table",format);
+        assertEquals("format", "dropTable|tableName", format);
     }
 }

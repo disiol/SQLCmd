@@ -283,6 +283,9 @@ public class IntegrationTest {
                 "\tclear|tableName" + newLine +
                 "\t\tfor cleaning of all table" + newLine
                 + newLine +
+                "\tdropTable|tableName" + newLine +
+                "\t\tDelete table" + newLine +
+                newLine +
                 "\tdisconnect|databaseName" + newLine +
                 "\t\tDisconnect of database" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
@@ -379,6 +382,9 @@ public class IntegrationTest {
                 newLine +
                 "\tclear|tableName" + newLine +
                 "\t\tfor cleaning of all table" + newLine +
+                newLine +
+                "\tdropTable|tableName" + newLine +
+                "\t\tDelete table" + newLine +
                 newLine +
                 "\tdisconnect|databaseName" + newLine +
                 "\t\tDisconnect of database" + newLine +
