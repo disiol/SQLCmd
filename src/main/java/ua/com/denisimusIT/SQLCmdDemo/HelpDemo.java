@@ -26,7 +26,6 @@ public class HelpDemo {
         Main.main(new String[0]);
         String actual = out.toString();
         System.out.println(new PrintStream(out).toString());
-        System.out.println("end HelpDemo");
 
 
     }

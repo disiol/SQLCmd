@@ -9,6 +9,8 @@ public class ConfigurableInputStream extends InputStream {
     private boolean endLine = false;
     private String printed;
 
+    private static final String NEWLINE = System.lineSeparator();
+
     @Override
     public int read() throws IOException {
 
@@ -40,7 +42,7 @@ public class ConfigurableInputStream extends InputStream {
 
 
     private void printInput() {
-        System.out.println(printed);
+        System.out.println(newLine +"Input: " + printed + newLine + "Output: ");
         printed = "";
     }
 
