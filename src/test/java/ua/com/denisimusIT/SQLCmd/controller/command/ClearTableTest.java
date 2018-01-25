@@ -1,21 +1,15 @@
 package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
-
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-/**
- * Created by indigo on 01.09.2015.
- */
 public class ClearTableTest {
 
     private DatabaseManager manager;
@@ -31,7 +25,7 @@ public class ClearTableTest {
 
     @Test
     public void testClearTable() {
-        // given
+
 
         // when
         String tableName = "user";
