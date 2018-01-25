@@ -92,9 +92,8 @@ public class ClearTableTest {
     @Test
     public void formatTest() {
         // when
-
         view.write(command.format());
-
+        //then
         verify(view).write("clear|tableName");
     }
 
