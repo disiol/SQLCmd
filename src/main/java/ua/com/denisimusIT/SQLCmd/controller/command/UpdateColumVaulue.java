@@ -1,6 +1,25 @@
 package ua.com.denisimusIT.SQLCmd.controller.command;
 
-public class UpdateColumVaulue {
+public class UpdateColumVaulue implements Command{
+    @Override
+    public boolean canProcess(String command) {
+        return false;
+    }
+
+    @Override
+    public void process(String command) {
+
+    }
+
+    @Override
+    public String description() {
+        return null;
+    }
+
+    @Override
+    public String format() {
+        return null;
+    }
 // TODO•Команда обновит запись, установив значение column2 = value2, длякоторой соблюдается условие column1 = value1
 //•Формат: ua.com.denisimusIT.SQLCmd.controller.command.update | tableName | column1 | value1 | column2 | value2
 //•где: tableName - имя таблицы
