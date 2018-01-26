@@ -14,7 +14,6 @@ public class HelpDemo {
 
     public static void main(String[] args) {
         System.out.println("HelpDemo" + NEWLINE);
-        out = new ByteArrayOutputStream();
         in = new ConfigurableInputStream();
         System.setIn(in);
 
