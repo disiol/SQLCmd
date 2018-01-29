@@ -25,6 +25,7 @@ public class MainController {
                 new ConnectToDatabase(view, manager),
                 new CreateDatabase(view, manager),
                 new GifAccessToDatabase(view, manager),
+                new ListOfDatabasesNames(view,manager),
                 new DropDatabase(view, manager),
                 new IsConnect(view, manager),
                 new ListOfTablesNames(view, manager),

@@ -258,6 +258,9 @@ public class IntegrationTest {
                 "\tgiveAccess|databaseName|userName" + newLine +
                 "\t\tGive access user to database" + newLine +
                 "" + newLine +
+                "\tdatabases" + newLine +
+                "\t\tTo display the list of databases" + newLine +
+                "" + newLine +
                 "\tdropDatabase|DatabaseName" + newLine +
                 "\t\tDelete database" + newLine +
                 "" + newLine +
@@ -357,6 +360,9 @@ public class IntegrationTest {
                 "" + newLine +
                 "\tgiveAccess|databaseName|userName" + newLine +
                 "\t\tGive access user to database" + newLine +
+                "" + newLine +
+                "\tdatabases" + newLine +
+                "\t\tTo display the list of databases" + newLine +
                 "" + newLine +
                 "\tdropDatabase|DatabaseName" + newLine +
                 "\t\tDelete database" + newLine +
