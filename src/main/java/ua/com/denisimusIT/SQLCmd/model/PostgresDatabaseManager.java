@@ -15,6 +15,10 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public void connectToDatabase(String databaseName, String userName, String password) {
 
+        if (isConnected() == true) {
+            connection = null;
+        }
+
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -50,25 +54,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void createATable(final String tableName, String columnsValues) {
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+
+        try (Statement stmt = connection.createStatement()) {
             String sql = "CREATE TABLE IF NOT EXISTS  " + tableName +
                     "(" + columnsValues + ")";
             stmt.executeUpdate(sql);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            //   System.exit(0);
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+        } catch (SQLException e) {
+            e.printStackTrace(); //TODO собщение об ошибке
         }
 
 
@@ -403,36 +395,18 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public void disconnectOfDatabase(String databaseName) {
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
 
             String sql = "SELECT pg_terminate_backend(pg_stat_activity.pid)" + NEW_LINE +
                     "FROM pg_stat_activity" + NEW_LINE +
                     "WHERE pg_stat_activity.datname = " + "'" + databaseName + "'" + NEW_LINE +
                     "  AND pid <> pg_backend_pid();" + NEW_LINE;
             stmt.execute(sql);
-        } catch (SQLException se) {
             connection = null;
-            se.printStackTrace();
-        } catch (Exception e) {
-            connection = null;
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
         }
+
 
     }
 
