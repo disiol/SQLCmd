@@ -14,6 +14,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void connectToDatabase(String databaseName, String userName, String password) {
+
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -40,24 +41,11 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void clearATable(final String tableName) {
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DELETE FROM " + tableName);
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-            }
+            e.printStackTrace();  //TODO собщение таблица не найдена
         }
-
-
     }
 
     @Override
@@ -93,7 +81,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             int size = getSize(tableName);
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM "  + tableName );
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
             ResultSetMetaData rsmd = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -171,7 +159,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         int size = 0;
         try {
             stmt = connection.createStatement();
-            ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " +   tableName );
+            ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
             rsCount.next();
             size = rsCount.getInt(1);
             rsCount.close();
