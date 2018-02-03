@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 public class PostgresDatabaseManagerTest {
@@ -133,7 +133,6 @@ public class PostgresDatabaseManagerTest {
         List<String> listOfTablesBefore = POSTGRES_DATABASE_MANAGER.getTableNames();
         listOfTablesBefore.add(tableName);
         Collections.sort(listOfTablesBefore);
-
 
 
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
@@ -566,8 +565,6 @@ public class PostgresDatabaseManagerTest {
 
     }
 
-
-
     @Test
 
     public void GiveAccessTest() {
@@ -575,27 +572,40 @@ public class PostgresDatabaseManagerTest {
         String testUser = "den";
         String testPassword = "testPassword";
 
-
+        //before
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.createDatabase(testDatabaseName);
+        POSTGRES_DATABASE_MANAGER.createDatabase("\"" + testDatabaseName + "\"");
+
+        //wen
         connectToDB();
         POSTGRES_DATABASE_MANAGER.createUser(testUser, testPassword);
 
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName, testUser);
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + testDatabaseName + "\"", testUser);
+
+        try {
+            POSTGRES_DATABASE_MANAGER.connectToDatabase(testDatabaseName, testUser, testPassword);
+        } catch (Exception e) {
+            System.err.println("ExceptionConnect: " + e.getCause().getMessage());
+        } finally {
+            assertTrue("connect", POSTGRES_DATABASE_MANAGER.isConnected());
 
 
-        POSTGRES_DATABASE_MANAGER.connectToDatabase(testDatabaseName, testUser, testPassword);
-        assertTrue("connect", POSTGRES_DATABASE_MANAGER.isConnected());
+        }
 
 
-        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(testDatabaseName);
+        //after
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName, userName);
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase("\"" + testDatabaseName + "\"");
+
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropDatabase(testDatabaseName);
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + testDatabaseName + "\"", userName);
+
         connectToDB();
         POSTGRES_DATABASE_MANAGER.dropUser(testUser);
+
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropDatabase("\"" + testDatabaseName + "\"");
 
     }
 
