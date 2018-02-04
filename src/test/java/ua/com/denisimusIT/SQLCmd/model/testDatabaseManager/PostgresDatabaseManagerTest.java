@@ -419,43 +419,7 @@ public class PostgresDatabaseManagerTest {
 
     }
 
-    @Ignore("сделаю после рефактроринга ексепшенов")
-    @Test
-    public void createUserTest() {
-        //todo
-        System.setOut(new PrintStream(OUT_CONTENT));
 
-
-        String user = "den2";
-        String password1 = "test";
-        POSTGRES_DATABASE_MANAGER.createUser(user, password1);
-
-
-        connectToDB();
-        String testDatabaseName2 = "test2";
-        POSTGRES_DATABASE_MANAGER.createDatabase("test2");
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(testDatabaseName2, user);
-        String expected = "Creating user: " + user + NEW_LINE +
-                "It is created user: " + user + " with the password: test" + NEW_LINE +
-                "Access user: " + user + " to the database: test2 it is allow";
-        String actual = OUT_CONTENT.toString();
-        Assert.assertEquals("created user", expected, actual);
-
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.createUser(user, password1);
-        String expected1 = "The user : " + user + " already is created";
-        String actual2 = OUT_CONTENT.toString();
-        Assert.assertEquals("The " + user + " already is created", expected1, actual2);
-
-
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropDatabase(testDatabaseName2);
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropUser(user);
-
-
-    }
 
 
     @Test
@@ -481,29 +445,6 @@ public class PostgresDatabaseManagerTest {
     }
 
 
-    @Test
-    public void dropDatabaseTest() {
-        System.setOut(new PrintStream(OUT_CONTENT));
-
-        connectToDB();
-        String dataBaseName = "testdrop";
-        POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropDatabase(dataBaseName);
-
-
-        connectToDB();
-
-        List<String> dataBaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
-        dataBaseNames.remove(dataBaseName);
-        Collections.sort(dataBaseNames);
-
-        String expected = dataBaseNames.toString();
-        List<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
-        Collections.sort(actualDatabaseNames);
-        Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
-        assertEquals("dropDatabaseNames", expected, Arrays.toString(actualDatabaseNamesSorted));
-    }
 
     @Test
     public void dropTableCompany() {

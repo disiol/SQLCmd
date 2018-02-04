@@ -34,10 +34,6 @@ public interface DatabaseManager {
 
     List<String> currentDatabase();
 
-    void createUser(String newUser, String newPassword);
-
-    void dropUser(String userName);
-
     void giveAccessUserToTheDatabase(String databaseName, String userName);
 
     List<String> getTableColumns(String tableName);
