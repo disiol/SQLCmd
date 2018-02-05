@@ -32,7 +32,7 @@ public class DropDatabase implements Command {
         }
         String databaseName = data[1];
 
-        manager.dropDatabase(databaseName);
+        manager.dropDatabase("\"" + databaseName + "\"");
         view.write("Database  " + databaseName + " deleted successfully");
         //TODO exception Database did not crate
 

@@ -37,10 +37,9 @@ public class DropDatabaseTest {
         command.process("dropDatabase" + "|" + databaseName);
 
         // then
-        verify(manager).dropDatabase(databaseName);
+        verify(manager).dropDatabase("\"" + databaseName + "\"");
         verify(view).write(String.format("Database  %s deleted successfully", databaseName));
     }
-
 
 
     @Test
@@ -52,7 +51,7 @@ public class DropDatabaseTest {
         command.process("dropDatabase" + "|" + databaseName);
 
         // then
-        verify(manager).dropDatabase(databaseName);
+        verify(manager).dropDatabase("\"" + databaseName + "\"");
     }
 
 
@@ -84,7 +83,7 @@ public class DropDatabaseTest {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsLessThan2",
                     "The number of parameters partitioned by the character '|' is incorrect, " +
-                             "it is expected  2, but is: 1" + newLine +
+                            "it is expected  2, but is: 1" + newLine +
                             "\tTeam format dropDatabase|DatabaseName, and you have entered: disconnect", e.getMessage());
         }
     }
@@ -99,7 +98,7 @@ public class DropDatabaseTest {
             // then
             assertEquals("testValidationErrorWhenCountParametersIsMoreThan2",
                     "The number of parameters partitioned by the character '|' is incorrect, it is expected  2," +
-                            " but is: 3"+ newLine +
+                            " but is: 3" + newLine +
                             "\tTeam format dropDatabase|DatabaseName, and you have entered: disconnect|table|qwe", e.getMessage());
         }
     }
