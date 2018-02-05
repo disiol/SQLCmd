@@ -69,14 +69,19 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public DataSet[] getTableData(String tableName) {
-        Statement stmt = null;
-        try {
-            int size = getSize(tableName);
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
-            ResultSetMetaData rsmd = rs.getMetaData();
-            DataSet[] result = new DataSet[size];
-            int index = 0;
+        int size = getSize(tableName);
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        DataSet[] result = new DataSet[0];
+        int index;
+
+
+        try (Statement stmt = connection.createStatement()) {
+            rs = stmt.executeQuery("SELECT * FROM " + tableName);
+
+            rsmd = rs.getMetaData();
+            result = new DataSet[size];
+            index = 0;
             while (rs.next()) {
                 DataSet dataSet = new DataSet();
                 result[index++] = dataSet;
@@ -84,24 +89,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
                     dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
             }
-            rs.close();
-            return result;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new DataSet[0];
-
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-            }
         }
 
 
+        return result;
     }
 
     @Override
@@ -442,8 +435,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
         }
         return null;
     }
-
-
 
 
     @Override
