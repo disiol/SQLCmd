@@ -10,7 +10,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
     private Connection connection;
     private final static String NEW_LINE = System.lineSeparator();
 
-    //TODO clouse resurses
 
     @Override
     public void connectToDatabase(String databaseName, String userName, String password) {
@@ -90,7 +89,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO собщение об ошибке
         }
 
 
@@ -99,15 +98,18 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public DataSet[] getTableColumn(String tableName, final String columnsName) {
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            int size = getSize(tableName);
-            stmt = connection.createStatement();
+
+        int size = getSize(tableName);
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        DataSet[] result = new DataSet[0];
+        int index;
+        try (Statement stmt = connection.createStatement()) {
             rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + tableName);
-            ResultSetMetaData rsmd = rs.getMetaData();
-            DataSet[] result = new DataSet[size];
-            int index = 0;
+            rsmd = rs.getMetaData();
+            result = new DataSet[size];
+            index = 0;
+
             while (rs.next()) {
                 DataSet dataSet = new DataSet();
                 result[index++] = dataSet;
@@ -115,41 +117,29 @@ public class PostgresDatabaseManager implements DatabaseManager {
                     dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
             }
-
-            return result;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return new DataSet[0];
-
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                    if (rs != null) {
-                        rs.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-            }
+            e.printStackTrace(); //TODO собщение об ошибке
         }
+
+
+        return result;
 
 
     }
 
 
     private int getSize(String tableName) {
-        Statement stmt;
         int size = 0;
-        try {
-            stmt = connection.createStatement();
-            ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
+
+        ResultSet rsCount;
+        try (Statement stmt = connection.createStatement()) {
+            rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
             rsCount.next();
             size = rsCount.getInt(1);
             rsCount.close();
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO собщение об ошибке
         }
 
 
@@ -159,20 +149,17 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public List<String> getTableNames() {
         //TODO добавить выбор нужной схемы
-        try {
-            Statement stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
                     "AND table_type='BASE TABLE'");
             List<String> tables = new LinkedList<>();
             while (rs.next()) {
                 tables.add(rs.getString("table_name"));
             }
-            rs.close();
-            stmt.close();
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return null;   //TODO собщение об ошибке
         }
     }
 
@@ -182,11 +169,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         // берет значения из  DataSet
         // вставлает их в таблицу
 
-        Statement stmt = null;
-
-
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
 
             String columnName = getNameFormatted(input, "%s,");
             String values = getValuesFormatted(input, "'%s',");
@@ -194,18 +177,9 @@ public class PostgresDatabaseManager implements DatabaseManager {
             String sql = "INSERT INTO " + tableName + "(" + columnName + ")" + "VALUES (" + values + ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println("Invalid request");
-            e.printStackTrace();
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-            }
+            e.printStackTrace(); //TODO собщение об ошибке
         }
+
 
     }
 
@@ -214,13 +188,11 @@ public class PostgresDatabaseManager implements DatabaseManager {
     public void updateTableData(final String tableName, int id, DataSet newValue) {
         //TODO добавить выбор схемы и колонки
 
-        PreparedStatement ps = null;
-        try {
-            String tableNames = getNameFormatted(newValue, "%s = ?,");
+        String tableNames = getNameFormatted(newValue, "%s = ?,");
 
-            String sql = "UPDATE public." + tableName + " SET " + tableNames + " WHERE id = ?";
-            ps = connection.prepareStatement(sql);
+        String sql = "UPDATE public." + tableName + " SET " + tableNames + " WHERE id = ?";
 
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             int index = 1;
             for (Object value : newValue.getValues()) {
                 ps.setObject(index, value);
@@ -231,37 +203,18 @@ public class PostgresDatabaseManager implements DatabaseManager {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            e.printStackTrace(); //TODO собщение об ошибке
         }
     }
 
 
     @Override
     public void dropTable(final String tableName) {
-        Statement stmt = null;
-        try {
-            //if(tableName =null)
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement();) {
             stmt.executeUpdate("DROP TABLE " + tableName + " ");
             System.out.println("Table " + tableName + " deleted in given database...");
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            e.printStackTrace(); //TODO собщение об ошибке
         }
 
     }
@@ -289,31 +242,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public void createDatabase(final String databaseName) {
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             String sql = "CREATE DATABASE " + databaseName;
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
-            se.printStackTrace();
-        } catch (Exception e) {
-            connection = null;
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
+            se.printStackTrace();  //TODO собщение об ошибке
         }
 
     }
@@ -333,20 +267,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                    if (rs != null) {
-                        rs.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
         }
         return null;
     }
@@ -354,32 +274,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public void dropDatabase(final String databaseName) {
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
-
+        try (Statement stmt = connection.createStatement()) {
             String sql = "DROP DATABASE " + databaseName;
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
-            se.printStackTrace();
-        } catch (Exception e) {
-            connection = null;
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
+            se.printStackTrace(); //TODO собщение об ошибке
         }
 
     }
@@ -397,7 +297,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt.execute(sql);
             connection = null;
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO собщение об ошибке
         }
 
 
@@ -406,32 +306,16 @@ public class PostgresDatabaseManager implements DatabaseManager {
     @Override
     public List<String> currentDatabase() {
 
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            stmt = connection.createStatement();
-            rs = stmt.executeQuery("SELECT current_database();");
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT current_database();");) {
+
             List<String> databaseName = new LinkedList<>();
             while (rs.next()) {
                 databaseName.add(rs.getString("current_database"));
             }
             return databaseName;
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                    if (rs != null) {
-                        rs.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
+            e.printStackTrace(); //TODO собщение об ошибке
         }
         return null;
     }
@@ -439,47 +323,26 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void giveAccessUserToTheDatabase(String databaseName, String userName) {
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()) {
             String sql = "GRANT ALL ON DATABASE " + databaseName + " TO  " + userName;
             stmt.executeUpdate(sql);
-            System.out.printf("Access user: %s to the database: %s it is allow", userName, databaseName);
         } catch (SQLException se) {
             connection = null;
-            se.printStackTrace();
-        } catch (Exception e) {
-            connection = null;
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
+            se.printStackTrace();  //TODO собщение об ошибке
         }
     }
 
     @Override
     public List<String> getTableColumns(String tableName) {
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public' " +
-                    "AND table_name='" + tableName + "'");
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public' " +
+                     "AND table_name='" + tableName + "'"))
+        {
+
             List<String> tables = new LinkedList<>();
             while (rs.next()) {
                 tables.add(rs.getString("column_name"));
             }
-            rs.close();
-            stmt.close();
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
