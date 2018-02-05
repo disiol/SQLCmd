@@ -41,8 +41,6 @@ public class IntegrationTest {
         in.add("create|" + testTable + "|" + columnsValues);
         in.add("exit");
         Main.main(new String[0]);
-        //   System.err.println(out.toString());
-
 
     }
 
@@ -839,10 +837,9 @@ public class IntegrationTest {
         in.add("disconnect|" + testDatabaseName);
         Main.main(new String[0]);
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("dropDatabase|" + testDatabaseName); //TODO dell
+        in.add("dropDatabase|" + testDatabaseName);
         in.add("exit");
         Main.main(new String[0]);
-        System.err.println(out.toString());
 
 
     }
