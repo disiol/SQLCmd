@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 public class PostgresDatabaseManagerTest {
@@ -127,9 +126,9 @@ public class PostgresDatabaseManagerTest {
 
 
     @Test
-    public void testClearATable() {
+    public void clearATableTest() {
         //given
-        tableName = "company2";
+        tableName = "company3";
         List<String> listOfTablesBefore = POSTGRES_DATABASE_MANAGER.getTableNames();
         listOfTablesBefore.add(tableName);
         Collections.sort(listOfTablesBefore);
@@ -142,7 +141,7 @@ public class PostgresDatabaseManagerTest {
         List<String> actual = POSTGRES_DATABASE_MANAGER.getTableNames();
         Collections.sort(actual);
 
-        assertEquals("сreateTableCompany", expected, actual.toString());
+        assertEquals("clearTableCompany", expected, actual.toString());
 
 
         DataSet input = new DataSet();
@@ -167,6 +166,8 @@ public class PostgresDatabaseManagerTest {
 
         company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
         assertEquals("lengthAfterClear", 0, company.length);
+
+
 
     }
 
@@ -373,19 +374,20 @@ public class PostgresDatabaseManagerTest {
 
     @Test
     public void createTableCompany() {
-        System.setOut(new PrintStream(OUT_CONTENT));
 
-        // создает таблицу и проверает создана ли она
+        // given
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
 
-
+        //wen
         String tableName = "company2";
         POSTGRES_DATABASE_MANAGER.createATable(tableName, columnsValues);
 
-
+        //then
         String expected_1 = "[id, name, password]";
         String actual_1 = POSTGRES_DATABASE_MANAGER.getTableColumns(tableName).toString();
         assertEquals("getTableColumns", expected_1, actual_1);
+
+
 
 
     }
@@ -420,8 +422,6 @@ public class PostgresDatabaseManagerTest {
     }
 
 
-
-
     @Test
     public void currentDatabaseTest() {
 
@@ -435,7 +435,6 @@ public class PostgresDatabaseManagerTest {
     @Test
     public void disconnectOfDatabaseTest() {
         System.setOut(new PrintStream(OUT_CONTENT));
-//TODO  after refactoring exe
         POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(TEST_DATABASE_NAME);
 
         boolean connected = POSTGRES_DATABASE_MANAGER.isConnected();
@@ -445,11 +444,9 @@ public class PostgresDatabaseManagerTest {
     }
 
 
-
     @Test
     public void dropTableCompany() {
         String tableName = "company2";
-        //defore
         //get tables names
         List<String> expectedTables = POSTGRES_DATABASE_MANAGER.getTableNames();
         POSTGRES_DATABASE_MANAGER.createATable(tableName, "");
@@ -477,8 +474,7 @@ public class PostgresDatabaseManagerTest {
         Collections.sort(actual_2);
         assertEquals("dropTableCompany", expected_2, actual_2.toString());
 
-        // создает таблицу и проверает создана ли она
-        // вытаскивает значение данных  и сравнивает
+
     }
 
 
@@ -506,57 +502,13 @@ public class PostgresDatabaseManagerTest {
 
     }
 
-    @Test
-
-    public void GiveAccessTest() {
-        String testDatabaseName = "testDatabase4";
-        String testUser = "den";
-        String testPassword = "testPassword";
-
-        //before
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.createDatabase("\"" + testDatabaseName + "\"");
-
-        //wen
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.createUser(testUser, testPassword);
-
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + testDatabaseName + "\"", testUser);
-
-        try {
-            POSTGRES_DATABASE_MANAGER.connectToDatabase(testDatabaseName, testUser, testPassword);
-        } catch (Exception e) {
-            System.err.println("ExceptionConnect: " + e.getCause().getMessage());
-        } finally {
-            assertTrue("connect", POSTGRES_DATABASE_MANAGER.isConnected());
-
-
-        }
-
-
-        //after
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase("\"" + testDatabaseName + "\"");
-
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + testDatabaseName + "\"", userName);
-
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropUser(testUser);
-
-        connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropDatabase("\"" + testDatabaseName + "\"");
-
-    }
-
     @AfterClass
     public static void dropDatabase() {
         connectToDB();
         POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(TEST_DATABASE_NAME);
         //DropDatabase
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + TEST_DATABASE_NAME + "\"", userName);
+        //   POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + TEST_DATABASE_NAME + "\"", userName);
         connectToDB();
         POSTGRES_DATABASE_MANAGER.dropDatabase("\"" + TEST_DATABASE_NAME + "\"");
 
