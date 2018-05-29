@@ -21,11 +21,11 @@ public class MySQLDatabaseManagerTest {
 
 
     private static final MySQLDatabaseManager MY_SQL_DATABASE_MANAGER = new MySQLDatabaseManager();
-    private static final String databaseName = "postgres";
-    private static final String userName = "postgres";
-    private static final String password = "1111";
+    private static final String databaseName = "mysql";
+    private static final String userName = "root";
+    private static final String password = "1";
 
-    private static final String TEST_TABLE_NAME = "\"testTable\"";
+    private static final String TEST_TABLE_NAME = "testTable";
     private static final String TEST_DATABASE_NAME = "testDatabase2";
 
 
@@ -33,9 +33,9 @@ public class MySQLDatabaseManagerTest {
     public static void setup() {
 
         connectToDB();
-        MY_SQL_DATABASE_MANAGER.createDatabase("\"" + TEST_DATABASE_NAME + "\"");
+        MY_SQL_DATABASE_MANAGER.createDatabase(TEST_DATABASE_NAME );
         connectToDB();
-        MY_SQL_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + TEST_DATABASE_NAME + "\"", userName);
+        MY_SQL_DATABASE_MANAGER.giveAccessUserToTheDatabase( TEST_DATABASE_NAME , userName);
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
         String columnsValues = "id int  NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
         MY_SQL_DATABASE_MANAGER.createATable(TEST_TABLE_NAME, columnsValues);
@@ -510,7 +510,7 @@ public class MySQLDatabaseManagerTest {
         connectToDB();
         //   MY_SQL_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + TEST_DATABASE_NAME + "\"", userName);
         connectToDB();
-        MY_SQL_DATABASE_MANAGER.dropDatabase("\"" + TEST_DATABASE_NAME + "\"");
+        MY_SQL_DATABASE_MANAGER.dropDatabase( TEST_DATABASE_NAME );
 
 
     }

@@ -25,13 +25,13 @@ public class MySQLDatabaseManager implements DatabaseManager {
 
         }
         try {
-            connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/" + databaseName, userName, password);
+            String url = "jdbc:mysql://localhost:3306/";//TODO вынести в поле
+            connection = DriverManager.getConnection(url + databaseName, userName, password);
         } catch (SQLException e) {
             connection = null;
-
+            System.err.println(e);
             throw new RuntimeException(
-                    String.format("Cant get connection for model:%s user:%s", databaseName, userName), e);
+                    String.format("Cant get connection for model:%s user:%s  \n eror:%s  ", databaseName, userName, e.getMessage().toString()), e);
         }
 
     }
@@ -336,8 +336,7 @@ public class MySQLDatabaseManager implements DatabaseManager {
     public List<String> getTableColumns(String tableName) {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public' " +
-                     "AND table_name='" + tableName + "'"))
-        {
+                     "AND table_name='" + tableName + "'")) {
 
             List<String> tables = new LinkedList<>();
             while (rs.next()) {
