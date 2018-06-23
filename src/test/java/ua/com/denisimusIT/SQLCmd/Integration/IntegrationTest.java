@@ -418,7 +418,10 @@ public class IntegrationTest {
                 " it is expected 4, but is: 3" + newLine +
                 "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres|postgres"
                 + newLine +
-                "Repeat attempt." + newLine;
+                "Repeat attempt." + newLine
+                + "enter please command or help command for a help call" + newLine +
+                newLine +
+                "See you soon!\n";
         assertEquals("testConnectExceptionParameters_3", expected, actual);//given
 
     }
@@ -439,7 +442,11 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "connect|" + "_" + "|" + userName + "|" + password + newLine +
                 "Failure! for the reason: Cant get connection for model:_ user:postgres FATAL: database \"_\" does not exist" + newLine +
-                "Repeat attempt." + newLine;
+                "Repeat attempt." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                newLine +
+                "See you soon!"
+                + newLine;
         assertEquals("testConnectExceptiondatabase", expected, actual);//given
 
     }
@@ -461,7 +468,10 @@ public class IntegrationTest {
                 "connect|" + databaseName + "|" + userName + "|" + "_" + newLine +
                 "Failure! for the reason: Cant get connection for model:postgres user:postgres FATAL: " +
                 "password authentication failed for user \"" + userName + "\"" + newLine +
-                "Repeat attempt." + newLine;
+                "Repeat attempt." + newLine
+                + "enter please command or help command for a help call" + newLine
+                + newLine +
+                "See you soon!\n";
         assertEquals("testConnectExceptionPassword", expected, actual);
 
     }
@@ -483,7 +493,10 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + "_" + "|" + password + newLine +
                 "Failure! for the reason: Cant get connection for model:postgres user:_ FATAL: password authentication failed for user \"_\"" + newLine +
-                "Repeat attempt." + newLine;
+                "Repeat attempt." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
         assertEquals("testConnectExceptionPassword", expected, actual);
 
     }
@@ -547,7 +560,15 @@ public class IntegrationTest {
                 " it is expected 4, but is: 3" + newLine +
                 "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres|postgres"
                 + newLine +
-                "Repeat attempt." + newLine;
+                "Repeat attempt." + newLine
+                + "enter please command or help command for a help call" + newLine +
+                "createDatabase|testDatabaseName5" + newLine +
+                "Failure! for the reason: null" + newLine +
+                "Repeat attempt." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!"
+                + newLine;
         assertEquals("ExceptionParameters_3", expected, actual);
 
 
@@ -583,8 +604,14 @@ public class IntegrationTest {
                 "Failure! for the reason: The number of parameters partitioned by the character '|' is incorrect," +
                 " it is expected 4, but is: 2" + newLine +
                 "\tTeam format connect|databaseName|userName|password, and you have entered: connect|postgres" + newLine +
-                "Repeat attempt." + newLine;
-        assertEquals("ExceptionParameters_2", expected, actual);
+                "Repeat attempt." + newLine + "enter please command or help command for a help call" + newLine +
+                "createDatabase|testDatabaseName5" + newLine +
+                "Failure! for the reason: null" + newLine +
+                "Repeat attempt." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("CreateDatabaseExceptionParameters_2", expected, actual);
 
 
         //dell database
@@ -783,7 +810,10 @@ public class IntegrationTest {
                 "enter please command or help command for a help call" + newLine +
                 "clear|sadfasd|fsf|fdsf" + newLine +
                 "Failure! for the reason: Team format clear|tableName, and you have entered: clear|sadfasd|fsf|fdsf" + newLine +
-                "Repeat attempt." + newLine, getData());
+                "Repeat attempt." + newLine
+                + "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine, getData());
     }
 
     @Test
@@ -807,7 +837,11 @@ public class IntegrationTest {
                 "insert|user|error" + newLine +
                 "Failure! for the reason: Shall be even the number of parameters in a format 'insert |tableName| column1 " +
                 "|value1| of column2 |value2|... |columnN| valueN',and you have entered: 'insert|user|error'" + newLine +
-                "Repeat attempt." + newLine, getData());
+                "Repeat attempt." + newLine
+                +"enter please command or help command for a help call"+newLine+
+                "exit"+newLine+
+                "See you soon!"
+                +newLine, getData());
     }
 
 

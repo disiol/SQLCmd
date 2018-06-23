@@ -25,7 +25,7 @@ public class MainController {
                 new ConnectToDatabase(view, manager),
                 new CreateDatabase(view, manager),
                 new GifAccessToDatabase(view, manager),
-                new ListOfDatabasesNames(view,manager),
+                new ListOfDatabasesNames(view, manager),
                 new DropDatabase(view, manager),
                 new IsConnect(view, manager),
                 new ListOfTablesNames(view, manager),
@@ -56,11 +56,12 @@ public class MainController {
 
 
         while (true) {
-            String input = view.read();
-            if (input == null) {
-                new Exit(view).process(input);//nul if close application
-            }
             try {
+                String input = view.read();
+                if (input == null) {
+                    new Exit(view).process(input);//nul if close application
+                }
+
                 for (Command command : commands) {
                     if (command.canProcess(input)) {
                         command.process(input);
@@ -73,7 +74,7 @@ public class MainController {
                 }
                 //e.printStackTrace();
                 printError(e);
-                break;
+
             }
             view.write("enter please command or help command for a help call");
         }
