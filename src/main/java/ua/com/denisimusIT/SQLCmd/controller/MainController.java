@@ -85,10 +85,14 @@ public class MainController {
 
     private void printError(Exception e) {
         String message = e.getMessage();
-//        Throwable cause = e.getCause();
-//        if (cause != null) {
-//            message += " " + cause.getMessage();
-//        }
+        Throwable cause = e.getCause();
+        if (cause != null) {
+            if (message.toString().equals(cause.toString())){
+
+            }else{
+                message += " " + cause.getMessage();
+            }
+        }
         view.write("Failure! for the reason: " + message);
         view.write("Repeat attempt.");
     }
