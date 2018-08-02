@@ -31,7 +31,6 @@ public class DropTable implements Command {
 
         databaseManager.dropTable("\"" + tableName + "\"");
         view.write("Table  " + "\"" + tableName + "\"" + " deleted successfully");
-        //TODO exception Database did not crate
 
 
     }

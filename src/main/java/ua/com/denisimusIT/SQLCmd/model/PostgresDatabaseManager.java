@@ -48,7 +48,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt.executeUpdate("DELETE FROM " + tableName);
         } catch (SQLException e) {
 
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -60,7 +60,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
                     "(" + columnsValues + ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            e.printStackTrace();
         }
 
 
@@ -90,7 +90,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            new RuntimeException(e);
         }
 
 
@@ -119,7 +119,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            new RuntimeException(e);
         }
 
 
@@ -140,7 +140,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             rsCount.close();
 
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            e.printStackTrace();
         }
 
 
@@ -160,7 +160,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             return tables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;   //TODO собщение об ошибке
+            return null;
         }
     }
 
@@ -178,7 +178,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             String sql = "INSERT INTO " + tableName + "(" + columnName + ")" + "VALUES (" + values + ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            new RuntimeException(e);
         }
 
 
@@ -204,7 +204,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            new RuntimeException(e);
         }
     }
 
@@ -248,7 +248,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
-            se.printStackTrace();  //TODO собщение об ошибке
+            se.printStackTrace();
         }
 
     }
@@ -280,7 +280,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
-            se.printStackTrace(); //TODO собщение об ошибке
+            se.printStackTrace();
         }
 
     }
@@ -298,7 +298,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt.execute(sql);
             connection = null;
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            new RuntimeException(e);
+
         }
 
 
@@ -316,7 +317,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
             }
             return databaseName;
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            new RuntimeException(e);
+
         }
         return null;
     }
@@ -329,7 +331,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
-            se.printStackTrace();  //TODO собщение об ошибке
+            new RuntimeException(se);
         }
     }
 

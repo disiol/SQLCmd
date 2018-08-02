@@ -34,7 +34,7 @@ public class ClearTable implements Command {
         }
         String tableName = data[1];
         manager.clearATable("\"" + tableName + "\"");
-        //TODO exehen tabel didon crate
+
         view.write(String.format("The table: \"%s\"  is cleared successfully", data[1]));
 
     }
