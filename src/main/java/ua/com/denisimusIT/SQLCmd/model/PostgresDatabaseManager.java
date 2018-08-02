@@ -47,7 +47,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DELETE FROM " + tableName);
         } catch (SQLException e) {
-            e.printStackTrace();  //TODO собщение таблица не найдена
+
+            e.printStackTrace();
         }
     }
 
@@ -214,7 +215,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt.executeUpdate("DROP TABLE " + tableName + " ");
             System.out.println("Table " + tableName + " deleted in given database...");
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO собщение об ошибке
+            throw new RuntimeException(e);
         }
 
     }
@@ -336,8 +337,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     public List<String> getTableColumns(String tableName) {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public' " +
-                     "AND table_name='" + tableName + "'"))
-        {
+                     "AND table_name='" + tableName + "'")) {
 
             List<String> tables = new LinkedList<>();
             while (rs.next()) {
