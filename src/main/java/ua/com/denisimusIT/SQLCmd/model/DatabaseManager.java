@@ -1,5 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.model;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public interface DatabaseManager {
@@ -25,7 +26,7 @@ public interface DatabaseManager {
     void createDatabase(String databaseName);
 
 
-    List<String> getDatabaseNames();
+    LinkedHashSet<String> getDatabaseNames();
 
 
     void dropDatabase(final String databaseName);

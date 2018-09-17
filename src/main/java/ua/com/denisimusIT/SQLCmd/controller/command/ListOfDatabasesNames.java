@@ -3,6 +3,7 @@ package ua.com.denisimusIT.SQLCmd.controller.command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public class ListOfDatabasesNames implements Command {
@@ -22,7 +23,7 @@ public class ListOfDatabasesNames implements Command {
 
     @Override
     public void process(String command) {
-        List<String> databaseNames = manager.getDatabaseNames();
+        LinkedHashSet<String> databaseNames = manager.getDatabaseNames();
         view.write(String.format("List of databases : %s", databaseNames));
     }
 

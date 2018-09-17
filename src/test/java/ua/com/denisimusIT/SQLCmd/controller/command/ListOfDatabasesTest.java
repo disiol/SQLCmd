@@ -32,7 +32,7 @@ public class ListOfDatabasesTest {
     @Test
     public void ListOfDatabasesTest() {
         //given
-        List<String> listDatabases = new LinkedList<>(Arrays.asList("Databases", "Databases2"));
+        LinkedHashSet<String> listDatabases = new LinkedHashSet<>(Arrays.asList("Databases", "Databases2"));
         when(manager.getDatabaseNames()).thenReturn(listDatabases);
 
         // when

@@ -6,9 +6,7 @@ import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -399,17 +397,16 @@ public class PostgresDatabaseManagerTest {
 
         //before
         String dataBaseName = "testdatabase2";
-        List<String> dataBaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        LinkedHashSet<String> dataBaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         dataBaseNames.add(dataBaseName);
-        Collections.sort(dataBaseNames);
         Object[] expected = dataBaseNames.toArray();
 
 
         //then
         POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
-        List<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
-        Collections.sort(actualDatabaseNames);
+        LinkedHashSet<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
 
@@ -482,17 +479,15 @@ public class PostgresDatabaseManagerTest {
     public void ShowDatabaseTest() {
         String databaseName1 = "test3";
         connectToDB();
-        List<String> databaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        LinkedHashSet<String> databaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         databaseNames.add(databaseName1);
-        Collections.sort(databaseNames);
         connectToDB();
         POSTGRES_DATABASE_MANAGER.createDatabase(databaseName1);
 
 
         connectToDB();
         String expected = databaseNames.toString();
-        List<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
-        Collections.sort(actualDatabaseNames);
+        LinkedHashSet<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
 
 
         assertEquals("getDatabaseNames", expected, actualDatabaseNames.toString());

@@ -2,6 +2,7 @@ package ua.com.denisimusIT.SQLCmd.model;
 
 
 import java.sql.*;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -255,13 +256,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public List<String> getDatabaseNames() {
+    public LinkedHashSet<String> getDatabaseNames() {
         Statement stmt = null;
         ResultSet rs = null;
         try {
             stmt = connection.createStatement();
             rs = stmt.executeQuery("SELECT datname FROM pg_database");
-            List<String> tables = new LinkedList<>();
+            LinkedHashSet<String> tables = new   LinkedHashSet<>();
             while (rs.next()) {
                 tables.add(rs.getString("datname"));
             }
