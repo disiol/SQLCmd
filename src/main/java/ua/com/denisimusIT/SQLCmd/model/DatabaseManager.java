@@ -10,7 +10,7 @@ public interface DatabaseManager {
 
     void createATable(String tableName, String columnsValues);
 
-    DataSet[] getTableData(String tableName);
+    List<DataSet> getTableData(String tableName);
 
     DataSet[] getTableColumn(String tableName, String columnsName);
 

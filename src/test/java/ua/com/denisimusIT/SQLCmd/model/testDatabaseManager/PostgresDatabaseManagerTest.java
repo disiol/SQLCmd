@@ -86,10 +86,10 @@ public class PostgresDatabaseManagerTest {
         POSTGRES_DATABASE_MANAGER.insertData(tableName, input);
 
         // then
-        DataSet[] company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
-        assertEquals("length", 1, company.length);
+        List<DataSet> company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
+        assertEquals("length", 1, company.size());
 
-        DataSet user = company[0];
+        DataSet user = company.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Stiven, pass]", Arrays.toString(user.getValues()));
     }
@@ -113,10 +113,10 @@ public class PostgresDatabaseManagerTest {
         POSTGRES_DATABASE_MANAGER.updateTableData(TEST_TABLE_NAME, 13, newValue);
 
         // then
-        DataSet[] users = POSTGRES_DATABASE_MANAGER.getTableData(TEST_TABLE_NAME);
-        assertEquals(1, users.length);
+        List<DataSet> users = POSTGRES_DATABASE_MANAGER.getTableData(TEST_TABLE_NAME);
+        assertEquals(1, users.size());
 
-        DataSet user = users[0];
+        DataSet user = users.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Pup, pass2]", Arrays.toString(user.getValues()));
 
@@ -149,10 +149,10 @@ public class PostgresDatabaseManagerTest {
         POSTGRES_DATABASE_MANAGER.insertData(tableName, input);
 
         // when
-        DataSet[] company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
-        assertEquals("lengthBeforeClear", 1, company.length);
+        List<DataSet> company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
+        assertEquals("lengthBeforeClear", 1, company.size());
 
-        DataSet user = company[0];
+        DataSet user = company.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Stiven, pass]", Arrays.toString(user.getValues()));
 
@@ -163,7 +163,7 @@ public class PostgresDatabaseManagerTest {
         assertEquals("testClearATableNames", "[id, name, password]", companyColumns.toString());
 
         company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
-        assertEquals("lengthAfterClear", 0, company.length);
+        assertEquals("lengthAfterClear", 0, company.size());
 
 
 

@@ -2,6 +2,7 @@ package ua.com.denisimusIT.SQLCmd.model;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,11 +70,10 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public DataSet[] getTableData(String tableName) {
-        int size = getSize(tableName);
+    public List<DataSet> getTableData(String tableName) {
         ResultSet rs;
         ResultSetMetaData rsmd;
-        DataSet[] result = new DataSet[0];
+       List<DataSet>  result = new ArrayList<>();
         int index;
 
 
@@ -81,11 +81,9 @@ public class PostgresDatabaseManager implements DatabaseManager {
             rs = stmt.executeQuery("SELECT * FROM " + tableName);
 
             rsmd = rs.getMetaData();
-            result = new DataSet[size];
-            index = 0;
             while (rs.next()) {
                 DataSet dataSet = new DataSet();
-                result[index++] = dataSet;
+                result.add(dataSet);
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }

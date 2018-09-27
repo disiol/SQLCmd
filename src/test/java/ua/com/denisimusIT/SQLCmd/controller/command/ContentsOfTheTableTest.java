@@ -50,7 +50,7 @@ public class ContentsOfTheTableTest {
 
         DataSet[] data = new DataSet[]{user1, user2};
         when(manager.getTableData("\"" + tableName + "\""))
-                .thenReturn(data);
+                .thenReturn(Arrays.asList(data));
 
         // when
         command.process("find|" + tableName);
@@ -143,7 +143,7 @@ public class ContentsOfTheTableTest {
         when(manager.getTableColumns(tableName))
                 .thenReturn(Arrays.asList(new String[]{"id", "name", "password"}));
 
-        when(manager.getTableData("\"" + tableName + "\"")).thenReturn(new DataSet[0]);
+        when(manager.getTableData("\"" + tableName + "\"")).thenReturn(Arrays.asList(new DataSet[0]));
 
         // when
         command.process("find|" + tableName);
@@ -169,7 +169,7 @@ public class ContentsOfTheTableTest {
         user2.put("id", 13);
 
         DataSet[] data = new DataSet[]{user1, user2};
-        when(manager.getTableData("\"" + test + "\"")).thenReturn(data);
+        when(manager.getTableData("\"" + test + "\"")).thenReturn(Arrays.asList(data));
 
         // when
         command.process("find|" + test);

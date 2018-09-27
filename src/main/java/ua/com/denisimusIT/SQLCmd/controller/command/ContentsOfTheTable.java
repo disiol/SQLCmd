@@ -4,6 +4,7 @@ import ua.com.denisimusIT.SQLCmd.model.DataSet;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContentsOfTheTable implements Command {
@@ -40,7 +41,7 @@ public class ContentsOfTheTable implements Command {
         List<String> tableColumns = manager.getTableColumns(tableName);
         printHeader(tableColumns);
 
-        DataSet[] tableData = manager.getTableData("\"" + tableName + "\"");
+        List<DataSet> tableData = manager.getTableData("\"" + tableName + "\"");
         printTable(tableData);
 
     }
@@ -72,7 +73,7 @@ public class ContentsOfTheTable implements Command {
 
     }
 
-    private void printTable(DataSet[] data) {
+    private void printTable(List<DataSet> data) {
 
         for (DataSet rows : data) {
             printRow(rows);
