@@ -5,6 +5,7 @@ import ua.com.denisimusIT.SQLCmd.view.View;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ListOfDatabasesNames implements Command {
     private final View view;
@@ -23,7 +24,7 @@ public class ListOfDatabasesNames implements Command {
 
     @Override
     public void process(String command) {
-        LinkedHashSet<String> databaseNames = manager.getDatabaseNames();
+        Set<String> databaseNames = manager.getDatabaseNames();
         view.write(String.format("List of databases : %s", databaseNames));
     }
 
@@ -36,7 +37,6 @@ public class ListOfDatabasesNames implements Command {
     public String format() {
         return "databases";
     }
-
 
 
 }
