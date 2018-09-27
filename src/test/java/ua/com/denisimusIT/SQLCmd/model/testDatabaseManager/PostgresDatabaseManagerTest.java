@@ -155,7 +155,6 @@ public class PostgresDatabaseManagerTest {
         assertEquals("lengthAfterClear", 0, company.size());
 
 
-
     }
 
 
@@ -375,8 +374,6 @@ public class PostgresDatabaseManagerTest {
         assertEquals("getTableColumns", expected_1, actual_1);
 
 
-
-
     }
 
 
@@ -386,7 +383,7 @@ public class PostgresDatabaseManagerTest {
 
         //before
         String dataBaseName = "testdatabase2";
-        LinkedHashSet<String> dataBaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        Set<String> dataBaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         dataBaseNames.add(dataBaseName);
         Object[] expected = dataBaseNames.toArray();
 
@@ -394,7 +391,7 @@ public class PostgresDatabaseManagerTest {
         //then
         POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
-        LinkedHashSet<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        Set<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
 
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
@@ -434,11 +431,11 @@ public class PostgresDatabaseManagerTest {
     public void dropTableCompany() {
         String tableName = "company2";
         //get tables names
-        LinkedHashSet<String> expectedTables = POSTGRES_DATABASE_MANAGER.getTableNames();
+        Set<String> expectedTables = POSTGRES_DATABASE_MANAGER.getTableNames();
         POSTGRES_DATABASE_MANAGER.createATable(tableName, "");
         expectedTables.add(tableName);
 
-        LinkedHashSet<String> actual = POSTGRES_DATABASE_MANAGER.getTableNames();
+        Set<String> actual = POSTGRES_DATABASE_MANAGER.getTableNames();
 
         assertEquals("сreateTableCompany", expectedTables.toString(), actual.toString());
 
@@ -454,7 +451,7 @@ public class PostgresDatabaseManagerTest {
         expectedTables.remove(tableName);
 
         String expected_2 = expectedTables.toString();
-        LinkedHashSet<String> actual_2 = POSTGRES_DATABASE_MANAGER.getTableNames();
+        Set<String> actual_2 = POSTGRES_DATABASE_MANAGER.getTableNames();
         assertEquals("dropTableCompany", expected_2, actual_2.toString());
 
 
@@ -465,15 +462,16 @@ public class PostgresDatabaseManagerTest {
     public void ShowDatabaseTest() {
         String databaseName1 = "test3";
         connectToDB();
-        LinkedHashSet<String> databaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        Set<String> databaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         databaseNames.add(databaseName1);
+
         connectToDB();
         POSTGRES_DATABASE_MANAGER.createDatabase(databaseName1);
 
 
         connectToDB();
         String expected = databaseNames.toString();
-        LinkedHashSet<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        Set<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
 
 
         assertEquals("getDatabaseNames", expected, actualDatabaseNames.toString());
