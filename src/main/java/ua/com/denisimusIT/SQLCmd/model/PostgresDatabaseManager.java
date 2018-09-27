@@ -2,10 +2,7 @@ package ua.com.denisimusIT.SQLCmd.model;
 
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class PostgresDatabaseManager implements DatabaseManager {
 
@@ -73,7 +70,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
     public List<DataSet> getTableData(String tableName) {
         ResultSet rs;
         ResultSetMetaData rsmd;
-        List<DataSet> result = new ArrayList<>();
+
+//  yse for big data
+//        int size = getSize(tableName);
+//        List<DataSet> result = new ArrayList<>(size);
+//
+
+        List<DataSet> result = new LinkedList<>();
 
 
         try (Statement stmt = connection.createStatement()) {
@@ -88,7 +91,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
         return result;
     }
-
 
 
     @Override
@@ -117,8 +119,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
         while (rs.next()) {
             DataSet dataSet = new DataSet();
             result.add(dataSet);
-            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
+            for (int i = 0; i < rsmd.getColumnCount(); i++) {
+                dataSet.put(rsmd.getColumnName(i + 1), rs.getObject(i + 1));
             }
         }
     }
@@ -143,12 +145,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public LinkedHashSet<String> getTableNames() {
+    public Set<String> getTableNames() {
         //TODO добавить выбор нужной схемы
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
                     "AND table_type='BASE TABLE'");
-            LinkedHashSet<String> tables = new LinkedHashSet<>();
+            Set<String> tables = new LinkedHashSet<>();
             while (rs.next()) {
                 tables.add(rs.getString("table_name"));
             }
@@ -250,13 +252,13 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public LinkedHashSet<String> getDatabaseNames() {
+    public Set<String> getDatabaseNames() {
         Statement stmt = null;
         ResultSet rs = null;
         try {
             stmt = connection.createStatement();
             rs = stmt.executeQuery("SELECT datname FROM pg_database");
-            LinkedHashSet<String> tables = new LinkedHashSet<>();
+            Set<String> tables = new LinkedHashSet<>();
             while (rs.next()) {
                 tables.add(rs.getString("datname"));
             }
