@@ -73,8 +73,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     public List<DataSet> getTableData(String tableName) {
         ResultSet rs;
         ResultSetMetaData rsmd;
-       List<DataSet>  result = new ArrayList<>();
-        int index;
+        List<DataSet> result = new ArrayList<>();
 
 
         try (Statement stmt = connection.createStatement()) {
@@ -97,22 +96,18 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public DataSet[] getTableColumn(String tableName, final String columnsName) {
+    public List<DataSet> getTableColumn(String tableName, final String columnsName) {
 
-        int size = getSize(tableName);
         ResultSet rs;
         ResultSetMetaData rsmd;
-        DataSet[] result = new DataSet[0];
-        int index;
+        ArrayList<DataSet> result = new ArrayList<>();
         try (Statement stmt = connection.createStatement()) {
             rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + tableName);
             rsmd = rs.getMetaData();
-            result = new DataSet[size];
-            index = 0;
 
             while (rs.next()) {
                 DataSet dataSet = new DataSet();
-                result[index++] = dataSet;
+                result.add(dataSet);
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
@@ -260,7 +255,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try {
             stmt = connection.createStatement();
             rs = stmt.executeQuery("SELECT datname FROM pg_database");
-            LinkedHashSet<String> tables = new   LinkedHashSet<>();
+            LinkedHashSet<String> tables = new LinkedHashSet<>();
             while (rs.next()) {
                 tables.add(rs.getString("datname"));
             }

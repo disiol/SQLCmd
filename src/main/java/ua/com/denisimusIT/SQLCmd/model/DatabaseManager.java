@@ -12,7 +12,7 @@ public interface DatabaseManager {
 
     List<DataSet> getTableData(String tableName);
 
-    DataSet[] getTableColumn(String tableName, String columnsName);
+    List<DataSet> getTableColumn(String tableName, String columnsName);
 
     List<String> getTableNames();
 
