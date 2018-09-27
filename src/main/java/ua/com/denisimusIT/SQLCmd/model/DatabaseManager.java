@@ -14,7 +14,7 @@ public interface DatabaseManager {
 
     List<DataSet> getTableColumn(String tableName, String columnsName);
 
-    List<String> getTableNames();
+    LinkedHashSet<String> getTableNames();
 
     void insertData(String tableName, DataSet input);
 

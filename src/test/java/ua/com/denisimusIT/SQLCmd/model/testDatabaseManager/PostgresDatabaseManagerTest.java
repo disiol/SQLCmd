@@ -127,20 +127,9 @@ public class PostgresDatabaseManagerTest {
     public void clearATableTest() {
         //given
         tableName = "company3";
-        List<String> listOfTablesBefore = POSTGRES_DATABASE_MANAGER.getTableNames();
-        listOfTablesBefore.add(tableName);
-        Collections.sort(listOfTablesBefore);
-
 
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
-
         POSTGRES_DATABASE_MANAGER.createATable(tableName, columnsValues);
-        String expected = listOfTablesBefore.toString();
-        List<String> actual = POSTGRES_DATABASE_MANAGER.getTableNames();
-        Collections.sort(actual);
-
-        assertEquals("clearTableCompany", expected, actual.toString());
-
 
         DataSet input = new DataSet();
         input.put("id", 13);
@@ -445,13 +434,11 @@ public class PostgresDatabaseManagerTest {
     public void dropTableCompany() {
         String tableName = "company2";
         //get tables names
-        List<String> expectedTables = POSTGRES_DATABASE_MANAGER.getTableNames();
+        LinkedHashSet<String> expectedTables = POSTGRES_DATABASE_MANAGER.getTableNames();
         POSTGRES_DATABASE_MANAGER.createATable(tableName, "");
         expectedTables.add(tableName);
-        Collections.sort(expectedTables);
 
-        List<String> actual = POSTGRES_DATABASE_MANAGER.getTableNames();
-        Collections.sort(actual);
+        LinkedHashSet<String> actual = POSTGRES_DATABASE_MANAGER.getTableNames();
 
         assertEquals("сreateTableCompany", expectedTables.toString(), actual.toString());
 
@@ -467,8 +454,7 @@ public class PostgresDatabaseManagerTest {
         expectedTables.remove(tableName);
 
         String expected_2 = expectedTables.toString();
-        List<String> actual_2 = POSTGRES_DATABASE_MANAGER.getTableNames();
-        Collections.sort(actual_2);
+        LinkedHashSet<String> actual_2 = POSTGRES_DATABASE_MANAGER.getTableNames();
         assertEquals("dropTableCompany", expected_2, actual_2.toString());
 
 

@@ -143,12 +143,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public List<String> getTableNames() {
+    public LinkedHashSet<String> getTableNames() {
         //TODO добавить выбор нужной схемы
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' " +
                     "AND table_type='BASE TABLE'");
-            List<String> tables = new LinkedList<>();
+            LinkedHashSet<String> tables = new LinkedHashSet<>();
             while (rs.next()) {
                 tables.add(rs.getString("table_name"));
             }
