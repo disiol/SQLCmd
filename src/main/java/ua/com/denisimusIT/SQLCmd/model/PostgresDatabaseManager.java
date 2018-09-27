@@ -80,13 +80,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             rs = stmt.executeQuery("SELECT * FROM " + tableName);
 
             rsmd = rs.getMetaData();
-            while (rs.next()) {
-                DataSet dataSet = new DataSet();
-                result.add(dataSet);
-                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
-                }
-            }
+            getColumnName(rs, rsmd, result);
         } catch (SQLException e) {
             new RuntimeException(e);
         }
@@ -94,6 +88,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
         return result;
     }
+
+
 
     @Override
     public List<DataSet> getTableColumn(String tableName, final String columnsName) {
@@ -104,14 +100,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
         try (Statement stmt = connection.createStatement()) {
             rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + tableName);
             rsmd = rs.getMetaData();
+            getColumnName(rs, rsmd, result);
 
-            while (rs.next()) {
-                DataSet dataSet = new DataSet();
-                result.add(dataSet);
-                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                    dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
-                }
-            }
         } catch (SQLException e) {
             new RuntimeException(e);
         }
@@ -120,6 +110,17 @@ public class PostgresDatabaseManager implements DatabaseManager {
         return result;
 
 
+    }
+
+
+    private void getColumnName(ResultSet rs, ResultSetMetaData rsmd, List<DataSet> result) throws SQLException {
+        while (rs.next()) {
+            DataSet dataSet = new DataSet();
+            result.add(dataSet);
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
+            }
+        }
     }
 
 
