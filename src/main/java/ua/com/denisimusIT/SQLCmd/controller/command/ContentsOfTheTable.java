@@ -82,7 +82,7 @@ public class ContentsOfTheTable implements Command {
 
     private void printRow(DataSetImpl data) {
         String result = beginSymbol;
-        Object[] names = data.getValues();
+        List<Object> names = data.getValues();
 
         for (Object name : names) {
             result += name + " + ";

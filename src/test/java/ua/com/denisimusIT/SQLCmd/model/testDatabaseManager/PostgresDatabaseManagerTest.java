@@ -90,8 +90,8 @@ public class PostgresDatabaseManagerTest {
         assertEquals("length", 1, company.size());
 
         DataSetImpl user = company.get(0);
-        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, Stiven, pass]", Arrays.toString(user.getValues()));
+        assertEquals("[id, name, password]", user.getNames().toString());
+        assertEquals("[13, Stiven, pass]", user.getValues().toString());
     }
 
     @Test
@@ -117,8 +117,8 @@ public class PostgresDatabaseManagerTest {
         assertEquals(1, users.size());
 
         DataSetImpl user = users.get(0);
-        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, Pup, pass2]", Arrays.toString(user.getValues()));
+        assertEquals("[id, name, password]", user.getNames().toString());
+        assertEquals("[13, Pup, pass2]", user.getValues().toString());
 
     }
 
@@ -142,8 +142,8 @@ public class PostgresDatabaseManagerTest {
         assertEquals("lengthBeforeClear", 1, company.size());
 
         DataSetImpl user = company.get(0);
-        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, Stiven, pass]", Arrays.toString(user.getValues()));
+        assertEquals("[id, name, password]", user.getNames().toString());
+        assertEquals("[13, Stiven, pass]", user.getValues().toString());
 
         // then
         POSTGRES_DATABASE_MANAGER.clearATable(tableName);
@@ -248,34 +248,34 @@ public class PostgresDatabaseManagerTest {
 
 
         DataSetImpl user = users.get(0);
-        assertEquals("[id]", Arrays.toString(user.getNames()));
-        assertEquals("[13]", Arrays.toString(user.getValues()));
+        assertEquals("[id]", user.getNames().toString());
+        assertEquals("[13]", user.getValues().toString());
 
 
         dataGetId = "name";
         users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users.get(0);
-        assertEquals("[name]", Arrays.toString(user.getNames()));
-        assertEquals("[Stiven]", Arrays.toString(user.getValues()));
+        assertEquals("[name]", user.getNames().toString());
+        assertEquals("[Stiven]", user.getValues().toString());
 
 
         dataGetId = "password";
         users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users.get(0);
-        assertEquals("[password]", Arrays.toString(user.getNames()));
-        assertEquals("[pass]", Arrays.toString(user.getValues()));
+        assertEquals("[password]", user.getNames().toString());
+        assertEquals("[pass]", user.getValues().toString());
 
         dataGetId = "id,password";
         users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users.get(0);
-        assertEquals("[id, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, pass]", Arrays.toString(user.getValues()));
+        assertEquals("[id, password]", user.getNames().toString());
+        assertEquals("[13, pass]", user.getValues().toString());
 
         dataGetId = "name,id,password";
         users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users.get(0);
-        assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
-        assertEquals("[Stiven, 13, pass]", Arrays.toString(user.getValues()));
+        assertEquals("[name, id, password]", user.getNames().toString());
+        assertEquals("[Stiven, 13, pass]", user.getValues().toString());
 
 
     }
@@ -305,55 +305,55 @@ public class PostgresDatabaseManagerTest {
 
 
         DataSetImpl user = users.get(0);
-        assertEquals("[id]", Arrays.toString(user.getNames()));
-        assertEquals("[13]", Arrays.toString(user.getValues()));
+        assertEquals("[id]", user.getNames().toString());
+        assertEquals("[13]", user.getValues().toString());
 
         user = users.get(1);
-        assertEquals("[id]", Arrays.toString(user.getNames()));
-        assertEquals("[14]", Arrays.toString(user.getValues()));
+        assertEquals("[id]", user.getNames().toString());
+        assertEquals("[14]", user.getValues().toString());
 
 
         dataGetId = "name";
         users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users.get(0);
-        assertEquals("[name]", Arrays.toString(user.getNames()));
-        assertEquals("[Stiven]", Arrays.toString(user.getValues()));
+        assertEquals("[name]", user.getNames().toString());
+        assertEquals("[Stiven]", user.getValues().toString());
 
         user = users.get(1);
-        assertEquals("[name]", Arrays.toString(user.getNames()));
-        assertEquals("[Stiven2]", Arrays.toString(user.getValues()));
+        assertEquals("[name]", user.getNames().toString());
+        assertEquals("[Stiven2]", user.getValues().toString());
 
 
         dataGetId = "password";
         users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users.get(0);
-        assertEquals("[password]", Arrays.toString(user.getNames()));
-        assertEquals("[pass]", Arrays.toString(user.getValues()));
+        assertEquals("[password]", user.getNames().toString());
+        assertEquals("[pass]", user.getValues().toString());
 
         user = users.get(1);
-        assertEquals("[password]", Arrays.toString(user.getNames()));
-        assertEquals("[pass2]", Arrays.toString(user.getValues()));
+        assertEquals("[password]", user.getNames().toString());
+        assertEquals("[pass2]", user.getValues().toString());
 
         dataGetId = "id,password";
         users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
         user = users.get(0);
-        assertEquals("[id, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, pass]", Arrays.toString(user.getValues()));
+        assertEquals("[id, password]", user.getNames().toString());
+        assertEquals("[13, pass]", user.getValues().toString());
 
         user = users.get(1);
-        assertEquals("[id, password]", Arrays.toString(user.getNames()));
-        assertEquals("[14, pass2]", Arrays.toString(user.getValues()));
+        assertEquals("[id, password]", user.getNames().toString());
+        assertEquals("[14, pass2]", user.getValues().toString());
 
         dataGetId = "name,id,password";
         users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
 
         user = users.get(0);
-        assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
-        assertEquals("[Stiven, 13, pass]", Arrays.toString(user.getValues()));
+        assertEquals("[name, id, password]", user.getNames().toString());
+        assertEquals("[Stiven, 13, pass]", user.getValues().toString());
 
         user = users.get(1);
-        assertEquals("[name, id, password]", Arrays.toString(user.getNames()));
-        assertEquals("[Stiven2, 14, pass2]", Arrays.toString(user.getValues()));
+        assertEquals("[name, id, password]", user.getNames().toString());
+        assertEquals("[Stiven2, 14, pass2]", user.getValues().toString());
 
 
     }

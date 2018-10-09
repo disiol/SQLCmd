@@ -1,9 +1,11 @@
 package ua.com.denisimusIT.SQLCmd.model;
 
+import java.util.List;
+
 public interface DataSet {
     void put(String name, Object value);
 
-    Object[] getValues();
+    List<Object> getValues();
 
-    String[] getNames();
+    List<Object> getNames();
 }

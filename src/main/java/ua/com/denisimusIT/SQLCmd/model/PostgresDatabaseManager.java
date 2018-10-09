@@ -229,7 +229,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     private String getNameFormatted(DataSetImpl newValue, String format) {
         String string = "";
-        for (String name : newValue.getNames()) {
+        for (Object name : newValue.getNames()) {
             string += String.format(format, name);
         }
         string = string.substring(0, string.length() - 1);
