@@ -67,16 +67,16 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public List<DataSet> getTableData(String tableName) {
+    public List<DataSetImpl> getTableData(String tableName) {
         ResultSet rs;
         ResultSetMetaData rsmd;
 
 //  yse for big data
 //        int size = getSize(tableName);
-//        List<DataSet> result = new ArrayList<>(size);
+//        List<DataSetImpl> result = new ArrayList<>(size);
 //
 
-        List<DataSet> result = new LinkedList<>();
+        List<DataSetImpl> result = new LinkedList<>();
 
 
         try (Statement stmt = connection.createStatement()) {
@@ -94,11 +94,11 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public List<DataSet> getTableColumn(String tableName, final String columnsName) {
+    public List<DataSetImpl> getTableColumn(String tableName, final String columnsName) {
 
         ResultSet rs;
         ResultSetMetaData rsmd;
-        ArrayList<DataSet> result = new ArrayList<>();
+        ArrayList<DataSetImpl> result = new ArrayList<>();
         try (Statement stmt = connection.createStatement()) {
             rs = stmt.executeQuery("SELECT " + columnsName + " FROM " + tableName);
             rsmd = rs.getMetaData();
@@ -115,12 +115,12 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
 
-    private void getColumnName(ResultSet rs, ResultSetMetaData rsmd, List<DataSet> result) throws SQLException {
+    private void getColumnName(ResultSet rs, ResultSetMetaData rsmd, List<DataSetImpl> result) throws SQLException {
         while (rs.next()) {
-            DataSet dataSet = new DataSet();
-            result.add(dataSet);
+            DataSetImpl dataSetImpl = new DataSetImpl();
+            result.add(dataSetImpl);
             for (int i = 0; i < rsmd.getColumnCount(); i++) {
-                dataSet.put(rsmd.getColumnName(i + 1), rs.getObject(i + 1));
+                dataSetImpl.put(rsmd.getColumnName(i + 1), rs.getObject(i + 1));
             }
         }
     }
@@ -163,8 +163,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public void insertData(String tableName, DataSet input) {
-        // берет значения из  DataSet
+    public void insertData(String tableName, DataSetImpl input) {
+        // берет значения из  DataSetImpl
         // вставлает их в таблицу
 
         try (Statement stmt = connection.createStatement()) {
@@ -183,7 +183,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
 
     @Override
-    public void updateTableData(final String tableName, int id, DataSet newValue) {
+    public void updateTableData(final String tableName, int id, DataSetImpl newValue) {
         //TODO добавить выбор схемы и колонки
 
         String tableNames = getNameFormatted(newValue, "%s = ?,");
@@ -218,7 +218,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     }
 
 
-    private String getValuesFormatted(DataSet input, String format) {
+    private String getValuesFormatted(DataSetImpl input, String format) {
         String values = "";
         for (Object value : input.getValues()) {
             values += String.format(format, value);
@@ -227,7 +227,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         return values;
     }
 
-    private String getNameFormatted(DataSet newValue, String format) {
+    private String getNameFormatted(DataSetImpl newValue, String format) {
         String string = "";
         for (String name : newValue.getNames()) {
             string += String.format(format, name);

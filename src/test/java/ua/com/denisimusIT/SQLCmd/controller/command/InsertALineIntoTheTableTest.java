@@ -2,7 +2,7 @@ package ua.com.denisimusIT.SQLCmd.controller.command;
 
 import org.junit.Before;
 import org.junit.Test;
-import ua.com.denisimusIT.SQLCmd.model.DataSet;
+import ua.com.denisimusIT.SQLCmd.model.DataSetImpl;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -28,7 +28,7 @@ public class InsertALineIntoTheTableTest {
         // when
         String tableName = "User";
 
-        DataSet user1 = new DataSet();
+        DataSetImpl user1 = new DataSetImpl();
         user1.put("id", 12);
         user1.put("name", "Stiven");
         user1.put("password", "*****");
@@ -44,7 +44,7 @@ public class InsertALineIntoTheTableTest {
 
         String tableName = "User";
 
-        DataSet user1 = new DataSet();
+        DataSetImpl user1 = new DataSetImpl();
         user1.put("id", "12");
         user1.put("name", "Stiven");
         user1.put("password", "*****");

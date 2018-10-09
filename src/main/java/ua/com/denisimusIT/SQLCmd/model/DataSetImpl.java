@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Created by indigo on 21.08.2015.
  */
-public class DataSet implements DataSetInterface {
+public class DataSetImpl implements DataSetInterface {
 
     static class Data {
         private String name;
@@ -93,8 +93,8 @@ public class DataSet implements DataSetInterface {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DataSet dataSet = (DataSet) o;
-        return Objects.equals(data, dataSet.data);
+        DataSetImpl dataSetImpl = (DataSetImpl) o;
+        return Objects.equals(data, dataSetImpl.data);
     }
 
     @Override

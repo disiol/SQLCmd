@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import ua.com.denisimusIT.SQLCmd.model.DataSet;
+import ua.com.denisimusIT.SQLCmd.model.DataSetImpl;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -31,17 +31,17 @@ public class InsertALineIntoTheTable implements Command {
 
         String tableName = data[1];
 
-        DataSet dataSet = new DataSet();
+        DataSetImpl dataSetImpl = new DataSetImpl();
         for (int index = 1; index < (data.length / 2); index++) {
             String columnName = data[index * 2];
             String value = data[index * 2 + 1];
 
-            dataSet.put(columnName, value);
+            dataSetImpl.put(columnName, value);
         }
-        manager.insertData("\"" + tableName + "\"", dataSet);
+        manager.insertData("\"" + tableName + "\"", dataSetImpl);
         //TODO exption table didon crate
 
-        view.write(String.format("The record %s was successfully created in the table: %s", dataSet, tableName));
+        view.write(String.format("The record %s was successfully created in the table: %s", dataSetImpl, tableName));
     }
 
     @Override

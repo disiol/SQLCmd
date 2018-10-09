@@ -1,7 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import org.junit.*;
-import ua.com.denisimusIT.SQLCmd.model.DataSet;
+import ua.com.denisimusIT.SQLCmd.model.DataSetImpl;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
 import java.io.ByteArrayOutputStream;
@@ -79,17 +79,17 @@ public class PostgresDatabaseManagerTest {
         assertEquals("сreateTableCompany", expected, Arrays.toString(actual));
 
 
-        DataSet input = new DataSet();
+        DataSetImpl input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
         POSTGRES_DATABASE_MANAGER.insertData(tableName, input);
 
         // then
-        List<DataSet> company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
+        List<DataSetImpl> company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
         assertEquals("length", 1, company.size());
 
-        DataSet user = company.get(0);
+        DataSetImpl user = company.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Stiven, pass]", Arrays.toString(user.getValues()));
     }
@@ -100,23 +100,23 @@ public class PostgresDatabaseManagerTest {
         POSTGRES_DATABASE_MANAGER.clearATable(TEST_TABLE_NAME);
 
 
-        DataSet input = new DataSet();
+        DataSetImpl input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
         POSTGRES_DATABASE_MANAGER.insertData(TEST_TABLE_NAME, input);
 
         // when
-        DataSet newValue = new DataSet();
+        DataSetImpl newValue = new DataSetImpl();
         newValue.put("password", "pass2");
         newValue.put("name", "Pup");
         POSTGRES_DATABASE_MANAGER.updateTableData(TEST_TABLE_NAME, 13, newValue);
 
         // then
-        List<DataSet> users = POSTGRES_DATABASE_MANAGER.getTableData(TEST_TABLE_NAME);
+        List<DataSetImpl> users = POSTGRES_DATABASE_MANAGER.getTableData(TEST_TABLE_NAME);
         assertEquals(1, users.size());
 
-        DataSet user = users.get(0);
+        DataSetImpl user = users.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Pup, pass2]", Arrays.toString(user.getValues()));
 
@@ -131,17 +131,17 @@ public class PostgresDatabaseManagerTest {
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL,PASSWORD  TEXT  NOT NULL";
         POSTGRES_DATABASE_MANAGER.createATable(tableName, columnsValues);
 
-        DataSet input = new DataSet();
+        DataSetImpl input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
         POSTGRES_DATABASE_MANAGER.insertData(tableName, input);
 
         // when
-        List<DataSet> company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
+        List<DataSetImpl> company = POSTGRES_DATABASE_MANAGER.getTableData(tableName);
         assertEquals("lengthBeforeClear", 1, company.size());
 
-        DataSet user = company.get(0);
+        DataSetImpl user = company.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Stiven, pass]", Arrays.toString(user.getValues()));
 
@@ -235,7 +235,7 @@ public class PostgresDatabaseManagerTest {
 
         // given
         POSTGRES_DATABASE_MANAGER.clearATable(TEST_TABLE_NAME);
-        DataSet input = new DataSet();
+        DataSetImpl input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
@@ -244,10 +244,10 @@ public class PostgresDatabaseManagerTest {
         // then
         //принимает данные для выдачи
         String dataGetId = "id";
-        List<DataSet> users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
+        List<DataSetImpl> users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
 
 
-        DataSet user = users.get(0);
+        DataSetImpl user = users.get(0);
         assertEquals("[id]", Arrays.toString(user.getNames()));
         assertEquals("[13]", Arrays.toString(user.getValues()));
 
@@ -286,13 +286,13 @@ public class PostgresDatabaseManagerTest {
 
         POSTGRES_DATABASE_MANAGER.clearATable(TEST_TABLE_NAME);
         // given
-        DataSet input = new DataSet();
+        DataSetImpl input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven");
         input.put("password", "pass");
         POSTGRES_DATABASE_MANAGER.insertData(TEST_TABLE_NAME, input);
 
-        DataSet input2 = new DataSet();
+        DataSetImpl input2 = new DataSetImpl();
         input2.put("id", 14);
         input2.put("name", "Stiven2");
         input2.put("password", "pass2");
@@ -301,10 +301,10 @@ public class PostgresDatabaseManagerTest {
         // then
         //принимает данные для выдачи
         String dataGetId = "id";
-        List<DataSet> users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
+        List<DataSetImpl> users = POSTGRES_DATABASE_MANAGER.getTableColumn(TEST_TABLE_NAME, dataGetId);
 
 
-        DataSet user = users.get(0);
+        DataSetImpl user = users.get(0);
         assertEquals("[id]", Arrays.toString(user.getNames()));
         assertEquals("[13]", Arrays.toString(user.getValues()));
 

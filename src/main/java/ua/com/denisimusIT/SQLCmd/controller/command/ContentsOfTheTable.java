@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.controller.command;
 
-import ua.com.denisimusIT.SQLCmd.model.DataSet;
+import ua.com.denisimusIT.SQLCmd.model.DataSetImpl;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -40,7 +40,7 @@ public class ContentsOfTheTable implements Command {
         List<String> tableColumns = manager.getTableColumns(tableName);
         printHeader(tableColumns);
 
-        List<DataSet> tableData = manager.getTableData("\"" + tableName + "\"");
+        List<DataSetImpl> tableData = manager.getTableData("\"" + tableName + "\"");
         printTable(tableData);
 
     }
@@ -72,15 +72,15 @@ public class ContentsOfTheTable implements Command {
 
     }
 
-    private void printTable(List<DataSet> data) {
+    private void printTable(List<DataSetImpl> data) {
 
-        for (DataSet rows : data) {
+        for (DataSetImpl rows : data) {
             printRow(rows);
         }
 
     }
 
-    private void printRow(DataSet data) {
+    private void printRow(DataSetImpl data) {
         String result = beginSymbol;
         Object[] names = data.getValues();
 

@@ -10,15 +10,15 @@ public interface DatabaseManager {
 
     void createATable(String tableName, String columnsValues);
 
-    List<DataSet> getTableData(String tableName);
+    List<DataSetImpl> getTableData(String tableName);
 
-    List<DataSet> getTableColumn(String tableName, String columnsName);
+    List<DataSetImpl> getTableColumn(String tableName, String columnsName);
 
     Set<String> getTableNames();
 
-    void insertData(String tableName, DataSet input);
+    void insertData(String tableName, DataSetImpl input);
 
-    void updateTableData(String tableName, int id, DataSet newValue);
+    void updateTableData(String tableName, int id, DataSetImpl newValue);
 
     void dropTable(String tableName);
 

@@ -3,7 +3,7 @@ package ua.com.denisimusIT.SQLCmd.controller.command;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import ua.com.denisimusIT.SQLCmd.model.DataSet;
+import ua.com.denisimusIT.SQLCmd.model.DataSetImpl;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
@@ -38,17 +38,17 @@ public class ContentsOfTheTableTest {
         when(manager.getTableColumns(tableName))
                 .thenReturn(Arrays.asList(new String[]{"id", "name", "password"}));
 
-        DataSet user1 = new DataSet();
+        DataSetImpl user1 = new DataSetImpl();
         user1.put("id", 12);
         user1.put("name", "Stiven");
         user1.put("password", "*****");
 
-        DataSet user2 = new DataSet();
+        DataSetImpl user2 = new DataSetImpl();
         user2.put("id", 13);
         user2.put("name", "Eva");
         user2.put("password", "+++++");
 
-        DataSet[] data = new DataSet[]{user1, user2};
+        DataSetImpl[] data = new DataSetImpl[]{user1, user2};
         when(manager.getTableData("\"" + tableName + "\""))
                 .thenReturn(Arrays.asList(data));
 
@@ -143,7 +143,7 @@ public class ContentsOfTheTableTest {
         when(manager.getTableColumns(tableName))
                 .thenReturn(Arrays.asList(new String[]{"id", "name", "password"}));
 
-        when(manager.getTableData("\"" + tableName + "\"")).thenReturn(Arrays.asList(new DataSet[0]));
+        when(manager.getTableData("\"" + tableName + "\"")).thenReturn(Arrays.asList(new DataSetImpl[0]));
 
         // when
         command.process("find|" + tableName);
@@ -162,13 +162,13 @@ public class ContentsOfTheTableTest {
         when(manager.getTableColumns(test))
                 .thenReturn(Arrays.asList(new String[]{"id"}));
 
-        DataSet user1 = new DataSet();
+        DataSetImpl user1 = new DataSetImpl();
         user1.put("id", 12);
 
-        DataSet user2 = new DataSet();
+        DataSetImpl user2 = new DataSetImpl();
         user2.put("id", 13);
 
-        DataSet[] data = new DataSet[]{user1, user2};
+        DataSetImpl[] data = new DataSetImpl[]{user1, user2};
         when(manager.getTableData("\"" + test + "\"")).thenReturn(Arrays.asList(data));
 
         // when
