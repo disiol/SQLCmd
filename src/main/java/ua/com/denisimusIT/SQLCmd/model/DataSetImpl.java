@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Created by indigo on 21.08.2015.
  */
-public class DataSetImpl implements DataSetInterface {
+public class DataSetImpl implements DataSet {
 
     static class Data {
         private String name;

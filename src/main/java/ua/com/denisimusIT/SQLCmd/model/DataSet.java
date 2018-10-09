@@ -1,6 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.model;
 
-public interface DataSetInterface {
+public interface DataSet {
     void put(String name, Object value);
 
     Object[] getValues();
