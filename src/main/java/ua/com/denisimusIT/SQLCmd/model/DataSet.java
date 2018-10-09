@@ -1,5 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.model;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Objects;
 /**
  * Created by indigo on 21.08.2015.
  */
-public class DataSet {
+public class DataSet implements DataSetInterface {
 
     static class Data {
         private String name;
@@ -46,8 +47,9 @@ public class DataSet {
         }
     }
 
-    public ArrayList<Data> data = new ArrayList<>();
+    public List<Data> data = new ArrayList<>();
 
+    @Override
     public void put(String name, Object value) {
         for (Data aData : data) {
             if (aData.getName().equals(name)) {
@@ -59,6 +61,7 @@ public class DataSet {
         data.add(new Data(name, value));
     }
 
+    @Override
     public Object[] getValues() {
         Object[] result = new Object[data.size()];
         for (int i = 0; i < data.size(); i++) {
@@ -68,6 +71,7 @@ public class DataSet {
     }
 
 
+    @Override
     public String[] getNames() {
         String[] result = new String[data.size()];
         for (int i = 0; i < data.size(); i++) {
