@@ -393,7 +393,7 @@ public class PostgresDatabaseManagerTest {
         Set<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
 
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
-        assertEquals("getDatabaseNames", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
+        assertEquals("createDatabaseTest", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
 
 
         //after
