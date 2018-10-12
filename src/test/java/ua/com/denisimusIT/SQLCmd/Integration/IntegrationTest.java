@@ -803,8 +803,6 @@ public class IntegrationTest {
                 "See you soon!" + newLine;
         assertEquals("dropDatabase", expected, actual);
 
-        //TODO получить список баз данных
-        // TODO удалитьбазу данных
     }
 
     @Test
