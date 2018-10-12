@@ -297,7 +297,6 @@ public class IntegrationTest {
 
 
     @Test
-
     public void testConnect() {
 
         //given
@@ -313,6 +312,28 @@ public class IntegrationTest {
                 "or help command for a help call" + newLine +
                 "connect|" + databaseName + "|" + userName + "|" + password + newLine +
                 "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("testConnect", expected, actual);
+    }
+
+    @Test
+    public void testConnectRongPasword() {
+
+        //given
+        in.add("connect|" + databaseName + "|" + userName + "|" + "passwor");
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: connect|databaseName|userName|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + "passwor" + newLine +
+                "Failure! for the reason: Cant get connection for model:postgres user:postgres FATAL: password authentication failed for user \"postgres\"" + newLine +
+                "Repeat attempt." + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
@@ -421,7 +442,7 @@ public class IntegrationTest {
                 "Repeat attempt." + newLine
                 + "enter please command or help command for a help call" + newLine +
                 newLine +
-                "See you soon!\n";
+                "See you soon!" + newLine;
         assertEquals("testConnectExceptionParameters_3", expected, actual);//given
 
     }
@@ -471,7 +492,7 @@ public class IntegrationTest {
                 "Repeat attempt." + newLine
                 + "enter please command or help command for a help call" + newLine
                 + newLine +
-                "See you soon!\n";
+                "See you soon!" + newLine;
         assertEquals("testConnectExceptionPassword", expected, actual);
 
     }
@@ -838,10 +859,10 @@ public class IntegrationTest {
                 "Failure! for the reason: Shall be even the number of parameters in a format 'insert |tableName| column1 " +
                 "|value1| of column2 |value2|... |columnN| valueN',and you have entered: 'insert|user|error'" + newLine +
                 "Repeat attempt." + newLine
-                +"enter please command or help command for a help call"+newLine+
-                "exit"+newLine+
+                + "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
                 "See you soon!"
-                +newLine, getData());
+                + newLine, getData());
     }
 
 
