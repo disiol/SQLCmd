@@ -717,6 +717,55 @@ public class IntegrationTest {
 
     }
 
+    @Ignore("Надо обрроботать сытвацыю что таблица уже есть")
+    @Test
+    public void createTableError() throws IOException {
+
+        //TODO take  list of tables before test nad add  testTable2 nam to the list
+        //given
+        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
+
+        String testTable2 = "testTable2";
+
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("create|" + testTable2 + "|" + columnsValues);
+        in.add("create|" + testTable2 + "|" + columnsValues);
+        in.add("tables");
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+
+//TODO создать список таблиц
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a " +
+                "format: connect|databaseName|userName|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|postgres|postgres|1111" + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "create|" + testTable2 + "|" + columnsValues + newLine +
+                "The table: testTable2 is created successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "tables" + newLine +
+                "List of tablesNames: " + newLine +
+                "[testTable2]" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("createTableError", expected, actual);
+
+        //dell table
+        in.reset();
+        out.reset();
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("dropTable|" + testTable2);
+        Main.main(new String[0]);
+
+
+    }
+
 
     @Test
 
@@ -784,9 +833,6 @@ public class IntegrationTest {
                 "exit" + newLine +
                 "See you soon!" + newLine;
         assertEquals("disconnectOfDatabase", expected, actual);
-
-        //TODO получить список баз данных
-        // TODO удалитьбазу данных
     }
 
     @Test
@@ -871,7 +917,7 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         // then
-        assertEquals("testInsertWithErrors", "Welcome to SQLCmd! =)" + newLine +
+        String expected = "Welcome to SQLCmd! =)" + newLine +
                 "For connect to database to database , enter please a database name, user name and the password in " +
                 "a format: connect|databaseName|userName|password" + newLine +
                 "or help command for a help call" + newLine +
@@ -884,8 +930,10 @@ public class IntegrationTest {
                 "Repeat attempt." + newLine
                 + "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
-                "See you soon!"
-                + newLine, getData());
+                "See you soon!";
+        String actual = getData();
+        assertEquals("testInsertWithErrors", expected
+                + newLine, actual);
     }
 
 

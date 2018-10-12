@@ -1,6 +1,7 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import org.junit.*;
+import org.postgresql.util.PSQLException;
 import ua.com.denisimusIT.SQLCmd.model.DataSetImpl;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
@@ -394,6 +395,37 @@ public class PostgresDatabaseManagerTest {
 
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         assertEquals("createDatabaseTest", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
+
+
+        //after
+        connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
+        POSTGRES_DATABASE_MANAGER.dropDatabase(dataBaseName);
+
+
+    }
+
+    @org.junit.Test(expected = PSQLException.class)
+
+    public void create_Database_Database_Already_Exist_Test() {
+        String actual = " ";
+//TODO
+        //before
+        String dataBaseName = "testdatabase2";
+        POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
+
+
+        //then
+        try {
+            POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
+        } catch (Exception e) {
+            actual = String.valueOf(e);
+        }
+
+
+        String expected = "";
+
+
+        assertEquals("create_Database_Database_Already_Exist_Test", expected, actual);
 
 
         //after

@@ -245,8 +245,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
-            throw new RuntimeException(
-                    String.format("Cant create database: %s", databaseName), se);
+            se.printStackTrace();
         }
     }
 
