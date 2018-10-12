@@ -404,25 +404,37 @@ public class PostgresDatabaseManagerTest {
 
     }
 
-    @org.junit.Test(expected = PSQLException.class)
+    @Test
 
     public void create_Database_Database_Already_Exist_Test() {
-        String actual = " ";
+        String actual = null;
+        String dataBaseName = null;
+
 //TODO
-        //before
-        String dataBaseName = "testdatabase2";
-        POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
-
-
-        //then
         try {
+            //before
+            dataBaseName = "testdatabase2";
             POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
-        } catch (Exception e) {
-            actual = String.valueOf(e);
+
+
+            //then
+
+            POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
+        } catch (RuntimeException e) {
+            actual = e.getMessage();
+            Throwable cause = e.getCause();
+            if (cause != null) {
+                if (actual.toString().equals(cause.toString())) {
+
+                } else {
+                    actual += " " + cause.getMessage();
+                }
+            }
+
         }
 
 
-        String expected = "";
+        String expected = "Cant create database: " + dataBaseName + " ERROR: database \"" + dataBaseName + "\" already exists";
 
 
         assertEquals("create_Database_Database_Already_Exist_Test", expected, actual);

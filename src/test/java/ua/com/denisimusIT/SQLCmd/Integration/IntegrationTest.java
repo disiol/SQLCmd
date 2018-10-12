@@ -573,13 +573,62 @@ public class IntegrationTest {
         assertEquals("createDatabase", expected, actual);
 
 
+        dellDatabase(testDatabaseName5);
+
+
+    }
+
+    @Test
+    public void createDatabaseErrorOrledyEist() throws IOException {
+        //given
+        //TODO exehen database didtn crate, database already exists
+
+        String testDatabaseName5 = "testDatabaseName5";
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        dellDatabase(testDatabaseName5);
+
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("createDatabase|" + testDatabaseName5);
+        in.add("createDatabase|" + testDatabaseName5);
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in " +
+                "a format: connect|databaseName|userName|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "createDatabase|" + testDatabaseName5 + newLine +
+                "The database: " + testDatabaseName5 + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "createDatabase|testDatabaseName5" + newLine +
+                "Failure! for the reason: Cant create database: \"testDatabaseName5\" ERROR: database \"testDatabaseName5\" already exists" + newLine +
+                "Repeat attempt." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("createDatabaseErrorOrledyEist", expected, actual);
+
+
         //dell database
+        dellDatabase(testDatabaseName5);
+
+    }
+
+    private void dellDatabase(String testDatabaseName5) throws IOException {
         in.reset();
         out.reset();
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("dropDatabase|" + testDatabaseName5);
         in.add("exit");
         Main.main(new String[0]);
+        in.reset();
+        out.reset();
 
     }
 

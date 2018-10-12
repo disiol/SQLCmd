@@ -18,7 +18,7 @@ public class CreateDatabase implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("createDatabase" +"|");
+        return command.startsWith("createDatabase" + "|");
     }
 
     @Override
@@ -26,15 +26,13 @@ public class CreateDatabase implements Command {
 
         String[] data = command.split("\\|");
         if (data.length != count()) {
-            throw new IllegalArgumentException(String.format("Team format %s, and you have entered: %s",
-                                                    format().toString(), command.toString()));
+            throw new IllegalArgumentException(String.format("Team format %s, and you have entered: %s", format().toString(), command.toString()));
         }
         String databaseName = data[1];
 
 
-        manager.createDatabase("\"" + databaseName + "\"" );
-        //TODO exehen database didtn crate, database already exists
-        view.write("The database: " + databaseName  + " successfully");
+        manager.createDatabase("\"" + databaseName + "\"");
+        view.write("The database: " + databaseName + " successfully");
 
 
     }
