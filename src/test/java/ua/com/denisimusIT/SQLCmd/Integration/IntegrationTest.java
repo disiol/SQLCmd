@@ -337,7 +337,30 @@ public class IntegrationTest {
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
-        assertEquals("testConnect", expected, actual);
+        assertEquals("testConnectRongPasword", expected, actual);
+    }
+
+    @Test
+    public void testConnectDatabaseRongDatabaseName() {
+        //given
+        in.add("connect|" + "databaseNam" + "|" + userName + "|" + password);
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: " +
+                "connect|databaseName|userName|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + "databaseNam" + "|" + userName + "|" + password + newLine +
+                "Failure! for the reason: Cant get connection for model:databaseNam user:postgres FATAL: " +
+                "database \"databaseNam\" does not exist" + newLine +
+                "Repeat attempt." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("testConnectDatabaseRongDatabaseName", expected, actual);
     }
 
 
