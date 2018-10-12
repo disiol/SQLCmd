@@ -379,7 +379,6 @@ public class PostgresDatabaseManagerTest {
 
     @Test
     public void createDatabaseTest() {
-        System.setOut(new PrintStream(OUT_CONTENT));
 
         //before
         String dataBaseName = "testdatabase2";
