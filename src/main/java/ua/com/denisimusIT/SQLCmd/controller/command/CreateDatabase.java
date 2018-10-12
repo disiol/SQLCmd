@@ -33,7 +33,7 @@ public class CreateDatabase implements Command {
 
 
         manager.createDatabase("\"" + databaseName + "\"" );
-        //TODO exehen database didtn crate
+        //TODO exehen database didtn crate, database already exists
         view.write("The database: " + databaseName  + " successfully");
 
 
