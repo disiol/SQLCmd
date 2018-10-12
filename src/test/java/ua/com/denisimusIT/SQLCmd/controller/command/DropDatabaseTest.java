@@ -14,7 +14,6 @@ import static org.mockito.Mockito.verify;
  * Created by indigo on 01.09.2015.
  */
 public class DropDatabaseTest {
-    //TODO
     private DatabaseManager manager;
     private View view;
     private Command command;

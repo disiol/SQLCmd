@@ -50,7 +50,7 @@ public class PostgresDatabaseManagerTest {
     }
 
     public static void connectToTestDatabase(String testDatabaseName, String userName, String password) {
-        POSTGRES_DATABASE_MANAGER.connectToDatabase(testDatabaseName, userName, password); //TODO
+        POSTGRES_DATABASE_MANAGER.connectToDatabase(testDatabaseName, userName, password);
     }
 
 

@@ -50,7 +50,7 @@ public class InsertALineIntoTheTableTest {
         user1.put("password", "*****");
         command.process("insert|" + tableName + "|id|12|name|Stiven|password|*****");
         // then
-        verify(manager).insertData("\"" + tableName + "\"", user1);  //TODO
+        verify(manager).insertData("\"" + tableName + "\"", user1);
 
     }
 

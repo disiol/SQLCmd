@@ -62,7 +62,6 @@ public class ExitTest {
 
     @Test
     public void formatTest() {
-        //TODO
         view.write(command.format());
         verify(view).write("exit");
     }
