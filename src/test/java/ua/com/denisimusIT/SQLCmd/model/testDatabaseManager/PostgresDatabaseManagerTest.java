@@ -383,13 +383,15 @@ public class PostgresDatabaseManagerTest {
 
         //before
         String dataBaseName = "testdatabase2";
+        tryDropDB(dataBaseName);
+        connectToDB();
         Set<String> dataBaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         dataBaseNames.add(dataBaseName);
         Object[] expected = dataBaseNames.toArray();
 
 
         //then
-        POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
+        tryCrateDB(dataBaseName);
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
         Set<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
 
@@ -399,7 +401,7 @@ public class PostgresDatabaseManagerTest {
 
         //after
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
-        POSTGRES_DATABASE_MANAGER.dropDatabase(dataBaseName);
+        tryDropDB(dataBaseName);
 
 
     }
@@ -509,8 +511,7 @@ public class PostgresDatabaseManagerTest {
         databaseNames.add(databaseName1);
 
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.createDatabase(databaseName1);
-
+        tryCrateDB(databaseName1);
 
         connectToDB();
         String expected = databaseNames.toString();
@@ -520,8 +521,72 @@ public class PostgresDatabaseManagerTest {
         assertEquals("getDatabaseNames", expected, actualDatabaseNames.toString());
 
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName1);
+        tryDropDB(databaseName1);
 
+    }
+
+    @Test
+    public void changeDatabaseTest() {
+        String databaseName1 = "test3";
+        //before
+        tryCrateDB(databaseName1);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(databaseName1, userName);
+
+        //then
+
+        connectToTestDatabase(databaseName1, userName, password);
+
+        String expected = "[test3]";
+
+        List<String> actual = POSTGRES_DATABASE_MANAGER.currentDatabase();
+        assertEquals("changeDatabaseTest", expected, actual.toString());
+
+        //after
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(databaseName1, userName);
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(databaseName1);
+        tryDropDB(databaseName1);
+
+    }
+
+    private void tryCrateDB(String databaseName) {
+        boolean haveBase = false;
+        try {
+            connectToTestDatabase(databaseName, userName, password);
+            haveBase = true;
+        } catch (Exception e) {
+//нет подключения
+            haveBase = false;
+        }
+        if (!haveBase) {
+            connectToDB();
+            POSTGRES_DATABASE_MANAGER.createDatabase(databaseName);
+        }
+    }
+
+    private void tryDropDB(String databaseName) {
+        boolean haveBase = false;
+        try {
+            POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(databaseName, userName);
+            connectToTestDatabase(databaseName, userName, password);
+            haveBase = true;
+        } catch (Exception e) {
+//нет подключения
+            haveBase = false;
+        }
+        if (!haveBase) {
+            connectToDB();
+            try {
+                POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(databaseName, userName);
+                if(POSTGRES_DATABASE_MANAGER.isConnected()) {
+                    POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(databaseName);
+                }
+                POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName);
+            } catch (Exception e) {
+
+            }
+        }
     }
 
     @AfterClass
