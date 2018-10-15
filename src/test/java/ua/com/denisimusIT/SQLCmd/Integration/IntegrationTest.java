@@ -289,7 +289,7 @@ public class IntegrationTest {
                 newLine +
                 "\tdisconnect|databaseName" + newLine +
                 "\t\tDisconnect of database" + newLine + newLine +
-                "\tСurrentDatabaseName" + newLine +
+                "\tCurrentDatabaseName" + newLine +
                 "\t\tshows current database name" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
@@ -439,7 +439,7 @@ public class IntegrationTest {
                 "\tdisconnect|databaseName" + newLine +
                 "\t\tDisconnect of database" + newLine +
                 newLine +
-                "\tСurrentDatabaseName" + newLine +
+                "\tCurrentDatabaseName" + newLine +
                 "\t\tshows current database name" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
