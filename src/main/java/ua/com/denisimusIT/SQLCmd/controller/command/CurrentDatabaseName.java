@@ -3,11 +3,11 @@ package ua.com.denisimusIT.SQLCmd.controller.command;
 import ua.com.denisimusIT.SQLCmd.model.DatabaseManager;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
-public class СurrentDatabaseName implements Command {
+public class CurrentDatabaseName implements Command {
     private View view;
     private DatabaseManager manager;
 
-    public СurrentDatabaseName(View view, DatabaseManager manager) {
+    public CurrentDatabaseName(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
     }
@@ -32,7 +32,7 @@ public class СurrentDatabaseName implements Command {
 
     @Override
     public String format() {
-        return "СurrentDatabaseName";
+        return "CurrentDatabaseName";
     }
     //TODO
     //current_database

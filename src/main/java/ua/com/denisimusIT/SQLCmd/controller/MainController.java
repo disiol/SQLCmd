@@ -36,7 +36,7 @@ public class MainController {
                 new DropTable(view, manager),
                 new DisconnectOfDatabase(view, manager),
                 new UnsupportedCommand(view),
-                new СurrentDatabaseName(view,manager)
+                new CurrentDatabaseName(view,manager)
         };
         help.setCommands(commands);
     }
