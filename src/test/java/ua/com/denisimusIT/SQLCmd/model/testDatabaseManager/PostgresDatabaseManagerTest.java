@@ -1,7 +1,6 @@
 package ua.com.denisimusIT.SQLCmd.model.testDatabaseManager;
 
 import org.junit.*;
-import org.postgresql.util.PSQLException;
 import ua.com.denisimusIT.SQLCmd.model.DataSetImpl;
 import ua.com.denisimusIT.SQLCmd.model.PostgresDatabaseManager;
 
@@ -388,6 +387,7 @@ public class PostgresDatabaseManagerTest {
         Set<String> dataBaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         dataBaseNames.add(dataBaseName);
         Object[] expected = dataBaseNames.toArray();
+        //Arrays.sort(expected);
 
 
         //then
@@ -396,11 +396,12 @@ public class PostgresDatabaseManagerTest {
         Set<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
 
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
-        assertEquals("createDatabaseTest", Arrays.toString(expected), Arrays.toString(actualDatabaseNamesSorted));
+        String actual = Arrays.toString(actualDatabaseNamesSorted);
+        assertEquals("createDatabaseTest", Arrays.toString(expected), actual);
 
 
         //after
-        connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
+        connectToDB();
         tryDropDB(dataBaseName);
 
 
@@ -519,6 +520,29 @@ public class PostgresDatabaseManagerTest {
 
 
         assertEquals("getDatabaseNames", expected, actualDatabaseNames.toString());
+
+        connectToDB();
+        tryDropDB(databaseName1);
+
+    }
+
+
+    @Test
+    public void DropDatabaseTest() {
+        String databaseName1 = "test3";
+        //Before
+        connectToDB();
+        tryCrateDB(databaseName1);
+
+        connectToDB();
+        Set<String> expected = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        expected.remove(databaseName1);
+        //then
+        POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName1);
+
+
+        Set<String> actual = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        assertEquals("DropDatabaseTest", expected, actual);
 
         connectToDB();
         tryDropDB(databaseName1);
