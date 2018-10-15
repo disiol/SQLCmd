@@ -537,7 +537,10 @@ public class PostgresDatabaseManagerTest {
         connectToDB();
         Set<String> expected = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         expected.remove(databaseName1);
+
         //then
+        POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(databaseName1);
+        connectToDB();
         POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName1);
 
 
