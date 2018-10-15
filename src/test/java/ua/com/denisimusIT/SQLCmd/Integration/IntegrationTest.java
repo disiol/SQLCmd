@@ -585,8 +585,6 @@ public class IntegrationTest {
     @Test
     public void createDatabaseErrorOrledyEist() throws IOException {
         //given
-        //TODO exehen database didtn crate, database already exists
-
         String testDatabaseName5 = "testDatabaseName5";
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         dellDatabase(testDatabaseName5);
@@ -851,6 +849,49 @@ public class IntegrationTest {
                 "enter please command or help command for a help call" + newLine +
                 "dropDatabase|" + testDatabaseName4 + newLine +
                 "Database  " + testDatabaseName4 + " deleted successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!" + newLine;
+        assertEquals("dropDatabase", expected, actual);
+
+    }
+
+    @Test
+
+    public void DropDatabase_Test_Exephen_Database_does_not_exist() {
+        //given
+        String testDatabaseName4 = "testDatabaseName4";
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("createDatabase|" + testDatabaseName4);
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("dropDatabase|" + testDatabaseName4);
+        in.add("dropDatabase|" + testDatabaseName4);
+        in.add("exit");
+        //then
+        Main.main(new String[0]);
+
+
+        //wen
+        String actual = getData();
+        String expected = "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the" +
+                " password in a format: connect|databaseName|userName|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "createDatabase|" + testDatabaseName4 + newLine +
+                "The database: " + testDatabaseName4 + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "connect|" + databaseName + "|" + userName + "|" + password + newLine +
+                "Opened database: " + "\"" + databaseName + "\"" + " successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "dropDatabase|" + testDatabaseName4 + newLine +
+                "Database  " + testDatabaseName4 + " deleted successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "dropDatabase|testDatabaseName4" + newLine +
+                "Failure! for the reason: Cant not drop database :\"testDatabaseName4\" ERROR: database \"testDatabaseName4\" does not exist" + newLine +
+                "Repeat attempt." + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
