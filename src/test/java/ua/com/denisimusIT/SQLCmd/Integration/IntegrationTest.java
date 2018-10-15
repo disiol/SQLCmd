@@ -289,10 +289,12 @@ public class IntegrationTest {
                 newLine +
                 "\tdisconnect|databaseName" + newLine +
                 "\t\tDisconnect of database" + newLine + newLine +
+                "\tСurrentDatabaseName" + newLine +
+                "\t\tshows current database name" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
-        assertEquals("testHelpBeforeConnect", expected, actual);
+        assertEquals("testHelpBeforeConnect", expected, actual); //TODO
     }
 
 
@@ -437,10 +439,12 @@ public class IntegrationTest {
                 "\tdisconnect|databaseName" + newLine +
                 "\t\tDisconnect of database" + newLine +
                 newLine +
+                "\tСurrentDatabaseName" + newLine +
+                "\t\tshows current database name" + newLine + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
                 "See you soon!" + newLine;
-        assertEquals("testHelpBeforeConnect", expected, actual);
+        assertEquals("testHelpBeforeConnect", expected, actual); //todo
     }
 
 
