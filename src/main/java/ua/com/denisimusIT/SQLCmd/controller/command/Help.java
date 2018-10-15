@@ -2,7 +2,6 @@ package ua.com.denisimusIT.SQLCmd.controller.command;
 // Команда выводит в консоль список всех доступных команд•Формат: Help (без параметров)
 //•Формат вывода: текст, описания команд с любым форматированием
 
-import ua.com.denisimusIT.SQLCmd.controller.MainController;
 import ua.com.denisimusIT.SQLCmd.view.View;
 
 public class Help implements Command {

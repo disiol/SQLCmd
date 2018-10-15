@@ -40,7 +40,6 @@ public class ConnectToDatabase implements Command {
 
 
         manager.connectToDatabase(databaseName, userName, password);
-        //TODO exception  connect
         view.write("Opened database: " + "\"" + databaseName + "\"" + " successfully");
 
 
