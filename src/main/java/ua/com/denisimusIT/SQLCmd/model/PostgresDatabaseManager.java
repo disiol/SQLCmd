@@ -206,7 +206,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
     @Override
     public void dropTable(final String tableName) {
-        try (Statement stmt = connection.createStatement();) {
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DROP TABLE " + tableName + " ");
             System.out.println("Table " + tableName + " deleted in given database...");
         } catch (SQLException e) {
@@ -304,7 +304,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
     public List<String> currentDatabase() {
 
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT current_database();");) {
+             ResultSet rs = stmt.executeQuery("SELECT current_database();")) {
 
             List<String> databaseName = new LinkedList<>();
             while (rs.next()) {
