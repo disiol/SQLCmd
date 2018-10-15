@@ -544,8 +544,6 @@ public class PostgresDatabaseManagerTest {
         Set<String> actual = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
         assertEquals("DropDatabaseTest", expected, actual);
 
-        connectToDB();
-        tryDropDB(databaseName1);
 
     }
 
