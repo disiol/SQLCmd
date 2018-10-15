@@ -70,12 +70,11 @@ public class PostgresDatabaseManager implements DatabaseManager {
         ResultSet rs;
         ResultSetMetaData rsmd;
 
-//  yse for big data
-//        int size = getSize(tableName);
-//        List<DataSetImpl> result = new ArrayList<>(size);
-//
+        int size = getSize(tableName);
+        List<DataSetImpl> result = new ArrayList<>(size);
 
-        List<DataSetImpl> result = new LinkedList<>();
+
+       // List <DataSetImpl> result = new LinkedList<>();
 
 
         try (Statement stmt = connection.createStatement()) {

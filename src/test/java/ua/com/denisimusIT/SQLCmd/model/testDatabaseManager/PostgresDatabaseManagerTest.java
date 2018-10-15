@@ -32,7 +32,7 @@ public class PostgresDatabaseManagerTest {
     public static void setup() {
 
         connectToDB();
-        POSTGRES_DATABASE_MANAGER.createDatabase("\"" + TEST_DATABASE_NAME + "\"");
+        tryCrateDB("\"" + TEST_DATABASE_NAME + "\"");
         connectToDB();
         POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase("\"" + TEST_DATABASE_NAME + "\"", userName);
         connectToTestDatabase(TEST_DATABASE_NAME, userName, password);
@@ -550,7 +550,7 @@ public class PostgresDatabaseManagerTest {
 
     }
 
-    private void tryCrateDB(String databaseName) {
+    private static void tryCrateDB(String databaseName) {
         boolean haveBase = false;
         try {
             connectToTestDatabase(databaseName, userName, password);
@@ -561,7 +561,11 @@ public class PostgresDatabaseManagerTest {
         }
         if (!haveBase) {
             connectToDB();
-            POSTGRES_DATABASE_MANAGER.createDatabase(databaseName);
+            try {
+                POSTGRES_DATABASE_MANAGER.createDatabase(databaseName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -575,17 +579,16 @@ public class PostgresDatabaseManagerTest {
 //нет подключения
             haveBase = false;
         }
-        if (!haveBase) {
+        if (haveBase) {
             connectToDB();
-            try {
-                POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(databaseName, userName);
-                if(POSTGRES_DATABASE_MANAGER.isConnected()) {
-                    POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(databaseName);
-                }
-                POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName);
-            } catch (Exception e) {
 
+            POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(databaseName, userName);
+            if (POSTGRES_DATABASE_MANAGER.isConnected()) {
+                POSTGRES_DATABASE_MANAGER.disconnectOfDatabase(databaseName);
             }
+            connectToDB();
+            POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName);
+
         }
     }
 
