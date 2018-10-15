@@ -3,9 +3,6 @@ package ua.com.denisimusIT.SQLCmd.model;
 
 import java.util.*;
 
-/**
- * Created by indigo on 21.08.2015.
- */
 public class DataSetImpl implements DataSet {
 
 
@@ -21,7 +18,6 @@ public class DataSetImpl implements DataSet {
         return new ArrayList<Object>(data.values());
     }
 
-    //TODO
     @Override
     public List<Object> getNames() {
         List<Object> result = new ArrayList<>();
