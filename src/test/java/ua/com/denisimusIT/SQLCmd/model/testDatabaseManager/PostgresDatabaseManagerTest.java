@@ -548,6 +548,40 @@ public class PostgresDatabaseManagerTest {
     }
 
     @Test
+    public void DropDatabase_Test_Exephen_Database_does_not_exist() {
+        String databaseName1 = "test3";
+        String actual = null;
+        String expected;
+        //Before
+        expected = "Cant not drop database :test3 ERROR: database \"test3\" does not exist";
+        connectToDB();
+        tryCrateDB(databaseName1);
+        connectToDB();
+        POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName1);
+
+        //then
+        try {
+            POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName1);
+        } catch (Exception e) {
+
+            actual = e.getMessage();
+            Throwable cause = e.getCause();
+            if (cause != null) {
+                if (actual.toString().equals(cause.toString())) {
+
+                } else {
+                    actual += " " + cause.getMessage();
+                }
+            }
+        }
+
+
+        assertEquals("database " + databaseName1 + " does not exist", expected, actual);
+
+
+    }
+
+    @Test
     public void changeDatabaseTest() {
         String databaseName1 = "test3";
         //before
