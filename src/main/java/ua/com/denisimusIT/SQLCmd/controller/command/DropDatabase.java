@@ -24,6 +24,7 @@ public class DropDatabase implements Command {
 
     @Override
     public void process(String command) {
+        // TODO а если юзер случайно ввел команду? Может переспросить его?
         String[] data = command.split("\\|");
         if (data.length != count()) {
             throw new IllegalArgumentException(String.format("The number of parameters partitioned by the character '|' " +
