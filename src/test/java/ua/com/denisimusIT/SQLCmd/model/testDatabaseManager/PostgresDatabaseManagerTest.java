@@ -69,23 +69,35 @@ public class PostgresDatabaseManagerTest {
     public void TestGetTableColumns_exehen_table_didon_crate() {
 
         String tableNameTestColumns = "testtable2";
-        String expected = "[id, name, password]";
-        String actual = null;
-        //before
-        connectToDB();
-        //TODO
-        POSTGRES_DATABASE_MANAGER.dropTable(tableNameTestColumns);
 
-        try {
-            connectToDB();
-            POSTGRES_DATABASE_MANAGER.getTableColumns(tableNameTestColumns).toString();
-        } catch (Exception e) {
-            actual = getMessageError(e);
-        }
+
+        //before
+        connectToTestDatabaseBefore();
+        tryDropTable(tableNameTestColumns);
+
+        //TODO
+
 
         //then
+        String actual = null;
+        String expected = "[]";
 
-        assertEquals("TestGetTableColumns_exehen_table_didon_crate", expected, actual);
+        connectToTestDatabaseBefore();
+        actual = POSTGRES_DATABASE_MANAGER.getTableColumns(tableNameTestColumns).toString();
+        assertEquals("TestGetTableColumns_exehen_table_didon_crate" + expected, expected, actual);
+
+
+        String actual2 = null;
+        String expected2 = "Cant get contents of the table: " + tableNameTestColumns + " ERROR: relation \"" + tableNameTestColumns + "\" does not exist" +
+                NEW_LINE + "  Position: 22";
+        try {
+            connectToTestDatabaseBefore();
+            POSTGRES_DATABASE_MANAGER.getTableData(tableNameTestColumns);
+        } catch (Exception e) {
+            actual2 = getMessageError(e);
+        }
+
+        assertEquals("TestGetTableColumns_exehen_table_didon_crate " + expected2, expected2, actual2);
     }
 
     @Test
@@ -531,12 +543,10 @@ public class PostgresDatabaseManagerTest {
 
         connectToDB();
         String expected = databaseNames.toString();
-        Set<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
-        Object[] actual = actualDatabaseNames.toArray();
-        Arrays.sort(actual);
+        Set<String> actual = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
 
 
-        assertEquals("getDatabaseNames", expected, actual);
+        assertEquals("getDatabaseNames", expected, actual.toString());
 
         connectToDB();
         tryDropDB(databaseName1);
@@ -621,7 +631,7 @@ public class PostgresDatabaseManagerTest {
     private static void tryCrateDB(String databaseName) {
         boolean haveBase = false;
         try {
-            POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(userName,databaseName);
+            POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(userName, databaseName);
             connectToTestDatabase(databaseName, userName, password);
             haveBase = true;
         } catch (Exception e) {
@@ -659,6 +669,17 @@ public class PostgresDatabaseManagerTest {
             POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName);
 
         }
+    }
+
+    private void tryDropTable(String tableName) {
+        try {
+            connectToTestDatabaseBefore();
+            POSTGRES_DATABASE_MANAGER.dropTable(tableName);
+        } catch (Exception e) {
+//нет подключения
+
+        }
+
     }
 
     private String getMessageError(Exception e) {

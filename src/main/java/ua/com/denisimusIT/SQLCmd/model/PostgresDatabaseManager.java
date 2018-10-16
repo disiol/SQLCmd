@@ -135,7 +135,8 @@ public class PostgresDatabaseManager implements DatabaseManager {
             rsCount.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(String.format("Cant get contents of the table: %s", tableName), e);
+
         }
 
 

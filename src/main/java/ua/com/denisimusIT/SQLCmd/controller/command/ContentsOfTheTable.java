@@ -35,7 +35,6 @@ public class ContentsOfTheTable implements Command {
         }
         String tableName = dataCommand[1];
 
-        //TODO exehen tabel didon crate
 
         List<String> tableColumns = manager.getTableColumns(tableName);
         printHeader(tableColumns);
