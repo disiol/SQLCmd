@@ -74,7 +74,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
         List<DataSetImpl> result = new ArrayList<>(size);
 
 
-       // List <DataSetImpl> result = new LinkedList<>();
+        // List <DataSetImpl> result = new LinkedList<>();
 
 
         try (Statement stmt = connection.createStatement()) {
@@ -156,6 +156,23 @@ public class PostgresDatabaseManager implements DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public List<String> getTableColumns(String tableName) {
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public' " +
+                     "AND table_name='" + tableName + "'")) {
+
+            List<String> tables = new LinkedList<>();
+            while (rs.next()) {
+                tables.add(rs.getString("column_name"));
+            }
+            return tables;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new LinkedList<>();
         }
     }
 
@@ -327,23 +344,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
         } catch (SQLException se) {
             connection = null;
             new RuntimeException(se);
-        }
-    }
-
-    @Override
-    public List<String> getTableColumns(String tableName) {
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public' " +
-                     "AND table_name='" + tableName + "'")) {
-
-            List<String> tables = new LinkedList<>();
-            while (rs.next()) {
-                tables.add(rs.getString("column_name"));
-            }
-            return tables;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new LinkedList<>();
         }
     }
 
