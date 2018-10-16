@@ -259,7 +259,6 @@ public class PostgresDatabaseManager implements DatabaseManager {
             String sql = "CREATE DATABASE " + databaseName;
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
-            //TODO exehen database didtn crate, database already exists
             connection = null;
             throw new RuntimeException(String.format("Cant create database: %s", databaseName), se);
         }
