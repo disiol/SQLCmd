@@ -971,6 +971,34 @@ public class IntegrationTest {
                 "exit" + newLine +
                 "See you soon!" + newLine, getData());
     }
+  @Test
+    public void testFindAfterConnect_error_table_does_not_exist() {
+
+        in.add("connect|" + testDatabaseName + "|" + userName + "|" + password);
+        in.add("find|" + "t");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        assertEquals("testFindAfterConnect_error_table_does_not_exist", "Welcome to SQLCmd! =)" + newLine +
+                "For connect to database to database , enter please a database name, user name and the password in a format: connect|databaseName|userName|password" + newLine +
+                "or help command for a help call" + newLine +
+                "connect|testDatabase1|postgres|1111" + newLine +
+                "Opened database: \"testDatabase1\" successfully" + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "find|t" + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "•+ " + newLine +
+                "•+--------------------------------------------------" + newLine +
+                "Failure! for the reason: Cant get contents of the table: \"t\" ERROR: relation \"t\" does not exist" + newLine +
+                "  Position: 22" + newLine +
+                "Repeat attempt." + newLine +
+                "enter please command or help command for a help call" + newLine +
+                "exit" + newLine +
+                "See you soon!"+ newLine, getData());
+    }
 
     @Test
     public void testClearWithError() {
