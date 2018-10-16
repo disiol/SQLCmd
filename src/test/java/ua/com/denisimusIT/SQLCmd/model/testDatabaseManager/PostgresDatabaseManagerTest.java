@@ -65,15 +65,27 @@ public class PostgresDatabaseManagerTest {
         assertEquals("GetTableColumns", "[id, name, password]", actual);
     }
 
- @Test
+    @Test
     public void TestGetTableColumns_exehen_table_didon_crate() {
 
-        String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
         String tableNameTestColumns = "testtable2";
-        POSTGRES_DATABASE_MANAGER.createATable(tableNameTestColumns, columnsValues);
+        String expected = "[id, name, password]";
+        String actual = null;
+        //before
+        connectToDB();
+        //TODO
+        POSTGRES_DATABASE_MANAGER.dropTable(tableNameTestColumns);
 
-        String actual = POSTGRES_DATABASE_MANAGER.getTableColumns(tableNameTestColumns).toString();
-        assertEquals("TestGetTableColumns_exehen_table_didon_crate", "[id, name, password]", actual);
+        try {
+            connectToDB();
+            POSTGRES_DATABASE_MANAGER.getTableColumns(tableNameTestColumns).toString();
+        } catch (Exception e) {
+            actual = getMessageError(e);
+        }
+
+        //then
+
+        assertEquals("TestGetTableColumns_exehen_table_didon_crate", expected, actual);
     }
 
     @Test
@@ -435,7 +447,7 @@ public class PostgresDatabaseManagerTest {
 
             POSTGRES_DATABASE_MANAGER.createDatabase(dataBaseName);
         } catch (RuntimeException e) {
-            actual = getMessageError(e.getMessage(), e.getCause());
+            actual = getMessageError(e);
 
         }
 
@@ -451,20 +463,6 @@ public class PostgresDatabaseManagerTest {
         POSTGRES_DATABASE_MANAGER.dropDatabase(dataBaseName);
 
 
-    }
-
-    private String getMessageError(String message, Throwable cause2) {
-        String actual;
-        actual = message;
-        Throwable cause = cause2;
-        if (cause != null) {
-            if (actual.toString().equals(cause.toString())) {
-
-            } else {
-                actual += " " + cause.getMessage();
-            }
-        }
-        return actual;
     }
 
 
@@ -534,9 +532,11 @@ public class PostgresDatabaseManagerTest {
         connectToDB();
         String expected = databaseNames.toString();
         Set<String> actualDatabaseNames = POSTGRES_DATABASE_MANAGER.getDatabaseNames();
+        Object[] actual = actualDatabaseNames.toArray();
+        Arrays.sort(actual);
 
 
-        assertEquals("getDatabaseNames", expected, actualDatabaseNames.toString());
+        assertEquals("getDatabaseNames", expected, actual);
 
         connectToDB();
         tryDropDB(databaseName1);
@@ -584,7 +584,7 @@ public class PostgresDatabaseManagerTest {
             POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName1);
         } catch (Exception e) {
 
-            actual = getMessageError(e.getMessage(), e.getCause());
+            actual = getMessageError(e);
         }
 
 
@@ -621,6 +621,7 @@ public class PostgresDatabaseManagerTest {
     private static void tryCrateDB(String databaseName) {
         boolean haveBase = false;
         try {
+            POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(userName,databaseName);
             connectToTestDatabase(databaseName, userName, password);
             haveBase = true;
         } catch (Exception e) {
@@ -659,6 +660,20 @@ public class PostgresDatabaseManagerTest {
 
         }
     }
+
+    private String getMessageError(Exception e) {
+        String message = e.getMessage();
+        Throwable cause = e.getCause();
+        if (cause != null) {
+            if (message.toString().equals(cause.toString())) {
+
+            } else {
+                message += " " + cause.getMessage();
+            }
+        }
+        return message;
+    }
+
 
     @AfterClass
     public static void dropDatabase() {
