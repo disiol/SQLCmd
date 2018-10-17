@@ -34,7 +34,7 @@ public class CreateNewTable implements Command {
         String columnsValues = data[2];
         manager.createATable("\"" + tableName + "\"", columnsValues);
         //TODO exehen tabel didon crate
-        view.write("The table: " + tableName.toString() + " is created successfully");
+        view.write("The table: " + tableName + " is created successfully");
     }
 
     @Override
