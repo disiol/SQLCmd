@@ -630,14 +630,7 @@ public class PostgresDatabaseManagerTest {
 
     private static void tryCrateDB(String databaseName) {
         boolean haveBase = false;
-        try {
-            POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(userName, databaseName);
-            connectToTestDatabase(databaseName, userName, password);
-            haveBase = true;
-        } catch (Exception e) {
-//нет подключения
-            haveBase = false;
-        }
+        haveBase = tryConnect(databaseName);
         if (!haveBase) {
             connectToDB();
             try {
@@ -648,16 +641,11 @@ public class PostgresDatabaseManagerTest {
         }
     }
 
+
     private void tryDropDB(String databaseName) {
         boolean haveBase = false;
-        try {
-            POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(databaseName, userName);
-            connectToTestDatabase(databaseName, userName, password);
-            haveBase = true;
-        } catch (Exception e) {
-//нет подключения
-            haveBase = false;
-        }
+        haveBase = tryConnect(databaseName);
+
         if (haveBase) {
             connectToDB();
 
@@ -669,6 +657,19 @@ public class PostgresDatabaseManagerTest {
             POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName);
 
         }
+    }
+
+    private static boolean tryConnect(String databaseName) {
+        boolean haveBase;
+        try {
+            POSTGRES_DATABASE_MANAGER.giveAccessUserToTheDatabase(userName, databaseName);
+            connectToTestDatabase(databaseName, userName, password);
+            haveBase = true;
+        } catch (Exception e) {
+//нет подключения
+            haveBase = false;
+        }
+        return haveBase;
     }
 
     private void tryDropTable(String tableName) {
