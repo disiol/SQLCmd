@@ -33,7 +33,7 @@ public class CreateNewTable implements Command {
         String tableName = data[1];
         String columnsValues = data[2];
         manager.createATable("\"" + tableName + "\"", columnsValues);
-        //TODO exehen tabel didon crate
+        //TODO dell WORD EROR
         view.write("The table: " + tableName + " is created successfully");
     }
 
