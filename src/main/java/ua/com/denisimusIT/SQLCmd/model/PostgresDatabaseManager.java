@@ -54,11 +54,11 @@ public class PostgresDatabaseManager implements DatabaseManager {
     public void createATable(final String tableName, String columnsValues) {
 
         try (Statement stmt = connection.createStatement()) {
-            String sql = "CREATE TABLE IF NOT EXISTS  " + tableName +
+            String sql = "CREATE TABLE " + tableName +
                     "(" + columnsValues + ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(String.format("Cant create table: %s", tableName), e);
         }
 
 
