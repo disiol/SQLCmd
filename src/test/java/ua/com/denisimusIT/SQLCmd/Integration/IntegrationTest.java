@@ -63,7 +63,7 @@ public class IntegrationTest {
                 "connect|databaseName|userName|password" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
-                "See you soon!" + newLine;
+                "See you soon" + newLine;
         assertEquals("testListWithoutConnect", expected, getData());
     }
 
@@ -723,12 +723,15 @@ public class IntegrationTest {
 
     @Test
     public void createTable() throws IOException {
+        String testTable2 = "testTable2";
+
+        // before
+        dropTable(testTable2);
 
         //TODO take  list of tables before test nad add  testTable2 nam to the list
         //given
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
 
-        String testTable2 = "testTable2";
 
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("create|" + testTable2 + "|" + columnsValues);
@@ -759,16 +762,25 @@ public class IntegrationTest {
         assertEquals("createTable", expected, actual);
 
         //dell table
-        in.reset();
-        out.reset();
-        in.add("connect|" + databaseName + "|" + userName + "|" + password);
-        in.add("dropTable|" + testTable2);
-        Main.main(new String[0]);
+        dropTable(testTable2);
 
 
     }
 
-    @Ignore("Надо обрроботать сытвацыю что таблица уже есть")
+    private void dropTable(String testTable2) {
+        try {
+            in.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        in.add("connect|" + databaseName + "|" + userName + "|" + password);
+        in.add("dropTable|" + testTable2);
+        Main.main(new String[0]);
+        out.reset();
+
+
+    }
+
     @Test
     public void createTableError() throws IOException {
 
@@ -777,7 +789,7 @@ public class IntegrationTest {
         String columnsValues = "id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, PASSWORD  TEXT  NOT NULL";
 
         String testTable2 = "testTable2";
-
+  //TODO drop testTable2
         in.add("connect|" + databaseName + "|" + userName + "|" + password);
         in.add("create|" + testTable2 + "|" + columnsValues);
         in.add("create|" + testTable2 + "|" + columnsValues);

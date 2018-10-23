@@ -258,6 +258,7 @@ public class PostgresDatabaseManager implements DatabaseManager {
 
         try (Statement stmt = connection.createStatement()) {
             String sql = "CREATE DATABASE " + databaseName;
+            sql = "CREATE DATABASE " + databaseName;
             stmt.executeUpdate(sql);
         } catch (SQLException se) {
             connection = null;
