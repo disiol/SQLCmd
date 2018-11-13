@@ -75,7 +75,7 @@ public class PostgresDatabaseManagerTest {
         connectToTestDatabaseBefore();
         tryDropTable(tableNameTestColumns);
 
-        //TODO
+        //TODO решить проблему с локализацыей
 
 
         //then
@@ -89,7 +89,7 @@ public class PostgresDatabaseManagerTest {
 
         String actual2 = null;
         String expected2 = "Cant get contents of the table: " + tableNameTestColumns + " ERROR: relation \"" + tableNameTestColumns + "\" does not exist" +
-                NEW_LINE + "  Position: 22";
+                NEW_LINE + "  Позиция: 22";
         try {
             connectToTestDatabaseBefore();
             POSTGRES_DATABASE_MANAGER.getTableData(tableNameTestColumns);
@@ -196,12 +196,12 @@ public class PostgresDatabaseManagerTest {
     @Test
     public void connectExceptions() throws Exception {
         //not the correct password
-
+            //TODO создать ДБ
         // given
         String actualException = null;
 
         String database = "sqlCmd";
-        String user = "postgres";
+        String user = userName;
         String password = "";
         try {
             POSTGRES_DATABASE_MANAGER.connectToDatabase(database,
@@ -217,6 +217,7 @@ public class PostgresDatabaseManagerTest {
         assertFalse("connectToDatabase to data base", actual);
 
         // then
+        //TODO создать ДБ
 
         String expected;
         expected = String.format("org.postgresql.util.PSQLException: FATAL: password authentication failed " +
@@ -432,6 +433,8 @@ public class PostgresDatabaseManagerTest {
 
         Object[] actualDatabaseNamesSorted = actualDatabaseNames.toArray();
         String actual = Arrays.toString(actualDatabaseNamesSorted);
+        //TODO создать ДБ
+
         assertEquals("createDatabaseTest", Arrays.toString(expected), actual);
 
 
@@ -655,6 +658,7 @@ public class PostgresDatabaseManagerTest {
             }
             connectToDB();
             POSTGRES_DATABASE_MANAGER.dropDatabase(databaseName);
+
 
         }
     }
