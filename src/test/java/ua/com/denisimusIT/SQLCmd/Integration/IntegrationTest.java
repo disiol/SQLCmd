@@ -63,7 +63,7 @@ public class IntegrationTest {
                 "connect|databaseName|userName|password" + newLine +
                 "enter please command or help command for a help call" + newLine +
                 "exit" + newLine +
-                "See you soon" + newLine;
+                "See you soon!" + newLine;
         assertEquals("testListWithoutConnect", expected, getData());
     }
 
