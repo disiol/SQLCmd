@@ -89,7 +89,7 @@ public class PostgresDatabaseManagerTest {
 
         String actual2 = null;
         String expected2 = "Cant get contents of the table: " + tableNameTestColumns + " ERROR: relation \"" + tableNameTestColumns + "\" does not exist" +
-                NEW_LINE + "  Позиция: 22";
+                NEW_LINE + "  Position: 22";
         try {
             connectToTestDatabaseBefore();
             POSTGRES_DATABASE_MANAGER.getTableData(tableNameTestColumns);
