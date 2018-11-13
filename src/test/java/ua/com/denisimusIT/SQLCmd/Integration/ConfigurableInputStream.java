@@ -28,14 +28,21 @@ public class ConfigurableInputStream extends InputStream {
         line = line.substring(1);
 
 
-        if (newLine.charAt(0) == ch) {
+        int lastIndex = newLine.length() - 1;
+        if (newLine.charAt(lastIndex) == ch) {
             endLine = true;
         } else {
-            printed += ch;
+            forUnixSystems(ch);
         }
 
 
         return (int) ch;
+    }
+
+    private void forUnixSystems(char ch) {
+        if (newLine.charAt(0) != ch) {
+            printed += ch;
+        }
     }
 
 
